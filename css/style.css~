@@ -1,0 +1,245 @@
+/* ----------------------------------------------------------------------------------------------------------
+
+    Output device: screen, projection
+
+    Author:     Mohanad Shab Kaleia
+    email : 	m.kaleia@computech-sy.com
+    Update:     2012-08-20, 16:05 GMT+1
+    Version:    1.0.0
+    Copyright : CompuTech Group , www.computech-sy.com , contact@computech-sy.com
+    Structure:
+        display; position; z-index; float; clear; width; height; overflow; margin; padding; border; background; align; font;
+
+    Content:
+
+        1) HTML tags
+        2) header
+        3) Footer
+        4) body
+        5) menu
+        
+
+---------------------------------------------------------------------------------------------------------- */
+
+/* ----------------------------------------------------------------------------------------------------------
+1) HTML tags
+---------------------------------------------------------------------------------------------------------- */
+
+body 
+{		
+	background-color: #353535;
+	background-image:url('../images/texture.jpg');
+	overflow-y: auto;
+	overflow-x: auto;
+	
+	font-family:'arial' , 'times new roman';	
+}
+
+html, body {
+	height: 100%;
+}
+
+
+#slogan
+{	
+	width:50%;		
+	float:left;
+}
+
+#slogan img.freedom
+{
+	margin-top:50px;
+	margin-left:50px;
+	width: 100%;	
+}
+
+#slogan #hanz
+{
+	margin-left:80%;
+}
+
+a:hover
+{
+	color:green;
+}
+
+
+table {
+	width: 100%;
+	font-size:13px;
+	border-collapse: collapse;
+	border-bottom:1px solid #c1c1c1;
+	border-top:1px solid #c1c1c1;
+	margin-bottom: 20px;
+}
+
+table td {
+	padding: 8px 10px;
+	border-right:1px solid #c1c1c1;
+}
+
+table td:hover {
+	background-color: #efefef;
+}
+
+table th {
+	padding: 10px;
+	font-size:18px;
+	color:#1f1f1f;
+	text-align: left;
+	border-right:1px solid #c1c1c1;
+	font-family: 'Puritan20Normal';
+	font-weight: normal;
+}
+
+table td.center {
+	text-align: center;
+}
+
+table td.last {
+	background: none;
+}
+
+table th.center {
+	text-align: center;
+}
+
+table th.last {
+	background: none;
+}
+
+table tr {
+	border-left:1px solid #c1c1c1;
+	border-top:1px solid #c1c1c1;
+}
+
+table tr.caption {
+	border-left:1px solid #c1c1c1;
+}
+
+table.price td {
+	text-align: center;
+}
+
+table.price td.left {
+	text-align: left;
+}
+
+table.price td.right {
+	text-align: right;
+}
+
+table.price td h2 {
+	margin:0;
+	font-size: 22px;
+}
+table.price td h2 span {
+	display: block;
+	font-size: 18px;
+	color: #747474;
+}
+
+table.price td h2 sup {
+	padding-left: 5px;
+	line-height: 20px;
+}
+
+/* ----------------------------------------------------------------------------------------------------------
+2) header
+---------------------------------------------------------------------------------------------------------- */
+#header
+{
+	background : url('../images/header.png') no-repeat;
+	height:250px;
+	width:960px;
+	margin:0 auto;
+}
+
+
+/* ----------------------------------------------------------------------------------------------------------
+3) Footer
+---------------------------------------------------------------------------------------------------------- */
+#footer
+{	
+	background : url('../images/footer.png') no-repeat;
+	height:250px;
+	width:960px;
+	margin:0 auto;
+		
+}
+
+#footer p
+{
+	margin-left:20px;
+}
+
+
+/*Facebook button*/
+#footer img
+{
+	margin-top:70px;
+	margin-left:200px;			
+}
+
+#footer p.footer-text
+{
+	padding-top:70px;
+	padding-left:90px;
+	float:left;
+}
+
+
+/* ----------------------------------------------------------------------------------------------------------
+4) body
+---------------------------------------------------------------------------------------------------------- */
+#body
+{
+	background-color:white;
+	width:960px;	
+	margin:0 auto;
+}
+
+#body fieldset
+{
+	width:50%;
+	margin : 0 auto;
+}
+
+#body .button-area
+{
+	margin:0 auto;
+	width: 50%;
+}
+
+#body .button-area input[type=button]
+{
+	width:100%;
+	height:50px;
+	margin-top:25px;
+}
+/* ----------------------------------------------------------------------------------------------------------
+4) menu
+---------------------------------------------------------------------------------------------------------- */
+#menu
+{
+	background-color:white;
+	width:960px;
+	height:32px;
+	margin:0 auto;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+
+
+
+#menu ul li
+{
+	float:left;
+	margin-left:7px;
+	border-right:1px solid black;
+	padding-right:5px;
+	margin-top:7px;
+}
+
+
+

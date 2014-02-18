@@ -1,0 +1,4 @@
+<?
+	$server_path = "./";		
+	header("Location:".$server_path."home/index.php");
+?>
