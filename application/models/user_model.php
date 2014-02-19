@@ -19,8 +19,11 @@ class User_model extends CI_Model{
 	//The id field of the user in the database
 	var $id;
 	
-	//the full name of the user
-	var $full_name = "";
+	//the first name of the user
+	var $first_name = "";
+	
+	//the last name of the user
+	var $last_name = "";
 	
 	//The national id of the user
 	var $national_id = "";
@@ -72,7 +75,8 @@ class User_model extends CI_Model{
 	 public function addUser()
 	 {
 	 	$query = "INSERT INTO  user (
-				full_name,
+				first_name,
+				last_name,
 				national_id,
 				phone,
 				mobile,
@@ -82,7 +86,8 @@ class User_model extends CI_Model{
 				association_code
 				)
 				VALUES (  
-				'{$this->full_name}',
+				'{$this->first_name}',
+				'{$this->last_name}',
 				'{$this->national_id}',
 				'{$this->phone}',
 				'{$this->mobile}', 
@@ -115,14 +120,17 @@ class User_model extends CI_Model{
 	 {
 	 	$query = "UPDATE  user
 					SET	
-						full_name = '{$this->full_name}',
+						first_name = '{$this->first_name}',
+						last_name = '{$this->last_name}',
 						national_id = '{$this->national_id}',
 						phone = '{$this->phone}',
 						mobile = '{$this->mobile}',
 						address = '{$this->address}',
-						username = '{$this->username}',
-						password = '{$this->password}',
-						association_code = '{$this->association_code}'
+						username = '{$this->username}',";
+		if(isset($this->password) && $this->password !== ""){
+			$query .=	" password = '{$this->password}',";
+		}
+		$query .=	" association_code = '{$this->association_code}'
 					WHERE id = {$this->id}
 					";	
 		$this->db->query($query);
@@ -170,6 +178,43 @@ class User_model extends CI_Model{
 				  FROM user ";
 		$query = $this->db->query($query);
 		return $query->result_array();
+	 }
+	 
+	 
+	 /**
+	 * function name : getAllUsersForView
+	 * 
+	 * Description : 
+	 * Gets all of the users in the database and render their 
+	 * fields for grid view.
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 19-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	 public function getAllUsersForView(){
+		$this->load->model('association_model');
+		$query = "SELECT * 
+				  FROM user ";
+		$query = $this->db->query($query);
+		$users = $query->result_array();
+		for($i = 0;$i<count($users);$i++){
+			//echo print_r($users[$i]);
+			$users[$i]['full_name'] = $users[$i]['first_name'].' '.$users[$i]['last_name'];
+			$this->association_model->code = $users[$i]['association_code'];
+			$associations = $this->association_model->getAssociationByCode();
+			if(isset($associations[0])){
+				$association = $associations[0];
+				$users[$i]['association'] = $association['name'];
+			}else{
+				$users[$i]['association'] = "";
+			}
+		}
+		return $users;
 	 }
 	 
 	 

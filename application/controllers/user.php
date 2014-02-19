@@ -142,22 +142,24 @@ class User extends CI_Controller {
 		$this->load->model('user_model');
 		 
 		 // assign values to the model variable
-		$this->user_model->full_name = $this->input->post('first_name')." ".$this->input->post('last_name');			
+		$this->user_model->first_name = $this->input->post('first_name');
+		$this->user_model->last_name = $this->input->post('last_name');
 		$this->user_model->national_id = $this->input->post('national_id');		
 		$this->user_model->phone = $this->input->post('phone');		
 		$this->user_model->mobile = $this->input->post('mobile');		
 		$this->user_model->address = $this->input->post('address');		
 		$this->user_model->username = $this->input->post('username');
+		$this->user_model->association_code = "001";
 		 
 		 if($action === "add"){
-			 if(trim($this->input->post('password').$this->input->post('re_password')
+			 if(trim($this->input->post('password').$this->input->post('re_password'))
 				&& $this->input->post('password') === $this->input->post('re_password')){	
 				$this->user_model->password = md5($this->input->post('password'));
 				//add the information to the database
 				$this->user_model->addUser();
 			}
 		}elseif($action === "edit"){
-			if(trim($this->input->post('password').$this->input->post('re_password')
+			if(trim($this->input->post('password').$this->input->post('re_password'))
 				&& $this->input->post('password') === $this->input->post('re_password')){	
 				$this->user_model->password = md5($this->input->post('password'));
 			}
@@ -171,44 +173,44 @@ class User extends CI_Controller {
 
 
 	/**
-	 * function name : ajaxGetAreas
+	 * function name : ajaxGetUsers
 	 * 
 	 * Description : 
-	 * get areas' information from the database.
+	 * get users' information from the database.
 	 * 
-	 * Created date ; 14-2-2014
+	 * Created date ; 19-2-2014
 	 * Modification date : ---
 	 * Modfication reason : ---
 	 * Author : Ahmad Mulhem Barakat
 	 * contact : molham225@gmail.com
 	 */
-	public function ajaxGetAreas()
+	public function ajaxGetUsers()
 	{										
-		//load area model to get data from it
-		$this->load->model('area_model');
+		//load user model to get data from it
+		$this->load->model('user_model');
 		
 		//load grid library
 		$this->load->library('grid');				
 		
 		//grid option
-		$this->grid->option['title'] = "Areas";   //  grid title
+		$this->grid->option['title'] = "Users";   //  grid title
 		$this->grid->option['id'] = "id";         // database table id
 		$this->grid->option['sortable'] = FALSE;  // is sortable
 		$this->grid->option['page_size'] = 10;    //records per page
 		$this->grid->option['row_number'] = true; //show the row number		
 		$this->grid->option['add_button'] = true; //show add button
-		$this->grid->option['add_url'] = base_url()."area/add"; //add url
-		$this->grid->option['add_title'] = "إضافة منطقة"; //add title
+		$this->grid->option['add_url'] = base_url()."user/add"; //add url
+		$this->grid->option['add_title'] = "إضافة مستخدم"; //add title
 			
-		$this->grid->columns = array('code' , 'name');
+		$this->grid->columns = array('full_name' , 'national_id','phone','mobile','association');
 		
 		//get the data	
-		$this->grid->data = $this->area_model->getAllAreas();
+		$this->grid->data = $this->user_model->getAllUsersForView();
 		
 		//grid controls
 		$this->grid->control = array(
-									  array("title" => "تعديل" , "icon"=>"icon-pencil" , "url"=>base_url()."area/edit" , "message_type"=>null , "message"=>"") , 
-									  array("title" => "حذف" , "icon"=>"icon-trash" ,"url"=>base_url()."area/delete" , "message_type"=>"confirm" , "message"=>"Are you sure?")
+									  array("title" => "تعديل" , "icon"=>"icon-pencil" , "url"=>base_url()."user/edit" , "message_type"=>null , "message"=>"") , 
+									  array("title" => "حذف" , "icon"=>"icon-trash" ,"url"=>base_url()."user/delete" , "message_type"=>"confirm" , "message"=>"Are you sure?")
 									);												
 						
 		//render our grid :)
@@ -217,5 +219,5 @@ class User extends CI_Controller {
 	}
 }
 
-/* End of file area.php */
-/* Location: ./application/controllers/area.php */
+/* End of file user.php */
+/* Location: ./application/controllers/user.php */

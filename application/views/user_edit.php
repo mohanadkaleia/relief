@@ -2,7 +2,7 @@
 	  	<div class="span8 main-content offset2">
 			<h1>تعديل بيانات مستخدم</h1>  
 			
-			<form method="post" action="<?php echo base_url();?>area/saveData/edit/<?php ?>" >
+			<form method="post" action="<?php echo base_url();?>user/saveData/edit/<?php echo $user['id']; ?>" >
 				<br />
 				
 				<table>
@@ -19,7 +19,7 @@
 						</td>
 						
 						<td>
-							<input type="text" name="first_name" required="required" />
+							<input type="text" name="first_name" required="required" value="<?php echo $user['first_name']; ?>"/>
 						</td>
 						
 						<td>
@@ -29,7 +29,7 @@
 						</td>
 						
 						<td>
-							<input type="text" name="last_name" required="required" />
+							<input type="text" name="last_name" required="required" value="<?php echo $user['last_name']; ?>"/>
 						</td>
 					</tr>
 					
@@ -41,7 +41,7 @@
 						</td>
 						
 						<td colspan="3">
-							<input type="text" name="national_id" required="required" style="width: 97%"/>
+							<input type="text" name="national_id" required="required" style="width: 97%"  value="<?php echo $user['national_id']; ?>"/>
 						</td>
 					</tr>
 					
@@ -53,7 +53,7 @@
 						</td>
 						
 						<td>
-							<input type="text" name="phone" required="required" />
+							<input type="text" name="phone" required="required" value="<?php echo $user['phone']; ?>"/>
 						</td>
 						
 						<td>
@@ -63,7 +63,7 @@
 						</td>
 						
 						<td>
-							<input type="text" name="mobile" required="required" />
+							<input type="text" name="mobile" required="required" value="<?php echo $user['mobile']; ?>"/>
 						</td>
 					</tr>
 					
@@ -75,7 +75,7 @@
 						</td>
 						
 						<td colspan="3">
-							<textarea name="phone" required="required" style="width: 97%"></textarea>
+							<textarea name="address" required="required" style="width: 97%"><?php echo $user['address']; ?></textarea>
 						</td>
 					</tr>
 					
@@ -93,7 +93,7 @@
 						</td>
 						
 						<td colspan="3">
-							<input type="text" name="username" required="required" style="width: 97%"/>
+							<input type="text" name="username" required="required" style="width: 97%" <?php echo $user['username']; ?>/>
 						</td>
 					</tr>
 					
@@ -105,7 +105,7 @@
 						</td>
 						
 						<td colspan="3">
-							<input type="text" name="password" required="required" style="width: 97%"/>
+							<input type="text" name="password" style="width: 97%"/>
 						</td>
 					</tr>
 					
@@ -117,7 +117,7 @@
 						</td>
 						
 						<td colspan="3">
-							<input type="text" name="re_password" required="required" style="width: 97%"/>
+							<input type="text" name="re_password" style="width: 97%"/>
 						</td>
 					</tr>
 					

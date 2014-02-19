@@ -2,7 +2,7 @@
 	  	<div class="span8 main-content offset2">
 			<h1>إضافة مستخدم</h1>  
 			
-			<form method="post" action="<?php echo base_url();?>area/saveData" >
+			<form method="post" action="<?php echo base_url();?>user/saveData/add" >
 				<br />
 				
 				<table>
@@ -75,7 +75,7 @@
 						</td>
 						
 						<td colspan="3">
-							<textarea name="phone" required="required" style="width: 97%"></textarea>
+							<textarea name="address" required="required" style="width: 97%"></textarea>
 						</td>
 					</tr>
 					
