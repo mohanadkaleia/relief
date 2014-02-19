@@ -153,17 +153,22 @@ class Association extends CI_Controller {
 					else
 					{
 						// Desired folder structure
-						$structure = 'files/'.$this->association_model->name;
+						$structure = 'files/'.$this->association_model->code;
+						
+						//find the position of the last '.' in the name
+						$pos = strripos($logo["name"],'.');
+						//get the image extension
+						$extension = substr($logo["name"],$pos);
 						
 						if (!mkdir($structure, 0777, true)) {
 							echo 'Could not make directory '.$structure;
 						}else{
 							move_uploaded_file($logo["tmp_name"],
-							$structure .'/'. $logo['name']);
+							$structure .'/'. $this->association_model->code.$extension);
 						}
 					}
 				  }	
-				$this->association_model->logo = $logo['name'];
+				$this->association_model->logo = $this->association_model->code.$extension;
 				
 				//add the information to the database
 				$this->association_model->addAssociation();
@@ -188,12 +193,16 @@ class Association extends CI_Controller {
 						else
 						{
 							// Desired folder path
-							$path = 'files/'.$this->association_model->name;
+							$path = 'files/'.$this->association_model->code;
+							//find the position of the last '.' in the name
+							$pos = strripos($logo["name"],'.');
+							//get the image extension
+							$extension = substr($logo["name"],$pos);
 							//delete old logo..
 							
 							//move the uploaded file to the desired folder
-							move_uploaded_file($logo["tmp_name"],$path .'/'. $logo['name']);
-							$this->association_model->logo = $logo['name'];
+							move_uploaded_file($logo["tmp_name"],$path .'/'. $this->association_model->code.$extension);
+							$this->association_model->logo =  $this->association_model->code . $extension;
 						}
 					}
 				}else{
@@ -241,8 +250,13 @@ class Association extends CI_Controller {
 			
 		$this->grid->columns = array('code' , 'name' , 'phone1' , 'manager_name' , 'created_date' , 'logo');
 		
-		//get the data	
-		$this->grid->data = $this->association_model->getAllAssociations();
+		//get the data
+		$associations = $this->association_model->getAllAssociations();
+		for($i=0;$i<count($associations);$i++){
+			$associations[$i]['logo'] = '<img height="20px" width="15px" src="'.base_url()."files/".$associations[$i]['code'].'/'.$associations[$i]['logo'].'" />';
+		}	
+		//echo $associations;
+		$this->grid->data = $associations;
 		
 		//grid controls
 		$this->grid->control = array(

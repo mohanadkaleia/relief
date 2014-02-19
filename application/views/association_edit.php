@@ -2,7 +2,7 @@
 
 <div  class="row-fluid">	  	
 	  	<div class="span8 main-content offset2">
-			<h1>إضافة جمعية</h1>  
+			<h1>تعديل بيانات جمعية</h1>  
 
 			<form method="post" action="<?php echo base_url();?>association/saveData/edit/<?php echo $association['id'];?>" enctype="multipart/form-data">
 				<table>

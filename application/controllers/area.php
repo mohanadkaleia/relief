@@ -44,6 +44,28 @@ class Area extends CI_Controller {
 	}
 	
 	
+	/**
+	 * function name : add
+	 * 
+	 * Description : 
+	 * calls the page with the add area form.
+	 * 
+	 * Created date ; 17-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	public function add()
+	{
+		$this->load->model('area_model');
+						
+		$this->load->view('gen/header');
+		$this->load->view('gen/slogan');
+		$this->load->view('area_add');
+		$this->load->view('gen/footer');
+	}
+	
 	
 	/**
 	 * function name : edit
@@ -57,11 +79,11 @@ class Area extends CI_Controller {
 	 * Author : Ahmad Mulhem Barakat
 	 * contact : molham225@gmail.com
 	 */
-	public function edit($association_id)
+	public function edit($area_id)
 	{
 		$this->load->model('area_model');
 		
-		$this->area_model->id = $association_id;
+		$this->area_model->id = $area_id;
 		
 		$areas = $this->area_model->getAreaById();
 		
@@ -88,11 +110,11 @@ class Area extends CI_Controller {
 	 * Author : Ahmad Mulhem Barakat
 	 * contact : molham225@gmail.com
 	 */
-	public function delete($association_id)
+	public function delete($area_id)
 	{
 		$this->load->model('area_model');
 		
-		$this->area_model->id = $association_id;
+		$this->area_model->id = $area_id;
 		
 		//delete the area.
 		$this->area_model->deleteArea();

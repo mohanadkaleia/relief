@@ -16,7 +16,7 @@
     
 class Area_model extends CI_Model{
 	/**class variable**/
-	//The id field of the association in the database
+	//The id field of the area in the database
 	var $id;
 	
 	//the name of the area

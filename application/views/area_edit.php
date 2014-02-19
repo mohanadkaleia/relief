@@ -1,6 +1,6 @@
 <div  class="row-fluid">	  	
 	  	<div class="span8 main-content offset2">
-			<h1>إضافة منطقة</h1>  
+			<h1>تعديل بيانات منطقة</h1>  
 
 			<form method="post" action="<?php echo base_url();?>area/saveData/edit/<?php echo $area['id'];?>" >
 				<table>

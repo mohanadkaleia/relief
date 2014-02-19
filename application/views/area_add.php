@@ -2,7 +2,7 @@
 	  	<div class="span8 main-content offset2">
 			<h1>إضافة منطقة</h1>  
 
-			<form method="post" action="<?php echo base_url();?>area/saveData" >
+			<form method="post" action="<?php echo base_url();?>area/saveData/add" >
 				<table>
 					<tr>
 						<td>

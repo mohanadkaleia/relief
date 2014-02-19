@@ -6,24 +6,42 @@
  * Description :
  * This class contain functions to deal with the user database table (Add , Edit , Delete)
  * 
- * Created date ; 5-10-2012
+ * Created date ; 18-2-2014
  * Modification date : ---
  * Modfication reason : ---
- * Author : Mohanad Shab Kaleia
- * contact : ms.kaleia@gmail.com
+ * Author : Ahmad Mulhem Barakat
+ * contact : molham225@gmail.com
  */    
     
     
-class User_model extends CI_Model
-{
-	
-	//class variable
+class User_model extends CI_Model{
+	/**class variable**/
+	//The id field of the user in the database
 	var $id;
+	
+	//the full name of the user
+	var $full_name = "";
+	
+	//The national id of the user
+	var $national_id = "";
+	
+	//user's home phone number
+	var $phone = "";
+	
+	//user's personal mobile number
+	var $mobile = "";
+	
+	//user's current address
+	var $address = "";
+	
+	//user's login username
 	var $username = "";
+	
+	//user's login password
 	var $password = "";
-	var $college = "";	
-	var $permission = "ADMIN"; //by default there is no permission other the admin	
-	var $date;
+	
+	//the id of the association of this user
+	var $association_code = "";
 	
 	/**
      * Constructor
@@ -33,224 +51,219 @@ class User_model extends CI_Model
         parent::__construct();
     }
 	
-	
+	/**
+	 * Class functions
+	 **/
 	
 	/**
-	 * function name : add
+	 * function name : addUser
 	 * 
 	 * Description : 
-	 * add user to the database 
-	 * 		
-	 * Created date ; 5-10-2012
-	 * Modification date : 6-2-2014
-	 * Modfication reason : adabted it to exorter user database
-	 * Author : Mohanad Shab Kaleia
-	 * contact : ms.kaleia@gmail.com
+	 * Add new user to the database.
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 18-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
 	 */
-	 public function add()
+	 public function addUser()
 	 {
-	 	//assign user id
-	 	$this->user_id = $this->session->userdata('user_id');
-		
-	 	$query = "insert into user
-	 			  (username , password , college, role , created_date)
-	 			  values
-	 			  ('{$this->username}' , '{$this->password}' , '{$this->college}' , '{$this->role}' , CURDATE()) 
-	 				";	
+	 	$query = "INSERT INTO  user (
+				full_name,
+				national_id,
+				phone,
+				mobile,
+				address,
+				username,
+				password,
+				association_code
+				)
+				VALUES (  
+				'{$this->full_name}',
+				'{$this->national_id}',
+				'{$this->phone}',
+				'{$this->mobile}', 
+				'{$this->address}', 
+				'{$this->username}', 
+				'{$this->password}',
+				'{$this->association_code}'
+				);
+					 	";	
 		$this->db->query($query);
 	 }
 	 
 	 
 	 /**
-	 * function name : edit
+	 * function name : modifyUser
 	 * 
 	 * Description : 
-	 * edit user to the database 
-	 * 		
-	 * Created date ; 23-11-2012
+	 * modify the data of the user specified with
+	 * the given id.
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 18-2-2014
 	 * Modification date : ---
 	 * Modfication reason : ---
-	 * Author : Mohanad Shab Kaleia
-	 * contact : ms.kaleia@gmail.com
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
 	 */
-	 public function edit()
+	 public function modifyUser()
 	 {
-	 	
-		//assign user id
-	 	$this->user_id = $this->session->userdata('user_id');
-		
-	 	$query = "update user set
-	 			  user = '{$this->username}' , 
-	 			  password = '{$this->password}' , 
-	 			  college = '{$this->college}' , 
-	 			  role = '{$this->role}' 	 			  
-	 			  where id = {$this->id}";
-
-						  
-		//echo $query;
+	 	$query = "UPDATE  user
+					SET	
+						full_name = '{$this->full_name}',
+						national_id = '{$this->national_id}',
+						phone = '{$this->phone}',
+						mobile = '{$this->mobile}',
+						address = '{$this->address}',
+						username = '{$this->username}',
+						password = '{$this->password}',
+						association_code = '{$this->association_code}'
+					WHERE id = {$this->id}
+					";	
 		$this->db->query($query);
 	 }
 	 
 	 
 	 /**
-	 * function name : delete
+	 * function name : deleteUser
 	 * 
 	 * Description : 
-	 * delete user by make is_deleted field to be true
-	 * 		
-	 * Created date ; 23-11-2012
-	 * Modification date : ---
-	 * Modfication reason : ---
-	 * Author : Mohanad Shab Kaleia
-	 * contact : ms.kaleia@gmail.com
-	 */
-	 public function delete()
-	 {
-	 	//assign user id
-	 	$this->user_id = $this->session->userdata('user_id');
-			 	
-	 	$query = "delete from  user	 			  
-	 			  where id = {$this->id}";
-		$this->db->query($query);
-	 }
-	 
-	 
-	 
-	 /**
-	 * function name : changePassword
+	 * Delete the data of the user specified with 
+	 * the given id from database.
 	 * 
-	 * Description : 
-	 * change user password
-	 * 		
-	 * Created date ; 6-2-2013
+	 * parameters:
+	 * 
+	 * Created date ; 18-2-2014
 	 * Modification date : ---
 	 * Modfication reason : ---
-	 * Author : Mohanad Shab Kaleia
-	 * contact : ms.kaleia@gmail.com
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
 	 */
-	 public function changePassword()
-	 {	 	
-	 	$query = "update user set
-	 			  password = '{$this->password}'
-	 			  where id = {$this->id}";
+	 public function deleteUser(){
+		$query = "DELETE FROM user
+				    WHERE id = {$this->id}";
 		$this->db->query($query);
 	 }
 	 
 	 
 	 /**
-	 * function name : getAll
+	 * function name : getAllUsers
 	 * 
 	 * Description : 
-	 * get all users from the database
-	 * 		
-	 * Created date ; 22-10-2012
+	 * Gets all of the users in the database.
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 18-2-2014
 	 * Modification date : ---
 	 * Modfication reason : ---
-	 * Author : Mohanad Shab Kaleia
-	 * contact : ms.kaleia@gmail.com
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
 	 */
-	 public function getAll()
-	 {
-	 	$query = "select * from user";	
+	 public function getAllUsers(){
+		$query = "SELECT * 
+				  FROM user ";
 		$query = $this->db->query($query);
 		return $query->result_array();
-		//return $query->result(); 		
 	 }
 	 
 	 
-	 
 	 /**
-	 * function name : chkUserIsExist
+	 * function name : getUserByAssociationCode
 	 * 
 	 * Description : 
-	 * Check the user is in the database or not  
-	 * if there is a record of the same email address then return true	
-	 * and if there is a given id then execlude this id from checking
-	 *  					
-	 * Created date ; 16-10-2012
-	 * Modification date : ---
-	 * Modfication reason : ---
-	 * Author : Mohanad Shab Kaleia
-	 * contact : ms.kaleia@gmail.com
-	 */
-	public function chkUserIsExist($id=null)
-	{		
-		$query = "select * from user where email='{$this->email}'";
-		if(isset($id) & $id!=null)
-		{			
-			$query.=" and id<>{$id}";
-		}
-			
-		$result = $this->db->query($query);
-		
-		// if there is a record of the same email address then return false				
-		if($result->num_rows() > 0)
-			return TRUE;
-		else 
-		{
-			return FALSE;
-		}
-	} 
-	
-	
-	/**
-	 * function name : getById
+	 * Gets the user specified by the given code.
 	 * 
-	 * Description : 
-	 * get user by id
-	 * 		
-	 * Created date ; 16-11-2012
+	 * parameters:
+	 * 
+	 * Created date ; 18-2-2014
 	 * Modification date : ---
 	 * Modfication reason : ---
-	 * Author : Mohanad Shab Kaleia
-	 * contact : ms.kaleia@gmail.com
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
 	 */
-	 public function getById($id)
-	 {
-	 	$query = "select * from user where id={$id}";	
+	 public function getAreaByCode(){
+		$query = "SELECT * 
+				  FROM user 
+				  WHERE association_code = '{$this->association_code}'";
 		$query = $this->db->query($query);
-		return $query->result_array();			
+		return $query->result_array();
 	 }
-	 
-	 
 	 
 	 
 	 /**
-	 * function name : getPermission
+	 * function name : getUserById
 	 * 
 	 * Description : 
-	 * get permission to enable login , user can log using email and password
-	 * if there is a user with these email\password and user is admin then give permssion to login	
-	 * Created date ; 6-2-2013
+	 * Gets the user specified by the given id.
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 18-2-2014
 	 * Modification date : ---
 	 * Modfication reason : ---
-	 * Author : Mohanad Shab Kaleia
-	 * contact : ms.kaleia@gmail.com
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
 	 */
-	 public function getPermission()
-	 {	 	
-		$email = $this->username;
-		$password = $this->password;
-		
-		$query = "select * from user 
-				  where 
-				  email='{$email}' and
-				  password = '{$password}'";
-				  						
-		$result = $this->db->query($query);
-		
-		// if there is a record that have username\passord then return true				
-		if($result->num_rows() > 0)
-			return TRUE;
-		else 
-		{
-			return FALSE;
-		}							
+	 public function getUserById(){
+		$query = "SELECT * 
+				  FROM user
+				  WHERE id = {$this->id} ";
+		$query = $this->db->query($query);
+		return $query->result_array();
 	 }
 	 
 	 
+	 /**
+	 * function name : searchUserByName
+	 * 
+	 * Description : 
+	 * Gets the user that has the string inserted as name.
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 18-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	 public function searchAreaByName(){
+		$query = "SELECT * 
+				  FROM user
+				  WHERE full_name LIKE %{$this->full_name}% ";
+		$query = $this->db->query($query);
+		return $query->result_array();
+	 }
 	 
-	
+	 
+	 /**
+	 * function name : getUserByUsernameAndPassword
+	 * 
+	 * Description : 
+	 * Gets the user specified by the given username and password.
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 18-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	 public function getUserByUsernameAndPassword(){
+		$query = "SELECT * 
+				  FROM user
+				  WHERE username = {$this->username} 
+					AND password = {$this->password}";
+		$query = $this->db->query($query);
+		return $query->result_array();
+	 }
 }    
     
     
