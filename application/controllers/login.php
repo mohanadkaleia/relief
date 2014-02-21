@@ -101,7 +101,7 @@ class Login extends CI_Controller
 			$this->session->set_userdata('user',$users[0]);
 			return TRUE;
 		}else{
-			$this->form_validation->set_message('validateCreditials' , 'email address and/or password is wrong :(');			
+			$this->form_validation->set_message('validateCreditials' , 'اسم مستخدم خاطئ أو كلمة المرور خاطئة :(');			
 			return FALSE;
 		}
 	}
