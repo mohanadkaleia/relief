@@ -77,7 +77,7 @@
 	  			<div class="span3">
 	  				<!-- setting-->
 	  				<div class="button-box" align="center">
-	  					<a href="<?php echo base_url()?>settings">	
+	  					<a href="<?php echo base_url()?>user">	
 		  					<img src="<?php echo base_url()?>images/users.png"/>	  					
 		  					<p>المستخدمين</p>
 	  					</a>

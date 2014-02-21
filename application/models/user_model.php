@@ -309,6 +309,31 @@ class User_model extends CI_Model{
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }
+	 
+	
+	
+	/**
+	 * function name : getUserAssociation
+	 * 
+	 * Description : 
+	 * get the association that the user belong to
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 21-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getUserAssociation(){
+		$query = "SELECT association_code 
+				  FROM user
+				  WHERE id = {$this->id} ";
+		$query = $this->db->query($query);
+		return $query->result_array();
+	 }	 
+		 
 }    
     
     

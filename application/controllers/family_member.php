@@ -66,11 +66,19 @@ class Family_member extends CI_Controller {
 	 * Author : Mohanad Shab Kaleia
 	 * contact : ms.kaleia@gmail.com
 	 */
-	public function add()
-	{									
+	public function add($provider_code)
+	{			
+		//load provider model
+		$this->load->model("provider_model");
+		$this->provider_model->code = $provider_code;
+		$provider  = $this->provider_model->getProviderByCode();
+			
+		//provider info is an array of provider basic information		
+		$data['provider'] = $provider;	
+											
 		$this->load->view('gen/header');
 		$this->load->view('gen/slogan');
-		$this->load->view('family_member_add');
+		$this->load->view('family_member_add' , $data);
 		$this->load->view('gen/footer');
 	}
 	
@@ -106,15 +114,18 @@ class Family_member extends CI_Controller {
 		$this->family_member_model->social_status = $this->input->post('social_status');		
 		$this->family_member_model->note = $this->input->post('note');
 			
-	
+		
 		
 			
 		//add the informatoin to the database
 		$this->family_member_model->addFamilyMember();
 										
+		//provider info
+		$provider_info['name'] = $this->input->post('provider_name');
+		$provider_info['code'] = $this->input->post('provider_code');
 		
 		//redirect to the setting page 
-		//$this->showSettings($status_message);		
+		redirect(base_url()."family_member/add/". $provider_info);		
 	}
 
 

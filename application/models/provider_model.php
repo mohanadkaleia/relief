@@ -110,11 +110,11 @@ class Provider_model extends CI_Model
 	 * Author : Mohanad Shab Kaleia
 	 * contact : ms.kaleia@gmail.com
 	 */
-	 public function addProvider($association_id , $area_id)
+	 public function addProvider($association_code , $area_code)
 	 {
 	 	$query = "INSERT INTO  provider (				
-				area_id,
-				association_id ,
+				area_code,
+				association_code ,
 				code ,
 				full_name ,
 				naional_id ,
@@ -139,8 +139,8 @@ class Provider_model extends CI_Model
 				is_deleted				
 				)
 				VALUES (
-				'{$area_id}',  
-				'{$association_id}',  
+				'{$area_code}',  
+				'{$association_code}',  
 				'{$this->code}',  
 				'{$this->full_name}',  
 				'{$this->national_id}',  
@@ -182,13 +182,13 @@ class Provider_model extends CI_Model
 	 * Author : Mohanad Shab Kaleia
 	 * contact : ms.kaleia@gmail.com
 	 */
-	 public function deleteProvider($association_id , $area_id)
+	 public function deleteProvider($association_code , $area_code)
 	 {	 	
 	 	$query = "delete from provider
 	 			  where 
 	 			  id = {$this->id} and 
-	 			  association_id = {$association_id} and 
-	 			  area_id = {$area_id}";
+	 			  association_code = {$association_code} and 
+	 			  area_code = {$area_code}";
 		$this->db->query($query);
 	 }
 	
@@ -215,7 +215,30 @@ class Provider_model extends CI_Model
 		//return $query->result(); 	
 	 }
 	 
-	 
+	/**
+	 * function name : getProviderByCode
+	 * 
+	 * Description : 
+	 * get provider information by code
+	 * 		
+	 * Created date ; 21-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getProviderByCode()
+	 {	 	
+	 	$query = "select * from provider
+	 			  where 
+	 			  code = '{$this->code}' and
+	 			  is_deleted= 'F'";
+	 			  
+		  echo $query;
+		$query =  $this->db->query($query);
+		return $query->result_array();
+		//return $query->result(); 	
+	 } 
 
 }    
    

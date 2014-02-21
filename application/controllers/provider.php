@@ -58,19 +58,27 @@ class Provider extends CI_Controller {
 	 * function name : manageProvider
 	 * 
 	 * Description : 
-	 * call settings page
+	 * call provider add page
 	 * 
-	 * Created date ; 29-4-2013
+	 * Created date ; 20-2-2014
 	 * Modification date : ---
 	 * Modfication reason : ---
 	 * Author : Mohanad Shab Kaleia
 	 * contact : ms.kaleia@gmail.com
 	 */
 	public function add()
-	{									
+	{
+		//load area page 
+		$this->load->model("area_model");
+		
+		//get all available area
+		$area  = $this->area_model->getAllAreas();
+		
+		$data["area"] = $area;
+											
 		$this->load->view('gen/header');
 		$this->load->view('gen/slogan');
-		$this->load->view('provider_add');
+		$this->load->view('provider_add' , $data);
 		$this->load->view('gen/footer');
 	}
 	
@@ -91,7 +99,7 @@ class Provider extends CI_Controller {
 	{
 										
 		//include model provider
-		$this->load->model('provider_model');
+		$this->load->model('provider_model');				
 		
 		// assign values to the model variable
 		$this->provider_model->full_name = $this->input->post('full_name');			
@@ -111,18 +119,26 @@ class Provider extends CI_Controller {
 		$this->provider_model->mobile1 = $this->input->post('mobile1');
 		$this->provider_model->mobile2 = $this->input->post('mobile2');
 		$this->provider_model->note = $this->input->post('note');
+				
 			
 		//area and association
-		$association_id = 1 ;
-		$area_id = 1;
+		$association_code = "01" ;
+		$area_code = $this->input->post('area');;
+		
+		//provider code
+		$provider_code = $association_code . $area_code . $this->input->post('national_id');
+		$this->provider_model->code = $association_code . $area_code . $this->input->post('national_id');
 		
 			
 		//add the informatoin to the database
-		$this->provider_model->addProvider($association_id , $area_id);
+		$this->provider_model->addProvider($association_code , $area_code);
 										
+		//provide informaion
+		$provider_info['name'] = $this->input->post('full_name');
+		$provider_info['code'] = $provider_code;
 		
-		//redirect to the setting page 
-		//$this->showSettings($status_message);		
+		//redirect to add probider family member 
+		redirect(base_url()."family_member/add/". $provider_info['name'] ."/" . $provider_info["code"]);		
 	}
 
 

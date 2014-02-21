@@ -1,12 +1,15 @@
 <div  class="row-fluid">	  	
 	  	<div class="span8 main-content offset2">
-			<h1>إضافة معيل</h1>  
+			<h1>إضافة فرد أسرى للمعيل <?php echo $provider[0]['name'];?></h1>  
 			
 			
 			<!-- excel sheet configuration form -->
 			<form method="post" action="<?php echo base_url();?>family_member/saveData" enctype="multipart/form-data">
 				<!-- provider code -->
-				<input type="hidden" name="provider_code" value=""/>
+				<input type="hidden" name="provider_code" value="<?php echo $provider[0]['code'];?>"/>
+				
+				<!-- provider name -->
+				<input type="hidden" name="provider_name" value="<?php echo $provider[0]['name'];?>"/>
 				<table>
 					<tr>
 						<td>

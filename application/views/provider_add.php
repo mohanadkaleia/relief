@@ -4,7 +4,26 @@
 			
 			<!-- excel sheet configuration form -->
 			<form method="post" action="<?php echo base_url();?>provider/saveData" enctype="multipart/form-data">
-				<table>
+				<table>									
+					
+					<tr>
+						<td>
+							المنطقة:
+						</td>
+						<td>
+							<select name="area">
+								<?php foreach ($area as $key => $value) 
+								{
+								?>
+									<option value="<?php echo $value['code'];?>"><?php echo $value['name'];?></option>
+								<?php	
+								}
+								?>
+								
+							</select>
+						</td>
+					</tr>
+										
 					<tr>
 						<td>
 							الاسم الثلاثي الكامل:
@@ -144,7 +163,7 @@
 						<td>
 							ملاحظات:
 						</td>
-						<td>
+						<td colspan="3"> 
 							<textarea name="note"></textarea>
 						</td>
 					</tr>
