@@ -1,7 +1,7 @@
 <?php
 	//by defalut there is no error and only greeting message
 	$class="alert alert-info";
-	$message = "How are you today?";
+	$message = "كيف حالك اليوم؟";
 	
 	//error message
 	
@@ -16,20 +16,11 @@
 
 ?>
 <div id="wrap">   		
-	<div class="container">
-	
-		<div class="login_slogan">			
-			<div class="clear"></div>		
-			<p>
-				NO403 Control Panel
-			</p>
-		</div>
-		
-		
+	<div class="container">		
 				
 		<!--<form action="<?php echo base_url();?>adminpanel/login/validateLogin" method="post" class="form-signin">-->
 		<form action="<?php echo base_url();?>login/validateLogin" method="post" class="form-signin">	
-			<h2 class="form-signin-heading">Please sign in</h2>
+			<h2 class="form-signin-heading">تسجيل الدخول</h2>
 			
 			<!-- error message -->
 	
@@ -38,19 +29,14 @@
 				<?php echo $message;?>
 			</div>
 			
-			<!-- email address -->
-			<input name="email" type="text" class="input-block-level" placeholder="Email address" autofocus="true" required value="<?php echo $this->input->post('email');?>"> 
+			<!-- username -->
+			<input name="username" type="text" class="input-block-level" placeholder="اسم المستخدم" autofocus="true" required value="" /> 
 			
 			<!-- passowrd -->
-			<input name="password" type="password" class="input-block-level" placeholder="Password" required>
-			
-			<!-- remmember me -->
-			<label class="checkbox">
-			  <input type="checkbox" value="remember-me" id="rememberme"> Remember me
-			</label>
+			<input name="password" type="password" class="input-block-level" placeholder="كلمة السر" required>
 			
 			
-			<button class="btn btn-large btn-primary" type="submit">Sign in</button>
+			<button class="btn btn-large btn-primary" type="submit">الدخول</button>
 							
 		</form>
 
@@ -61,20 +47,4 @@
 
 
 
-		
-
-
-	<div id="footer">
-	  <div class="container">
-	    <p class="muted credit">All right reserved for <a href="http://www.alepuniv.edu.sy" target="_blank">Aleppo University</a>.</p>
-	  </div>
-	</div>		
-
-	<!-- load js -->
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="<?php echo base_url();?>js/jquery-1.8.0.min.js"></script>
-	<script src="<?php echo base_url();?>js/bootstrap.min.js"></script>			
-					
-</body>
-
-</html>
+	
