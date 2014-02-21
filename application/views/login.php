@@ -16,16 +16,7 @@
 
 ?>
 <div id="wrap">   		
-	<div class="container">
-	
-		<div class="login_slogan">			
-			<div class="clear"></div>		
-			<p>
-				NO403 Control Panel
-			</p>
-		</div>
-		
-		
+	<div class="container">		
 				
 		<!--<form action="<?php echo base_url();?>adminpanel/login/validateLogin" method="post" class="form-signin">-->
 		<form action="<?php echo base_url();?>login/validateLogin" method="post" class="form-signin">	
@@ -38,8 +29,8 @@
 				<?php echo $message;?>
 			</div>
 			
-			<!-- email address -->
-			<input name="email" type="text" class="input-block-level" placeholder="Email address" autofocus="true" required value="<?php echo $this->input->post('email');?>"> 
+			<!-- username -->
+			<input name="username" type="text" class="input-block-level" placeholder="Username" autofocus="true" required value="" /> 
 			
 			<!-- passowrd -->
 			<input name="password" type="password" class="input-block-level" placeholder="Password" required>
@@ -61,20 +52,4 @@
 
 
 
-		
-
-
-	<div id="footer">
-	  <div class="container">
-	    <p class="muted credit">All right reserved for <a href="http://www.alepuniv.edu.sy" target="_blank">Aleppo University</a>.</p>
-	  </div>
-	</div>		
-
-	<!-- load js -->
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="<?php echo base_url();?>js/jquery-1.8.0.min.js"></script>
-	<script src="<?php echo base_url();?>js/bootstrap.min.js"></script>			
-					
-</body>
-
-</html>
+	

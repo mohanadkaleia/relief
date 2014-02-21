@@ -23,14 +23,23 @@ class Login extends CI_Controller
 											
 		// call header		
 		$this->load->view('gen/header');
-				
-		// call login view
+		$this->load->view('gen/slogan');
+		// call login page	
 		$this->load->view('login');
 		
-		//call footer
-		//$this->load->view('gen/footer');
+		$this->load->view('gen/footer');
 	}
 	
+	
+	public function __construct(){
+		parent::__construct();
+		//load the login_helper
+		$this->load->helper('login');
+		//if the user already logged in redirect him/her to dash board page.
+		if(isset($this->session->userdata['user'])){
+			redirect(base_url()."dashboard");
+		}
+	}
 	
 	
 	/**
@@ -52,30 +61,13 @@ class Login extends CI_Controller
 		$this->load->library('form_validation');		
 		
 		//check validation
-		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|callback_chkUser');	
+		$this->form_validation->set_rules('username', 'username', 'required|callback_validateCreditials');	
 		$this->form_validation->set_rules('password', 'Password', 'required|md5');				
 		
-		//load login model
-		$this->load->model('login_model');
-		
-		if ($this->form_validation->run() == TRUE)
-		{
-				
-			$email = 	$this->input->post('email');
-			$user_info = $this->login_model->getUserInfo(null , null , $email );
-			$username = $user_info[0]['username'];
-			//set session info
-			$data = array(
-				'user_id' => $user_info[0]['id'],
-				'username' => $user_info[0]['name'],
-				'email' => $email ,
-				'is_logged_in' => 1				
-			);
-			$this->session->set_userdata($data);
-				
+		if ($this->form_validation->run())
+		{				
 			//redirect to dashboard page
-			redirect(base_url().'dashboard');		
-			return true;
+			redirect(base_url().'dashboard');
 		}
 		else
 		{
@@ -86,32 +78,32 @@ class Login extends CI_Controller
 	
 	
 	/**
-	 * function name : chkUser
+	 * function name : validateCreditials
 	 * 
 	 * Description : 
-	 * Check the user is in the database or not  
-	 * if there is a record of the same email address then return false	,  
-	 * if an id is entered then check all record but not the record with the given id
-	 * 		
+	 * This functions gets the user of the given username and password.
+	 * If he/she is an authorized user it adds him/her to the session. 
 	 * Created date ; 14-10-2012
 	 * Modification date : ---
 	 * Modfication reason : ---
 	 * Author : Mohanad Shab Kaleia
 	 * contact : ms.kaleia@gmail.com
 	 */
-	public function  chkUser($email)
+	public function  validateCreditials()
 	{
-		$this->load->model('login_model');											
-		// if there is no record with the same email address then user can add one		
-		if($this->login_model->canLogin() == True)
-		{			
-			return True;
-		}			
-		else 
-		{
-			$this->form_validation->set_message('chkUser' , 'email address and/or password is wrong :(');			
+		$this->load->model('user_model');											
+		//set username and md5 hashed password from the request in the user model
+		$this->user_model->username = $this->input->post('username');
+		$this->user_model->password = md5($this->input->post('password'));
+		//get the users specified by the given username and password
+		$users = $this->user_model->getUserByUsernameAndPassword();
+		if($users[0]){
+			$this->session->set_userdata('user',$users[0]);
+			return TRUE;
+		}else{
+			$this->form_validation->set_message('validateCreditials' , 'email address and/or password is wrong :(');			
 			return FALSE;
-		}		 						
+		}
 	}
 	
 	/**

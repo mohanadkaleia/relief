@@ -304,8 +304,8 @@ class User_model extends CI_Model{
 	 public function getUserByUsernameAndPassword(){
 		$query = "SELECT * 
 				  FROM user
-				  WHERE username = {$this->username} 
-					AND password = {$this->password}";
+				  WHERE username = '{$this->username}' 
+					AND password = '{$this->password}'";
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }
