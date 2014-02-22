@@ -127,7 +127,7 @@
 <script>
 	 $(document).ready(function() {
 		$("#created_date").datepicker({
-			format: 'yyyy/mm/dd'
+			format: 'yyyy-mm-dd'
 		});
 	});
 </script>

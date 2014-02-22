@@ -1,9 +1,9 @@
 <div  class="row-fluid">	  	
 	  	<div class="span8 main-content offset2">
 			<h1>إضافة معيل</h1>  
-			
+			<?php print_r($provider);?>
 			<!-- excel sheet configuration form -->
-			<form method="post" action="<?php echo base_url();?>provider/saveData/add" enctype="multipart/form-data">
+			<form method="post" action="<?php echo base_url();?>provider/saveData/edit/<?php echo $provider['id'];?>" enctype="multipart/form-data">
 				<table>									
 					
 					<tr>
@@ -15,7 +15,7 @@
 								<?php foreach ($area as $key => $value) 
 								{
 								?>
-									<option value="<?php echo $value['code'];?>"><?php echo $value['name'];?></option>
+									<option value="<?php echo $value['code'];?>" <?php if($provider['area_code'] == $value['code']) echo 'selected';?>><?php echo $value['name'];?></option>
 								<?php	
 								}
 								?>
@@ -30,7 +30,7 @@
 						</td>
 						
 						<td>
-							<input type="text" name="full_name" />
+							<input type="text" name="full_name"  value="<?php echo $provider['full_name'];?>" />
 						</td>
 						
 						<td>
@@ -38,7 +38,7 @@
 						</td>
 						
 						<td>
-							<input type="text" name="national_id"  />
+							<input type="text" name="national_id" value="<?php echo $provider['national_id'];?>" />
 						</td>
 					</tr>
 					
@@ -48,14 +48,14 @@
 						</td>
 						
 						<td>
-							<input type="text" name="family_book_num" />
+							<input type="text" name="family_book_num" value="<?php echo $provider['family_book_num'];?>" />
 						</td>
 						
 						<td>
 							الحرف:
 						</td>
 						<td>
-							<input type="text" name="family_book_letter" />
+							<input type="text" name="family_book_letter" value="<?php echo $provider['family_book_letter'];?>" />
 						</td>
 					</tr>
 					
@@ -65,14 +65,14 @@
 						</td>
 						
 						<td>
-							<input type="text" name="family_book_family_number" />
+							<input type="text" name="family_book_family_number" value="<?php echo $provider['family_book_family_number'];?>" />
 						</td>
 						
 						<td>
 							بيان عائلي:
 						</td>
 						<td>
-							<input type="text" name="family_book_note" />
+							<input type="text" name="family_book_note" value="<?php echo $provider['family_book_note'];?>" />
 						</td>						
 					</tr>
 					
@@ -82,14 +82,14 @@
 						</td>
 						
 						<td>
-							<textarea name="current_address"></textarea>
+							<textarea name="current_address"><?php echo $provider['current_address'];?></textarea>
 						</td>
 						
 						<td>
 							العنوان السابق:
 						</td>
 						<td>
-							<textarea name="prev_address"></textarea>
+							<textarea name="prev_address"><?php echo $provider['prev_address'];?></textarea>
 						</td>
 					</tr>
 					
@@ -98,7 +98,7 @@
 							الشارع:
 						</td>
 						<td>
-							<input type="text" name="street" />	
+							<input type="text" name="street" value="<?php echo $provider['street'];?>" />	
 						</td>
 						
 						<td>
@@ -106,7 +106,7 @@
 						</td>
 						
 						<td>
-							<input type="text" name="build" />
+							<input type="text" name="build" value="<?php echo $provider['build'];?>" />
 						</td>
 					</tr>
 					
@@ -115,14 +115,14 @@
 							نقطة علام:
 						</td>
 						<td>
-							<input type="text" name="point_guide" />
+							<input type="text" name="point_guide" value="<?php echo $provider['point_guide'];?>" />
 						</td>
 						
 						<td>
 							طابق:
 						</td>
 						<td>
-							<input type="text" name="floor" />
+							<input type="text" name="floor" value="<?php echo $provider['floor'];?>" />
 						</td>
 					</tr>
 					
@@ -131,14 +131,14 @@
 							هاتف 1:
 						</td>
 						<td>
-							<input type="text" name="phone1" />
+							<input type="text" name="phone1" value="<?php echo $provider['phone1'];?>" />
 						</td>
 						
 						<td>
 							هاتف 2:
 						</td>
 						<td>
-							<input type="text" name="phone2" />
+							<input type="text" name="phone2" value="<?php echo $provider['phone2'];?>" />
 						</td>						
 					</tr>
 					
@@ -147,7 +147,7 @@
 							موبايل 1:
 						</td>
 						<td>
-							<input type="text" name="mobile1" />
+							<input type="text" name="mobile1" value="<?php echo $provider['mobile1'];?>" />
 						</td>
 						
 						<td>
@@ -155,7 +155,7 @@
 						</td>
 						
 						<td>
-							<input type="text" name="mobile2" />
+							<input type="text" name="mobile2" value="<?php echo $provider['mobile2'];?>" />
 						</td>
 					</tr>
 					
@@ -164,7 +164,7 @@
 							ملاحظات:
 						</td>
 						<td colspan="3"> 
-							<textarea name="note"></textarea>
+							<textarea name="note"><?php echo $provider['note'];?></textarea>
 						</td>
 					</tr>
 					

@@ -84,6 +84,66 @@ class Family_member extends CI_Controller {
 	
 	
 	/**
+	 * function name : delete
+	 * 
+	 * Description : 
+	 * deletes the family member specified by the id
+	 * 
+	 * Created date ; 22-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	public function delete($provider_code,$id)
+	{			
+		//load family member model
+		$this->load->model("family_member_model");
+		
+		//set the id in the family member model
+		$this->family_member_model->id = $id;
+		
+		//execute the delete function
+		$this->family_member_model->deleteFamilyMember();
+		
+		//redirect to the provider's family members page
+		redirect(base_url()."family_member/familyManage/". $provider_code);
+	}
+	
+	/**
+	 * function name : edit
+	 * 
+	 * Description : 
+	 * call edit family member page and fill it with family member's data
+	 * 
+	 * Created date ; 22-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	public function edit($provider_code,$id)
+	{			
+		//load provider model
+		$this->load->model("family_member_model");
+		$this->family_member_model->id = $id;
+		//get the family member data 
+		$family_member = $this->family_member_model->getFamilyMemberById();
+		if(isset($family_member[0])){
+			
+			//insert the family member data in the ata array to get into the view.		
+			$data['family_member'] = $family_member[0];	
+			$data["provider_code"] = $provider_code;
+												
+			$this->load->view('gen/header');
+			$this->load->view('gen/slogan');
+			$this->load->view('family_member_edit' , $data);
+			$this->load->view('gen/footer');
+		}
+	}
+	
+	
+	/**
 	 * function name : saveData
 	 * 
 	 * Description : 
@@ -94,8 +154,13 @@ class Family_member extends CI_Controller {
 	 * Modfication reason : ---
 	 * Author : Mohanad Shab Kaleia
 	 * contact : ms.kaleia@gmail.com
+	 * 
+	 * Modification date : 22-2-2014
+	 * Modfication reason : add saving edited family member data
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
 	 */
-	public function saveData()
+	public function saveData($action,$id)
 	{
 										
 		//include model provider
@@ -114,18 +179,28 @@ class Family_member extends CI_Controller {
 		$this->family_member_model->social_status = $this->input->post('social_status');		
 		$this->family_member_model->note = $this->input->post('note');
 			
-		
-		
-			
-		//add the informatoin to the database
-		$this->family_member_model->addFamilyMember();
-										
 		//provider info
 		$provider_info['name'] = $this->input->post('provider_name');
 		$provider_info['code'] = $this->input->post('provider_code');
 		
-		//redirect to the setting page 
-		redirect(base_url()."family_member/add/". $provider_info['code']);		
+		if($action == "add"){
+			//add the informatoin to the database
+			$this->family_member_model->addFamilyMember();
+			
+			//redirect to the setting page 
+			redirect(base_url()."family_member/add/". $provider_info['code']);
+			
+		}else if($action == "edit"){
+			//add the id of family member to be edited
+			$this->family_member_model->id = $id;
+			
+			//call modify family member data function
+			$this->family_member_model->modifyFamilyMember();
+			
+			//redirect to the provider's family members page
+			redirect(base_url()."family_member/familyManage/". $provider_info['code']);
+		}		
+				
 	}
 
 
@@ -243,8 +318,8 @@ class Family_member extends CI_Controller {
 		
 		//grid controls
 		$this->grid->control = array(
-									  array("title" => "تعديل" , "icon"=>"icon-pencil" , "url"=>base_url()."user/editUser" , "message_type"=>null , "message"=>"") , 
-									  array("title" => "حذف" , "icon"=>"icon-trash" ,"url"=>base_url()."user/deleteUser" , "message_type"=>"confirm" , "message"=>"Are you sure?")
+									  array("title" => "تعديل" , "icon"=>"icon-pencil" , "url"=>base_url()."family_member/edit/".$provider_code , "message_type"=>null , "message"=>"") , 
+									  array("title" => "حذف" , "icon"=>"icon-trash" ,"url"=>base_url()."family_member/delete/".$provider_code , "message_type"=>"confirm" , "message"=>"Are you sure?")
 									);												
 						
 		//render our grid :)

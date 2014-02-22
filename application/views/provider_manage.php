@@ -15,7 +15,7 @@
 				<tr>																
 					<th col="code" type="text">رمز المعيل</th>
 					<th col="full_name" type="text">اسم المعيل</th>
-					<th col="naional_id"  type="text">الرقم الوطني</th>		
+					<th col="national_id"  type="text">الرقم الوطني</th>		
 					<th col="created_date" type="date">تاريخ الإنشاء</th>
 				</tr>										
 			</table>	

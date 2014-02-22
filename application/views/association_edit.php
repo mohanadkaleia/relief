@@ -115,12 +115,13 @@
 					<tr>
 						<td>
 							<input type="submit" name="save" class="btn btn-info" value="احفظ"/>
-							<input type="button" class="btn btn-default" value="إلغاء" name="cencel_settings" onclick="window.location='<?php echo base_url()?>dashboard'" />
+							<input type="button" class="btn btn-default" value="إلغاء" name="cencel_settings" onclick="window.location='<?php echo base_url();?>dashboard'" />
 						</td>
 					</tr>
 				</table>
-				<input type="hidden" id="old_logo" value='<?php echo $association['logo'];?>'/>
+				<input type="hidden" name="old_logo" id="old_logo" value='<?php echo $association['logo'];?>'/>
 			</form>
+			
 	  	</div>
 	  
 	</div>
@@ -134,7 +135,7 @@
 		logo = "<?php echo 'files/'.$association['name'].'/'.$association['logo'];?>";
 	});
 	$('form').submit(function(){
-		if($('#logo').val() !== undefined || $('#logo').val() !== 'undefined'){
+		if($('#logo').val() !== undefined && $('#logo').val() && 'undefined' && $('#logo').val().trim() !== ""){
 			$('#old_logo').val("");
 		}
 	});

@@ -55,7 +55,7 @@ class Provider extends CI_Controller {
 	
 	
 	/**
-	 * function name : manageProvider
+	 * function name : add
 	 * 
 	 * Description : 
 	 * call provider add page
@@ -84,6 +84,79 @@ class Provider extends CI_Controller {
 	
 	
 	/**
+	 * function name : delete
+	 * 
+	 * Description : 
+	 * deletes the provider specified by the id
+	 * 
+	 * Created date ; 22-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	public function delete($provider_code)
+	{			
+		//load family member model
+		$this->load->model("provider_model");
+		
+		//set the code in the provider model
+		$this->provider_model->code = $provider_code;
+		
+		//execute the delete function
+		$this->provider_model->deleteProviderByCode();
+		
+		//redirect to the provider's family members page
+		redirect(base_url()."provider");
+	}
+	
+	
+	
+	/**
+	 * function name : edit
+	 * 
+	 * Description : 
+	 * call provider edit page
+	 * 
+	 * Created date ; 22-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	public function edit($provider_code)
+	{
+		//load area model 
+		$this->load->model("area_model");
+		
+		//get all available area
+		$area  = $this->area_model->getAllAreas();
+		
+		$data["area"] = $area;
+		
+		//load provider model
+		$this->load->model("provider_model");
+		
+		//set the code of the wanted provider in the model
+		$this->provider_model->code = $provider_code;
+		
+		//get the data of the provider to edit
+		$provider = $this->provider_model->getProviderByCode();
+		
+		if(isset($provider[0])){
+			$data["provider"] = $provider[0];
+			//load the views with data			
+			$this->load->view('gen/header');
+			$this->load->view('gen/slogan');
+			$this->load->view('provider_edit' , $data);
+			$this->load->view('gen/footer');
+		}else{
+			redirect(base_url()."provider");
+		}
+	}
+	
+	
+	/**
 	 * function name : saveData
 	 * 
 	 * Description : 
@@ -94,8 +167,13 @@ class Provider extends CI_Controller {
 	 * Modfication reason : ---
 	 * Author : Mohanad Shab Kaleia
 	 * contact : ms.kaleia@gmail.com
+	 * 
+	 * Modification date : 22-2-2014
+	 * Modfication reason : add saving edited provider data
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
 	 */
-	public function saveData()
+	public function saveData($action,$id)
 	{
 										
 		//include model provider
@@ -129,16 +207,24 @@ class Provider extends CI_Controller {
 		$provider_code = $association_code . $area_code . $this->input->post('national_id');
 		$this->provider_model->code = $association_code . $area_code . $this->input->post('national_id');
 		
-			
-		//add the informatoin to the database
-		$this->provider_model->addProvider($association_code , $area_code);
-										
 		//provide informaion
 		$provider_info['name'] = $this->input->post('full_name');
 		$provider_info['code'] = $provider_code;
 		
-		//redirect to add probider family member 
-		redirect(base_url()."family_member/add/". $provider_info["code"]);		
+		if($action == "add"){
+			//add the informatoin to the database
+			$this->provider_model->addProvider($association_code , $area_code);
+											
+			//redirect to add probider family member 
+			redirect(base_url()."family_member/add/". $provider_info["code"]);	
+		}elseif($action == "edit"){
+			// set the id in the model
+			$this->provider_model->id = $id;
+			// call the modify function
+			$this->provider_model->modifyProvider();
+			// redirect to the provider page
+			redirect(base_url()."provider");
+		}
 	}
 
 
@@ -181,8 +267,8 @@ class Provider extends CI_Controller {
 		//grid controls
 		$this->grid->control = array(
 									  array("title" => "الأسرة" , "icon"=>"icon-plus" , "url"=>base_url()."family_member/familyManage" , "message_type"=>null , "message"=>"") ,
-									  array("title" => "تعديل" , "icon"=>"icon-pencil" , "url"=>base_url()."user/editUser" , "message_type"=>null , "message"=>"") , 
-									  array("title" => "حذف" , "icon"=>"icon-trash" ,"url"=>base_url()."user/deleteUser" , "message_type"=>"confirm" , "message"=>"Are you sure?")
+									  array("title" => "تعديل" , "icon"=>"icon-pencil" , "url"=>base_url()."provider/edit" , "message_type"=>null , "message"=>"") , 
+									  array("title" => "حذف" , "icon"=>"icon-trash" ,"url"=>base_url()."provider/delete" , "message_type"=>"confirm" , "message"=>"Are you sure?")
 									);												
 						
 		//render our grid :)

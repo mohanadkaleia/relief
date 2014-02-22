@@ -109,6 +109,7 @@ class Association extends CI_Controller {
 							
 			$this->load->view('gen/header');
 			$this->load->view('gen/slogan');
+			
 			$this->load->view('association_edit',$data);
 			$this->load->view('gen/footer');
 		}else{
@@ -189,7 +190,7 @@ class Association extends CI_Controller {
 				//add the information to the database
 				$this->association_model->addAssociation();
 			}elseif($action === "edit" && $id !== 0){
-				if($this->input->post("old_logo") !== ""){
+				if($this->input->post("old_logo") == ""){
 					$logo = $_FILES["logo"];
 					$allowedExts = array("gif", "jpeg", "jpg", "png");
 					$temp = explode(".", $logo["name"]);
@@ -214,7 +215,12 @@ class Association extends CI_Controller {
 							$pos = strripos($logo["name"],'.');
 							//get the image extension
 							$extension = substr($logo["name"],$pos);
+							//if the directory doesn't exist create one
+							if (!is_dir($path)) {
+								mkdir($path, 0777, true);         
+							}else{
 							//delete old logo..
+							}
 							
 							//move the uploaded file to the desired folder
 							move_uploaded_file($logo["tmp_name"],$path .'/'. $this->association_model->code.$extension);
@@ -224,11 +230,13 @@ class Association extends CI_Controller {
 				}else{
 					$this->association_model->logo = $this->input->post("old_logo");
 				}
+				
 				$this->association_model->id = $id;
 				//modify the information to the database
 				$this->association_model->modifyAssociation();
 			}
 		}
+		echo $this->input->post("old_logo");
 		redirect(base_url()."association");	
 	}
 

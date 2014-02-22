@@ -117,7 +117,7 @@ class Provider_model extends CI_Model
 				association_code ,
 				code ,
 				full_name ,
-				naional_id ,
+				national_id ,
 				family_book_num ,
 				family_book_letter ,
 				family_book_family_number ,
@@ -169,6 +169,54 @@ class Provider_model extends CI_Model
 	 }
 	 
 	 
+	 /**
+	 * function name : modifyProvider
+	 * 
+	 * Description : 
+	 * modify data of the provider specified by the id. 
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 22-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	 public function modifyProvider()
+	 {
+	 	$query = "UPDATE provider 
+				  SET 
+					area_code = '{$area_code}',
+					association_code  = '{$association_code}',
+					code = '{$this->code}',
+					full_name = '{$this->full_name}',
+					national_id = '{$this->national_id}',
+					family_book_num = '{$this->family_book_num}',
+					family_book_letter = '{$this->family_book_letter}',
+					family_book_family_number = '{$this->family_book_family_number}',
+					family_book_note = '{$this->family_book_note}' ,
+					current_address = '{$this->current_address}',
+					prev_address = '{$this->prev_address}',
+					street = '{$this->street}',
+					point_guide = '{$this->point_guide}',
+					build = '{$this->build}',
+					floor = '{$this->floor}',
+					phone1 = '{$this->phone1}',
+					phone2 = '{$this->phone2}',
+					mobile1 = '{$this->mobile1}',
+					mobile2 = '{$this->mobile2}',
+					note = '{$this->note}',
+					relief_form_status = '{$this->relief_form_status}',
+					created_date = '{$this->created_date}',
+					creator_id = {$this->user_id},
+					is_deleted = '{$this->is_deleted}'			
+				  WHERE 
+					id =  {$this->id};
+					 	";	
+		$this->db->query($query);
+	 }
+	 
 	 
 	 /**
 	 * function name : deleteProvider
@@ -189,6 +237,27 @@ class Provider_model extends CI_Model
 	 			  id = {$this->id} and 
 	 			  association_code = {$association_code} and 
 	 			  area_code = {$area_code}";
+		$this->db->query($query);
+	 }
+	 
+	 
+	 /**
+	 * function name : deleteProviderByCode
+	 * 
+	 * Description : 
+	 * delete the provider specified with given code
+	 * 		
+	 * Created date ; 22-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	 public function deleteProviderByCode()
+	 {	 	
+	 	$query = "delete from provider
+	 			  where 
+	 			  code = {$this->code} ;";
 		$this->db->query($query);
 	 }
 	
