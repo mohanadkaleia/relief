@@ -125,7 +125,7 @@ class Family_member extends CI_Controller {
 		$provider_info['code'] = $this->input->post('provider_code');
 		
 		//redirect to the setting page 
-		redirect(base_url()."family_member/add/". $provider_info);		
+		redirect(base_url()."family_member/add/". $provider_info['code']);		
 	}
 
 
@@ -164,6 +164,82 @@ class Family_member extends CI_Controller {
 		
 		//get the data	
 		$this->grid->data = $this->family_member_model->getAllFamilyMembers();
+		
+		//grid controls
+		$this->grid->control = array(
+									  array("title" => "تعديل" , "icon"=>"icon-pencil" , "url"=>base_url()."user/editUser" , "message_type"=>null , "message"=>"") , 
+									  array("title" => "حذف" , "icon"=>"icon-trash" ,"url"=>base_url()."user/deleteUser" , "message_type"=>"confirm" , "message"=>"Are you sure?")
+									);												
+						
+		//render our grid :)
+		echo $this->grid->gridRender();
+												
+	}
+
+
+	/**
+	 * function name : familyManage
+	 * 
+	 * Description : 
+	 * get provider family manage page
+	 * 
+	 * Created date ; 22-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	public function familyManage($provider_code)
+	{
+		//load family_member model
+		$this->load->model('family_member_model');
+		
+			
+		$data["provider_code"] = $provider_code;
+		
+				
+		$this->load->view('gen/header');
+		$this->load->view('gen/slogan');
+		$this->load->view('provider_family_manage' , $data);
+		$this->load->view('gen/footer');
+	}
+	
+	
+	/**
+	 * function name : ajaxGetProviderFamily
+	 * 
+	 * Description : 
+	 * get providers information from database
+	 * 
+	 * Created date ; 13-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	public function ajaxGetProviderFamily($provider_code)
+	{										
+		//load user model to get data from it
+		$this->load->model('family_member_model');
+		
+		//load grid library
+		$this->load->library('grid');				
+		
+		//grid option
+		$this->grid->option['title'] = "Family Member";   //  grid title
+		$this->grid->option['id'] = "id";         // database table id
+		$this->grid->option['sortable'] = FALSE;  // is sortable
+		$this->grid->option['page_size'] = 10;    //records per page
+		$this->grid->option['row_number'] = true; //show the row number		
+		$this->grid->option['add_button'] = true; //show add button
+		$this->grid->option['add_url'] = base_url()."family_member/add/".$provider_code; //add url
+		$this->grid->option['add_title'] = "إضافة فرد"; //add title
+			
+		$this->grid->columns = array('full_name' , 'full_name' , 'relationship'  , 'gender' , 'birth_date');
+		
+		//get the data	FamilyMembers
+		$this->family_member_model->provider_code = $provider_code;
+		$this->grid->data = $this->family_member_model->getFamilyMemberByProviderCode();
 		
 		//grid controls
 		$this->grid->control = array(

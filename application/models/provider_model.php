@@ -233,8 +233,7 @@ class Provider_model extends CI_Model
 	 			  where 
 	 			  code = '{$this->code}' and
 	 			  is_deleted= 'F'";
-	 			  
-		  echo $query;
+	 			  		  
 		$query =  $this->db->query($query);
 		return $query->result_array();
 		//return $query->result(); 	

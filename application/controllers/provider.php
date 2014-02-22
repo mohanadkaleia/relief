@@ -119,7 +119,7 @@ class Provider extends CI_Controller {
 		$this->provider_model->mobile1 = $this->input->post('mobile1');
 		$this->provider_model->mobile2 = $this->input->post('mobile2');
 		$this->provider_model->note = $this->input->post('note');
-				
+		$this->provider_model->created_date = date("y/m/d"); 		
 			
 		//area and association
 		$association_code = "01" ;
@@ -138,7 +138,7 @@ class Provider extends CI_Controller {
 		$provider_info['code'] = $provider_code;
 		
 		//redirect to add probider family member 
-		redirect(base_url()."family_member/add/". $provider_info['name'] ."/" . $provider_info["code"]);		
+		redirect(base_url()."family_member/add/". $provider_info["code"]);		
 	}
 
 
@@ -165,7 +165,7 @@ class Provider extends CI_Controller {
 		
 		//grid option
 		$this->grid->option['title'] = "Providers";   //  grid title
-		$this->grid->option['id'] = "id";         // database table id
+		$this->grid->option['id'] = "code";         // database table id
 		$this->grid->option['sortable'] = FALSE;  // is sortable
 		$this->grid->option['page_size'] = 10;    //records per page
 		$this->grid->option['row_number'] = true; //show the row number		
@@ -180,6 +180,7 @@ class Provider extends CI_Controller {
 		
 		//grid controls
 		$this->grid->control = array(
+									  array("title" => "الأسرة" , "icon"=>"icon-plus" , "url"=>base_url()."family_member/familyManage" , "message_type"=>null , "message"=>"") ,
 									  array("title" => "تعديل" , "icon"=>"icon-pencil" , "url"=>base_url()."user/editUser" , "message_type"=>null , "message"=>"") , 
 									  array("title" => "حذف" , "icon"=>"icon-trash" ,"url"=>base_url()."user/deleteUser" , "message_type"=>"confirm" , "message"=>"Are you sure?")
 									);												

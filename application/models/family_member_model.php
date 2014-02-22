@@ -19,8 +19,8 @@ class Family_member_model extends CI_Model{
 	//The id field of the family_member in the database.
 	var $id = "";
 	
-	//The id of the provider of this family member.
-	var $provider_id = "";
+	//The code of the provider of this family member.
+	var $provider_code= "";
 	
 	//Family member's full name.
 	var $full_name = "";
@@ -95,7 +95,7 @@ class Family_member_model extends CI_Model{
 							note		
 							)
 					VALUES (  
-							'{$this->provider_id}',
+							'{$this->provider_code}',
 							'{$this->full_name}',
 							'{$this->gender}',
 							'{$this->birth_date}',
@@ -229,10 +229,15 @@ class Family_member_model extends CI_Model{
 	 * Author : Ahmad Mulhem Barakat
 	 * contact : molham225@gmail.com
 	 */
-	 public function getFamilyMemberByProviderId(){
-		$query = "SELECT * 
-				  FROM family_member
-				  WHERE provider_id = {$this->provider_id} ";
+	 public function getFamilyMemberByProviderCode(){
+		$query = "SELECT distinct family_member.* , provider.full_name as provider_name 
+				  FROM family_member , provider 
+				  WHERE 
+				  family_member.provider_code = {$this->provider_code}
+				  and
+				  provider.code = family_member.provider_code
+				  ";
+						  
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }

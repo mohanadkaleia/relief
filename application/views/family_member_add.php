@@ -1,6 +1,6 @@
 <div  class="row-fluid">	  	
 	  	<div class="span8 main-content offset2">
-			<h1>إضافة فرد أسرى للمعيل <?php echo $provider[0]['name'];?></h1>  
+			<h1>إضافة فرد أسرى للمعيل :<?php echo $provider[0]['full_name'];?></h1>  
 			
 			
 			<!-- excel sheet configuration form -->
@@ -9,7 +9,7 @@
 				<input type="hidden" name="provider_code" value="<?php echo $provider[0]['code'];?>"/>
 				
 				<!-- provider name -->
-				<input type="hidden" name="provider_name" value="<?php echo $provider[0]['name'];?>"/>
+				<input type="hidden" name="provider_name" value="<?php echo $provider[0]['full_name'];?>"/>
 				<table>
 					<tr>
 						<td>
