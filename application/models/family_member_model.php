@@ -131,7 +131,7 @@ class Family_member_model extends CI_Model{
 	 {
 	 	$query = "UPDATE  family_member
 					SET	
-						provider_id = '{$this->provider_id}',
+						provider_code = '{$this->provider_code}',
 						full_name = '{$this->full_name}',
 						gender = '{$this->gender}',
 						birth_date = '{$this->birth_date}',

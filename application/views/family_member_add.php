@@ -4,7 +4,7 @@
 			
 			
 			<!-- excel sheet configuration form -->
-			<form method="post" action="<?php echo base_url();?>family_member/saveData" enctype="multipart/form-data">
+			<form method="post" action="<?php echo base_url();?>family_member/saveData/add" enctype="multipart/form-data">
 				<!-- provider code -->
 				<input type="hidden" name="provider_code" value="<?php echo $provider[0]['code'];?>"/>
 				
