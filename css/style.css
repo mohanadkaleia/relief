@@ -401,3 +401,31 @@ div.datepicker{
  width: 230px;
  position: absolute;
 }
+/** Details page style **/
+table#details{
+	width: 100%;
+}
+table#details tr{
+	border-top: solid .5px;
+	border-top-color: #fff;
+	height: 45px;
+	background-color: #F1F8F1;
+}
+
+table#details tr.odd{
+	background-color: #E8F1F7;
+}
+
+table#details tr td{
+	color: #777;
+	vertical-align: middle;
+	padding: 5px;
+	padding-right: 15px;
+	text-align: justify;
+}
+
+table#details tr td.title-td{
+	font-weight: bold;
+	text-align: left;
+	padding-left: 15px;
+}

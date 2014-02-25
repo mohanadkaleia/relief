@@ -6,7 +6,9 @@
 			<!-- excel sheet configuration form -->
 			<form method="post" action="<?php echo base_url();?>family_member/saveData/edit/<?php echo $family_member['id'];?>" enctype="multipart/form-data">
 				<!-- provider code -->
-				<input type="hidden" name="provider_code" value="<?php echo $provider_code;?>"/>
+				<input type="hidden" name="provider_code" value="<?php echo $family_member['provider_code'];?>"/>
+				<!-- previous page -->
+				<input type="hidden" name="page" value="<?php echo $page;?>"/>
 				
 				<table>
 					<tr>
@@ -72,7 +74,7 @@
 						</td>
 						
 						<td>
-							نائح\مقيم:
+							نازح\مقيم:
 						</td>
 						<td>
 							<select name="is_emigrant">
@@ -88,14 +90,14 @@
 						</td>
 						
 						<td>
-							<input type="text" name="job" <?php echo $family_member['job'];?> />
+							<input type="text" name="job" value="<?php echo $family_member['job'];?>" />
 						</td>
 						
 						<td>
 							الوضع الدراسي:
 						</td>
 						<td>
-							<input type="text" name="study_status" <?php echo $family_member['study_status'];?> />							
+							<input type="text" name="study_status" value="<?php echo $family_member['study_status'];?>" />							
 						</td>
 					</tr>
 					

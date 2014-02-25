@@ -1,7 +1,6 @@
 <div  class="row-fluid">	  	
 	  	<div class="span8 main-content offset2">
-			<h1>إضافة معيل</h1>  
-			<?php print_r($provider);?>
+			<h1>تعديل بيانات معيل</h1>  
 			<!-- excel sheet configuration form -->
 			<form method="post" action="<?php echo base_url();?>provider/saveData/edit/<?php echo $provider['id'];?>" enctype="multipart/form-data">
 				<table>									

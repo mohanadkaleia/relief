@@ -1,16 +1,36 @@
 <div  class="row-fluid">	  	
 	  	<div class="span8 main-content offset2">
-			<h1>إضافة فرد أسرى للمعيل :<?php echo $provider[0]['full_name'];?></h1>  
+			<h1>إضافة فرد أسرة للمعيل:<?php echo $provider[0]['full_name'];?></h1>  
 			
 			
 			<!-- excel sheet configuration form -->
 			<form method="post" action="<?php echo base_url();?>family_member/saveData/add" enctype="multipart/form-data">
-				<!-- provider code -->
-				<input type="hidden" name="provider_code" value="<?php echo $provider[0]['code'];?>"/>
+			<table>
+				<?php if($provider!== 0){?>
+					<!-- provider code -->
+					<input type="hidden" name="provider_code" value="<?php echo $provider[0]['code'];?>"/>
+					
+					<!-- provider name -->
+					<input type="hidden" name="provider_name" value="<?php echo $provider[0]['full_name'];?>"/>
+				<?php }else{?>
+					<tr>
+						<td>
+							اسم المعيل الثلاثي:
+						</td>
+						
+						<td>
+							<input type="text" name="provider_name" />
+						</td>
+						<td>
+							رمز المعيل:
+						</td>
+						
+						<td>
+							<input type="text" name="provider_code" />
+						</td>
+					</tr>
+				<?php }?>
 				
-				<!-- provider name -->
-				<input type="hidden" name="provider_name" value="<?php echo $provider[0]['full_name'];?>"/>
-				<table>
 					<tr>
 						<td>
 							الاسم الثلاثي الكامل:
@@ -74,7 +94,7 @@
 						</td>
 						
 						<td>
-							نائح\مقيم:
+							نازح\مقيم:
 						</td>
 						<td>
 							<select name="is_emigrant">
