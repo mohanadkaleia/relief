@@ -307,7 +307,27 @@ class Provider_model extends CI_Model
 		return $query->result_array();
 		//return $query->result(); 	
 	 } 
-
+	
+	
+	/**
+	 * function name : getProviderColumn
+	 * 
+	 * Description : 
+	 * this function will get the provider column names and return it in an array
+	 * ararry {field , type , null , key  ,default , extra}
+	 * 		
+	 * Created date ; 22-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getProviderColumn()
+	 {	 	
+	 	$query = "SHOW COLUMNS FROM provider";
+		$query =  $this->db->query($query);
+		return $query->result_array();		
+	 }
 }    
    
 ?>

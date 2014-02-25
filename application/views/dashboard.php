@@ -66,7 +66,7 @@
 	  			<div class="span3">
 	  				<!-- schedule-->
 	  				<div class="button-box" align="center">
-	  					<a href="<?php echo base_url()?>variables">	
+	  					<a href="<?php echo base_url()?>migrate">	
 		  					<img src="<?php echo base_url()?>/images/process.png"/>	  					
 		  					<p>استيراد\تصدير</p>	
 	  					</a>
