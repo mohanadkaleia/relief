@@ -66,20 +66,28 @@ class Family_member extends CI_Controller {
 	 * Author : Mohanad Shab Kaleia
 	 * contact : ms.kaleia@gmail.com
 	 */
-	public function add($provider_code)
+	public function add($provider_code = 0)
 	{			
-		//load provider model
-		$this->load->model("provider_model");
-		$this->provider_model->code = $provider_code;
-		$provider  = $this->provider_model->getProviderByCode();
-			
-		//provider info is an array of provider basic information		
-		$data['provider'] = $provider;	
-											
-		$this->load->view('gen/header');
-		$this->load->view('gen/slogan');
-		$this->load->view('family_member_add' , $data);
-		$this->load->view('gen/footer');
+		if($provider_code !== 0){
+			//load provider model
+			$this->load->model("provider_model");
+			$this->provider_model->code = $provider_code;
+			$provider  = $this->provider_model->getProviderByCode();
+				
+			//provider info is an array of provider basic information		
+			$data['provider'] = $provider;	
+												
+			$this->load->view('gen/header');
+			$this->load->view('gen/slogan');
+			$this->load->view('family_member_add' , $data);
+			$this->load->view('gen/footer');
+		}else{
+			$data['provider'] = 0;
+			$this->load->view('gen/header');
+			$this->load->view('gen/slogan');
+			$this->load->view('family_member_add',$data);
+			$this->load->view('gen/footer');
+		}
 	}
 	
 	
@@ -87,7 +95,12 @@ class Family_member extends CI_Controller {
 	 * function name : delete
 	 * 
 	 * Description : 
-	 * deletes the family member specified by the id
+	 * deletes the family member specified by the id.
+	 * this function is called from provider's family members page.
+	 * 
+	 * Parameters:
+	 * $provider_code: the code of the provider for this family member
+	 * $id: the id of the record to be deleted
 	 * 
 	 * Created date ; 22-2-2014
 	 * Modification date : ---
@@ -110,11 +123,47 @@ class Family_member extends CI_Controller {
 		redirect(base_url()."family_member/familyManage/". $provider_code);
 	}
 	
+	
+	/**
+	 * function name : delete_member
+	 * 
+	 * Description : 
+	 * deletes the family member specified by the id.
+	 * this function is called from family members page.
+	 * 
+	 * Parameters:
+	 * $id: the id of the record to be deleted
+	 * 
+	 * Created date ; 24-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	public function delete_member($id)
+	{			
+		//load family member model
+		$this->load->model("family_member_model");
+		
+		//set the id in the family member model
+		$this->family_member_model->id = $id;
+		
+		//execute the delete function
+		$this->family_member_model->deleteFamilyMember();
+		
+		//redirect to the provider's family members page
+		redirect(base_url()."family_member");
+	}
+	
+	
 	/**
 	 * function name : edit
 	 * 
 	 * Description : 
 	 * call edit family member page and fill it with family member's data
+	 * 
+	 * Parameters:
+	 * $id: the id of this family member
 	 * 
 	 * Created date ; 22-2-2014
 	 * Modification date : ---
@@ -122,7 +171,7 @@ class Family_member extends CI_Controller {
 	 * Author : Ahmad Mulhem Barakat
 	 * contact : molham225@gmail.com
 	 */
-	public function edit($provider_code,$id)
+	public function edit($page,$id)
 	{			
 		//load provider model
 		$this->load->model("family_member_model");
@@ -131,15 +180,16 @@ class Family_member extends CI_Controller {
 		$family_member = $this->family_member_model->getFamilyMemberById();
 		if(isset($family_member[0])){
 			
-			//insert the family member data in the ata array to get into the view.		
-			$data['family_member'] = $family_member[0];	
-			$data["provider_code"] = $provider_code;
+			//insert the family member data in the data array to get into the view.		
+			$data['family_member'] = $family_member[0];
+			$data['page'] = $page;
 												
 			$this->load->view('gen/header');
 			$this->load->view('gen/slogan');
 			$this->load->view('family_member_edit' , $data);
 			$this->load->view('gen/footer');
-		}
+		}else
+		redirect(base_url()."dashboard");
 	}
 	
 	
@@ -196,9 +246,14 @@ class Family_member extends CI_Controller {
 			
 			//call modify family member data function
 			$this->family_member_model->modifyFamilyMember();
-			
-			//redirect to the provider's family members page
-			redirect(base_url()."family_member/familyManage/". $provider_info['code']);
+			$page = $this->input->post('page');
+			if( $page == 'prov_fam'){
+				//redirect to the provider's family members page if it was the previous page
+				redirect(base_url()."family_member/familyManage/". $provider_info['code']);
+			}else if($page == 'member'){
+				//else redirect to the family members general page
+				redirect(base_url().'family_member');
+			}
 		}		
 				
 	}
@@ -242,8 +297,8 @@ class Family_member extends CI_Controller {
 		
 		//grid controls
 		$this->grid->control = array(
-									  array("title" => "تعديل" , "icon"=>"icon-pencil" , "url"=>base_url()."user/editUser" , "message_type"=>null , "message"=>"") , 
-									  array("title" => "حذف" , "icon"=>"icon-trash" ,"url"=>base_url()."user/deleteUser" , "message_type"=>"confirm" , "message"=>"Are you sure?")
+									  array("title" => "تعديل" , "icon"=>"icon-pencil" , "url"=>base_url()."family_member/edit/member" , "message_type"=>null , "message"=>"") , 
+									  array("title" => "حذف" , "icon"=>"icon-trash" ,"url"=>base_url()."family_member/delete_member" , "message_type"=>"confirm" , "message"=>"Are you sure?")
 									);												
 						
 		//render our grid :)
@@ -318,7 +373,7 @@ class Family_member extends CI_Controller {
 		
 		//grid controls
 		$this->grid->control = array(
-									  array("title" => "تعديل" , "icon"=>"icon-pencil" , "url"=>base_url()."family_member/edit/".$provider_code , "message_type"=>null , "message"=>"") , 
+									  array("title" => "تعديل" , "icon"=>"icon-pencil" , "url"=>base_url()."family_member/edit/prov_fam" , "message_type"=>null , "message"=>"") , 
 									  array("title" => "حذف" , "icon"=>"icon-trash" ,"url"=>base_url()."family_member/delete/".$provider_code , "message_type"=>"confirm" , "message"=>"Are you sure?")
 									);												
 						

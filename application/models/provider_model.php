@@ -183,7 +183,7 @@ class Provider_model extends CI_Model
 	 * Author : Ahmad Mulhem Barakat
 	 * contact : molham225@gmail.com
 	 */
-	 public function modifyProvider()
+	 public function modifyProvider($association_code , $area_code)
 	 {
 	 	$query = "UPDATE provider 
 				  SET 
