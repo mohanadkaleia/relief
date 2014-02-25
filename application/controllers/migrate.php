@@ -329,7 +329,7 @@ class Migrate extends CI_Controller {
 		
 		
 		// Rename sheet		
-		$objPHPExcel->getActiveSheet()->setTitle('Sheet 1');
+		$objPHPExcel->getActiveSheet()->setTitle('معيل');
 		
 		// Save Excel 2007 file		
 		

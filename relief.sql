@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 15, 2014 at 10:23 AM
+-- Generation Time: Feb 23, 2014 at 07:51 AM
 -- Server version: 5.5.34-0ubuntu0.13.04.1
 -- PHP Version: 5.4.9-4ubuntu2.4
 
@@ -31,15 +31,16 @@ CREATE TABLE IF NOT EXISTS `area` (
   `name` varchar(250) COLLATE utf8_bin DEFAULT NULL,
   `code` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `area`
 --
 
 INSERT INTO `area` (`id`, `name`, `code`) VALUES
-(1, 'المحافظة', '001'),
-(2, 'الحمدانية', '02');
+(1, 'الحمدانية', '002'),
+(3, 'المحافظة', '003'),
+(5, 'الجميلية', '005');
 
 -- --------------------------------------------------------
 
@@ -63,15 +64,15 @@ CREATE TABLE IF NOT EXISTS `association` (
   `creator_id` int(11) DEFAULT NULL,
   `is_deleted` varchar(1) COLLATE utf8_bin DEFAULT 'F',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=38 ;
 
 --
 -- Dumping data for table `association`
 --
 
 INSERT INTO `association` (`id`, `code`, `name`, `manager_name`, `phone1`, `phone2`, `mobile1`, `mobile2`, `address`, `about`, `logo`, `created_date`, `creator_id`, `is_deleted`) VALUES
-(1, '01', 'جمعية أهل الخير', 'مهند شب قلعية', '5213679', NULL, '0991561365', NULL, 'الفرقان - جمعية أهل الخير', 'تعتبر جمعية أهل الخير من الجمعيات الرائدة في مجال الإغاثة الإنسانية والاجتماعية', NULL, '2014-02-13', 1, 'F'),
-(2, '02', 'جمعية المحبة', 'مهند شب قلعية', '13213', '2313', '3213', '3213', 'عنوان', 'حول الجمعية', '', '0000-00-00', 1, 'F');
+(36, '003', '', '', '', '', '', '', '', '', '003.gif', '0000-00-00', 1, 'F'),
+(37, '005', 'جمعية المحبة', 'مهند شب قلعية', '521343', '3213123', '032131', '0312312312', 'حلب الجديدة', 'حول الجمعية', '005.png', '2014-02-21', 1, 'F');
 
 -- --------------------------------------------------------
 
@@ -81,7 +82,7 @@ INSERT INTO `association` (`id`, `code`, `name`, `manager_name`, `phone1`, `phon
 
 CREATE TABLE IF NOT EXISTS `family_member` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `provider_code` int(11) NOT NULL,
+  `provider_code` varchar(50) COLLATE utf8_bin NOT NULL,
   `full_name` varchar(250) COLLATE utf8_bin DEFAULT NULL,
   `gender` varchar(1) COLLATE utf8_bin DEFAULT 'M',
   `birth_date` date DEFAULT NULL,
@@ -96,16 +97,19 @@ CREATE TABLE IF NOT EXISTS `family_member` (
   `creator_id` int(11) DEFAULT NULL,
   `is_deleted` varchar(1) COLLATE utf8_bin DEFAULT 'F',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `family_member`
 --
 
 INSERT INTO `family_member` (`id`, `provider_code`, `full_name`, `gender`, `birth_date`, `relationship`, `is_emigrant`, `job`, `study_status`, `social_status`, `health_status`, `note`, `created_date`, `creator_id`, `is_deleted`) VALUES
-(1, 0, 'فرد اسرة', 'M', '0000-00-00', 'father', 'e', 'العمل والمهنة', 'الوضع الدراسي', 'married', 'disabled', 'ملاحظاتا', NULL, NULL, 'F'),
-(2, 0, 'فرد اسرة', 'M', '0000-00-00', 'father', 'e', 'العمل والمهنة', 'الوضع الدراسي', 'married', 'disabled', 'ملاحظاتا', NULL, NULL, 'F'),
-(3, 0, 'تجربة 2', 'M', '0000-00-00', 'father', 'T', '', '', 'married', 'disabled', '', NULL, NULL, 'F');
+(1, '', 'فرد أسرة للمعيل وافراد 2', 'M', '0000-00-00', 'father', 'T', 'عاطل عن العمل', 'عاطل عن العمل الدراسي', 'married', 'disabled', 'لا يوجد ملاحظات', NULL, NULL, 'F'),
+(2, '', 'فرد أسرة للمعيل 2 مع كود', 'M', '0000-00-00', 'father', 'T', '', '', 'married', 'disabled', '', NULL, NULL, 'F'),
+(3, '010020023331231', 'فرد 3 مع كود', 'M', '0000-00-00', 'father', 'T', '', '', 'married', 'disabled', '', NULL, NULL, 'F'),
+(4, '01002012345678', 'واخد', 'M', '0000-00-00', 'father', 'T', '', '', 'married', 'disabled', '', NULL, NULL, 'F'),
+(5, '01002012345678', 'اتنين', 'M', '0000-00-00', 'father', 'T', '', '', 'married', 'disabled', '', NULL, NULL, 'F'),
+(6, '01002012345678', 'تلاتة', 'M', '0000-00-00', 'father', 'T', '', '', 'married', 'disabled', '', NULL, NULL, 'F');
 
 -- --------------------------------------------------------
 
@@ -115,11 +119,11 @@ INSERT INTO `family_member` (`id`, `provider_code`, `full_name`, `gender`, `birt
 
 CREATE TABLE IF NOT EXISTS `provider` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `area_id` int(11) DEFAULT NULL,
-  `association_id` int(11) DEFAULT NULL,
-  `code` int(12) DEFAULT NULL,
+  `area_code` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `association_code` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `code` varchar(250) COLLATE utf8_bin DEFAULT NULL,
   `full_name` varchar(250) COLLATE utf8_bin DEFAULT NULL,
-  `naional_id` int(11) DEFAULT NULL,
+  `national_id` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `family_book_num` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `family_book_letter` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `family_book_family_number` varchar(50) COLLATE utf8_bin DEFAULT NULL,
@@ -140,16 +144,21 @@ CREATE TABLE IF NOT EXISTS `provider` (
   `creator_id` int(11) DEFAULT NULL,
   `is_deleted` varchar(1) COLLATE utf8_bin DEFAULT 'F',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `provider`
 --
 
-INSERT INTO `provider` (`id`, `area_id`, `association_id`, `code`, `full_name`, `naional_id`, `family_book_num`, `family_book_letter`, `family_book_family_number`, `family_book_note`, `current_address`, `prev_address`, `street`, `point_guide`, `build`, `floor`, `phone1`, `phone2`, `mobile1`, `mobile2`, `note`, `relief_form_status`, `created_date`, `creator_id`, `is_deleted`) VALUES
-(1, 1, 1, 0, 'مطيعة مدري شو', 0, '', 'حرف', '', 'بيان', 'عنوان حالي', 'عنوان سابق', 'الشارع', '', 'بناء', 'طابق', 'هاتف', 'هاتف', 'موبايل', 'موبايل2', '', 0, '0000-00-00', 1, 'F'),
-(2, 1, 1, 0, 'مطيعة مدري شو', 0, 'دفتر العائلة', 'حرف', '', 'بيان', 'عنوان حالي', 'عنوان سابق', 'الشارع', '', 'بناء', 'طابق', 'هاتف', 'هاتف', 'موبايل', 'موبايل2', '', 0, '0000-00-00', 1, 'F'),
-(3, 1, 1, 0, 'تجربة مدري شو رقمها', 3213123, 'دفتر العائلة', 'حرف', '', 'بيان عائلي', 'العنوان الحالي', 'العنوان السابق', 'الشارع', '', 'بناء', 'طابق', 'هاتف 1', 'هاتف 2', 'موبايل 1', 'موبايل 2', 'ملاحظات', 0, '0000-00-00', 1, 'F');
+INSERT INTO `provider` (`id`, `area_code`, `association_code`, `code`, `full_name`, `national_id`, `family_book_num`, `family_book_letter`, `family_book_family_number`, `family_book_note`, `current_address`, `prev_address`, `street`, `point_guide`, `build`, `floor`, `phone1`, `phone2`, `mobile1`, `mobile2`, `note`, `relief_form_status`, `created_date`, `creator_id`, `is_deleted`) VALUES
+(1, '002', '1', '', 'مطيعة', '0231231232', '32312', 'ح', '', 'بيان عائلي', 'العنوان الحالي', 'العنوان السابق', 'شارع الحمدانية', 'جانب الشارع', 'بناء 1', 'طابق خامس', '231312312', '231321313', '312312312', '3213123123', 'ملاحظات', 0, '0000-00-00', 1, 'F'),
+(2, '002', '1', '100223123123', 'تجربة كود', '23123123', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '0000-00-00', 1, 'F'),
+(3, '002', '1', '1002002231312321', 'تجربة إضافة معيل مع افراد أسرته', '002231312321', 'رقم دفتر العائلة', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '0000-00-00', 1, 'F'),
+(4, '002', '01', '010020023331231', 'معيل وافراد 2', '0023331231', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '0000-00-00', 1, 'F'),
+(5, '002', '01', '010020023331231', 'provider', '0023331231', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '0000-00-00', 1, 'F'),
+(6, '002', '01', '01002012345678', 'اضافة معيل مع اسرته', '012345678', '123', '123', '', '123', 'حالي', 'سابق', 'شارع', 'نقطة علام', 'بناء', 'طابق', 'هاتف 1', 'هاتف 2', 'موبايل 1', 'موبايل 2', 'ملاحظات', 0, '0000-00-00', 1, 'F'),
+(7, '002', '01', '01002012345678', 'اضافة معيل مع اسرته', '012345678', '123', '123', '', '123', 'حالي', 'سابق', 'شارع', 'نقطة علام', 'بناء', 'طابق', 'هاتف 1', 'هاتف 2', 'موبايل 1', 'موبايل 2', 'ملاحظات', 0, '0000-00-00', 1, 'F'),
+(8, '002', '01', '01002123456', 'معيل مع تاريخ', '123456', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, '2014-02-22', 1, 'F');
 
 -- --------------------------------------------------------
 
@@ -159,11 +168,25 @@ INSERT INTO `provider` (`id`, `area_id`, `association_id`, `code`, `full_name`, 
 
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(250) CHARACTER SET utf8 DEFAULT NULL,
+  `last_name` varchar(250) CHARACTER SET utf8 DEFAULT NULL,
+  `national_id` int(11) DEFAULT NULL,
   `username` varchar(250) COLLATE utf8_bin NOT NULL,
   `password` varchar(250) COLLATE utf8_bin NOT NULL,
-  `association_id` int(11) DEFAULT NULL,
+  `phone` varchar(250) CHARACTER SET utf8 DEFAULT NULL,
+  `mobile` varchar(250) CHARACTER SET utf8 DEFAULT NULL,
+  `address` text CHARACTER SET utf8,
+  `association_code` varchar(250) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `national_id`, `username`, `password`, `phone`, `mobile`, `address`, `association_code`) VALUES
+(5, '????', '???', 2147483647, 'molham', 'e10adc3949ba59abbe56e057f20f883e', '2254549', '0956232', '??????????????? ??? ?????? ????? ????? ?', '001'),
+(6, 'مهند', 'شب قلعية', 211323123, 'mohanad', 'e10adc3949ba59abbe56e057f20f883e', '5213679', '0991561365', 'حلب - حلب الجديدة - جمعية التعليم العالي', '001');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
