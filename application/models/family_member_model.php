@@ -264,6 +264,27 @@ class Family_member_model extends CI_Model{
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }
+	 
+	 
+	 /**
+	 * function name : getFamilyColumn
+	 * 
+	 * Description : 
+	 * this function will get the family member column names and return it in an array
+	 * ararry {field , type , null , key  ,default , extra}
+	 * 		
+	 * Created date ; 25-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getFamilyColumn()
+	 {	 	
+	 	$query = "SHOW COLUMNS FROM family_member";
+		$query =  $this->db->query($query);
+		return $query->result_array();		
+	 }
 }    
     
     
