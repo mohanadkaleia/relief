@@ -84,6 +84,25 @@ class Provider extends CI_Controller {
 	
 	
 	/**
+	 * function name : barcode_generate
+	 * 
+	 * Description : 
+	 * deletes the provider specified by the id
+	 * 
+	 * Created date ; 22-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	public function barcode_generate($provider_code)
+	{			
+		$data['provider_code'] = $provider_code;
+		$this->load->view('barcode_generate' , $data);
+		
+	}
+	
+	/**
 	 * function name : delete
 	 * 
 	 * Description : 
@@ -311,7 +330,7 @@ class Provider extends CI_Controller {
 		$this->grid->option['add_url'] = base_url()."provider/add"; //add url
 		$this->grid->option['add_title'] = "إضافة معيل"; //add title
 			
-		$this->grid->columns = array('code' , 'full_name' , 'national_id' , 'created_date');
+		$this->grid->columns = array( 'full_name' , 'national_id' , 'created_date');//'code' removed
 		
 		//get the data	
 		$this->grid->data = $this->provider_model->getAllProviders();
@@ -321,7 +340,8 @@ class Provider extends CI_Controller {
 									  array("title" => "الأسرة" , "icon"=>"icon-plus" , "url"=>base_url()."family_member/familyManage" , "message_type"=>null , "message"=>"") ,
 									  array("title" => "تعديل" , "icon"=>"icon-pencil" , "url"=>base_url()."provider/edit" , "message_type"=>null , "message"=>"") , 
 									  array("title" => "حذف" , "icon"=>"icon-trash" ,"url"=>base_url()."provider/delete" , "message_type"=>"confirm" , "message"=>"Are you sure?"),
-									  array("title" => "عرض" , "icon"=>"icon-file" ,"url"=>base_url()."provider/view" , "message_type"=>null , "message"=>"")
+									  array("title" => "عرض" , "icon"=>"icon-file" ,"url"=>base_url()."provider/view" , "message_type"=>null , "message"=>""),
+									  array("title" => "توليد كود" , "icon"=>"icon-barcode" ,"url"=>base_url()."provider/barcode_generate" , "message_type"=>null , "message"=>"")
 									);												
 						
 		//render our grid :)
