@@ -181,6 +181,10 @@ class Provider extends CI_Controller {
 	 * Description : 
 	 * views all the provider data and his family members.
 	 * 
+	 * Parameters:
+	 * provider_code: the code of the provider.
+	 * barcode: a flag that is set tu true if the bar code is generated.
+	 * 
 	 * Created date ; 24-2-2014
 	 * Modification date : ---
 	 * Modfication reason : ---
@@ -188,43 +192,43 @@ class Provider extends CI_Controller {
 	 * contact : molham225@gmail.com
 	 */
 	public function view($provider_code)
-	{
-		//load provider model
-		$this->load->model("provider_model");
-		//load provider model
-		$this->load->model("family_member_model");
-		//load area model 
-		$this->load->model("area_model");
-		
-		//set the code of the wanted provider in the model
-		$this->provider_model->code = $provider_code;
-		//get the data of the provider to edit
-		$provider = $this->provider_model->getProviderByCode();
-		
-		if(isset($provider[0])){
+	{	
+			//load provider model
+			$this->load->model("provider_model");
+			//load provider model
+			$this->load->model("family_member_model");
+			//load area model 
+			$this->load->model("area_model");
+			
 			//set the code of the wanted provider in the model
-			$this->family_member_model->provider_code = $provider_code;
-			//get the provider's family members
-			$family_members = $this->family_member_model->getFamilyMemberByProviderCode();
+			$this->provider_model->code = $provider_code;
+			//get the data of the provider to edit
+			$provider = $this->provider_model->getProviderByCode();
 			
-			//set the id of the wanted provider's area in the model
-			$this->area_model->code = $provider[0]['area_code'];
-			//get the area of the provider
-			$area  = $this->area_model->getAreaByCode();
-			
-			//set the data array to be passed to the view page
-			$data["provider"] = $provider[0];
-			$data["family_members"] = $family_members;
-			$data["area"] = $area;
-			
-			//load the views with data			
-			$this->load->view('gen/header');
-			$this->load->view('gen/slogan');
-			$this->load->view('provider_view' , $data);
-			$this->load->view('gen/footer');
-		}else{
-			redirect(base_url()."provider");
-		}
+			if(isset($provider[0])){
+				//set the code of the wanted provider in the model
+				$this->family_member_model->provider_code = $provider_code;
+				//get the provider's family members
+				$family_members = $this->family_member_model->getFamilyMemberByProviderCode();
+				
+				//set the id of the wanted provider's area in the model
+				$this->area_model->code = $provider[0]['area_code'];
+				//get the area of the provider
+				$area  = $this->area_model->getAreaByCode();
+				
+				//set the data array to be passed to the view page
+				$data["provider"] = $provider[0];
+				$data["family_members"] = $family_members;
+				$data["area"] = $area;
+				
+				//load the views with data			
+				$this->load->view('gen/header');
+				$this->load->view('gen/slogan');
+				$this->load->view('provider_view' , $data);
+				$this->load->view('gen/footer');
+			}else{
+				redirect(base_url()."provider");
+			}
 	}
 	
 	/**
@@ -330,7 +334,7 @@ class Provider extends CI_Controller {
 		$this->grid->option['add_url'] = base_url()."provider/add"; //add url
 		$this->grid->option['add_title'] = "إضافة معيل"; //add title
 			
-		$this->grid->columns = array( 'full_name' , 'national_id' , 'created_date');//'code' removed
+		$this->grid->columns = array('code','full_name' , 'national_id' , 'created_date');//'code' removed
 		
 		//get the data	
 		$this->grid->data = $this->provider_model->getAllProviders();
@@ -340,8 +344,7 @@ class Provider extends CI_Controller {
 									  array("title" => "الأسرة" , "icon"=>"icon-plus" , "url"=>base_url()."family_member/familyManage" , "message_type"=>null , "message"=>"") ,
 									  array("title" => "تعديل" , "icon"=>"icon-pencil" , "url"=>base_url()."provider/edit" , "message_type"=>null , "message"=>"") , 
 									  array("title" => "حذف" , "icon"=>"icon-trash" ,"url"=>base_url()."provider/delete" , "message_type"=>"confirm" , "message"=>"Are you sure?"),
-									  array("title" => "عرض" , "icon"=>"icon-file" ,"url"=>base_url()."provider/view" , "message_type"=>null , "message"=>""),
-									  array("title" => "توليد كود" , "icon"=>"icon-barcode" ,"url"=>base_url()."provider/barcode_generate" , "message_type"=>null , "message"=>"")
+									  array("title" => "عرض" , "icon"=>"icon-file" ,"url"=>base_url()."provider/barcode_generate" , "message_type"=>null , "message"=>"")
 									);												
 						
 		//render our grid :)
