@@ -1,5 +1,13 @@
 <div  class="row-fluid">	  	
 	  	<div class="span8 main-content offset2">
+	  		
+	  		<!-- breacrumb -->
+	  		<ul class="breadcrumb">
+			  <li><a href="<?php echo base_url();?>dashboard">الرئيسية</a> <span class="divider">/</span></li>			  
+			  <li><a href="<?php echo base_url();?>provider">إدارة معيل</a> <span class="divider">/</span></li>
+			  <li class="active">إضافة معيل</li>
+			</ul>
+	  		
 			<h1>إضافة معيل</h1>  
 			
 			<!-- excel sheet configuration form -->

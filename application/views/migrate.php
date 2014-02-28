@@ -1,0 +1,34 @@
+<div  class="row-fluid">	  	
+	  	<div class="span8 main-content offset2">
+			<h1>استيراد \ تصدير بيانات</h1>  
+			<br/>
+			<div class="row">
+				<div class="span6 right-side">
+					
+					<p class="alert alert-info">
+						يمكنك تصدير كافة بيانات المعيل وأفراد أسرته من خلال الضغط على زر تصدير،
+						 بحيث يمكن استيراد هذه البيانات ليتم إضافتها على جهاز آخر.
+						 إن صيغة ملف الخرج ستكون على شكل ملف اكسل. 						
+					</p>
+					
+					<form method="post" action="<?php echo base_url()?>migrate/export">
+						<input type="submit" class="btn btn-info" value="تصدير البيانات"/>	
+					</form>					
+				</div>
+				
+				
+				<div class="span6">					
+					<p class="alert alert-success">
+						قم باختيار ملف الاكسل ليتم استيراد البيانات منه ودمجها مع البيانات الحالية الموجودة في قاعدة البيانات،
+						في حال وجود بيانات قديمة أو مكررة فأنه لن يتم إضافتها. 						
+					</p>
+					<form method="post" action="<?php echo base_url()?>migrate/import">
+						
+						<input type="file" name="imported_file"/>
+						<input type="submit" class="btn btn-success" value="استيراد البيانات"/>	
+					</form>	
+				</div>
+			</div>
+	  	</div>
+	  
+	</div>

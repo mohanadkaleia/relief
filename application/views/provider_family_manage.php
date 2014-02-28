@@ -8,6 +8,15 @@
 <div class="container">
 	
 	<div class="hero-unit">
+		
+		<!-- breacrumb -->
+  		<ul class="breadcrumb">
+		  <li><a href="<?php echo base_url();?>dashboard">الرئيسية</a> <span class="divider">/</span></li>			  
+		  <li><a href="<?php echo base_url();?>provider">إدارة معيل</a> <span class="divider">/</span></li>
+		  <li class="active">إدارة أفراد الأسرة</li>
+		</ul>
+		
+		
 		<h3 class="title">إدارة أفراد الأسرة</h3>	 
 		
 		<div class="grid">

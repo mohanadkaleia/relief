@@ -1,5 +1,14 @@
 <div  class="row-fluid">	  	
 	  	<div class="span8 main-content offset2">
+	  		
+	  		
+	  		<!-- breacrumb -->
+	  		<ul class="breadcrumb">
+			  <li><a href="<?php echo base_url();?>dashboard">الرئيسية</a> <span class="divider">/</span></li>			  
+			  <li><a href="<?php echo base_url();?>provider">إدارة معيل</a> <span class="divider">/</span></li>
+			  <li class="active">تعديل معيل</li>
+			</ul>
+	  		
 			<h1>تعديل بيانات معيل</h1>  
 			<!-- excel sheet configuration form -->
 			<form method="post" action="<?php echo base_url();?>provider/saveData/edit/<?php echo $provider['id'];?>" enctype="multipart/form-data">

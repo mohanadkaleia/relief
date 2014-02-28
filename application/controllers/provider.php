@@ -318,7 +318,7 @@ class Provider extends CI_Controller {
 		
 		//grid controls
 		$this->grid->control = array(
-									  array("title" => "الأسرة" , "icon"=>"icon-plus" , "url"=>base_url()."family_member/familyManage" , "message_type"=>null , "message"=>"") ,
+									  array("title" => "الأسرة" , "icon"=>"icon-th-list" , "url"=>base_url()."family_member/familyManage" , "message_type"=>null , "message"=>"") ,
 									  array("title" => "تعديل" , "icon"=>"icon-pencil" , "url"=>base_url()."provider/edit" , "message_type"=>null , "message"=>"") , 
 									  array("title" => "حذف" , "icon"=>"icon-trash" ,"url"=>base_url()."provider/delete" , "message_type"=>"confirm" , "message"=>"Are you sure?"),
 									  array("title" => "عرض" , "icon"=>"icon-file" ,"url"=>base_url()."provider/view" , "message_type"=>null , "message"=>"")

@@ -286,7 +286,7 @@ class Family_member extends CI_Controller {
 		$this->grid->option['sortable'] = FALSE;  // is sortable
 		$this->grid->option['page_size'] = 10;    //records per page
 		$this->grid->option['row_number'] = true; //show the row number		
-		$this->grid->option['add_button'] = true; //show add button
+		$this->grid->option['add_button'] = false; //show add button
 		$this->grid->option['add_url'] = base_url()."family_member/add"; //add url
 		$this->grid->option['add_title'] = "إضافة فرد"; //add title
 			

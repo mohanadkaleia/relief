@@ -429,3 +429,11 @@ table#details tr td.title-td{
 	text-align: left;
 	padding-left: 15px;
 }
+
+
+.right-side
+{	
+	border-left:1px dotted gray;
+	padding:10px;
+	text-justify: auto;
+}

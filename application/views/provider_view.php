@@ -1,5 +1,14 @@
 <div  class="row-fluid">	  	
 	  	<div class="span8 main-content offset2">
+	  		
+	  		<!-- breacrumb -->
+	  		<ul class="breadcrumb">
+			  <li><a href="<?php echo base_url();?>dashboard">الرئيسية</a> <span class="divider">/</span></li>			  
+			  <li><a href="<?php echo base_url();?>provider">إدارة المعيل</a> <span class="divider">/</span></li>
+			  <li class="active">بيانات المعيل</li>
+			</ul>
+	  		
+	  		
 			<h1>بيانات المعيل <?php echo $provider['code'];?>#</h1>  
 			 <br />
 				<table id="details">									

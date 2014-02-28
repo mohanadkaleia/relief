@@ -1,5 +1,13 @@
 <div  class="row-fluid">	  	
 	  	<div class="span8 main-content offset2">
+			
+			<!-- breacrumb -->
+	  		<ul class="breadcrumb">
+			  <li><a href="<?php echo base_url();?>dashboard">الرئيسية</a> <span class="divider">/</span></li>			  
+			  <li><a href="<?php echo base_url();?>family_member">إدارة أفراد الأسرة</a> <span class="divider">/</span></li>
+			  <li class="active">إضافة فرد أسرة للمعيل</li>
+			</ul>
+			
 			<h1>إضافة فرد أسرة للمعيل:<?php echo $provider[0]['full_name'];?></h1>  
 			
 			

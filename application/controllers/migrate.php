@@ -18,8 +18,11 @@ class Migrate extends CI_Controller {
 
 	
 	public function index()
-	{
-		$this->export();
+	{		
+		$this->load->view('gen/header');
+		$this->load->view('gen/slogan');
+		$this->load->view('migrate');
+		$this->load->view('gen/footer');
 	}
 	
 	
@@ -30,14 +33,7 @@ class Migrate extends CI_Controller {
 	 * function name : export
 	 * 
 	 * Description : 
-	 * This function will do the following:
-	 * 	1.upload the excel form
-	 * 	2.read settings and variables from the database
-	 * 	3.open the uploaded excel file
-	 * 	4.create a new excel file
-	 * 	5.read values from user excel file and write them to the new one
-	 * 	6.make the created file downloadable
-	 * 	7.that's all :)
+	 * this function create excel file with two sheet first one for provider second for family member
 	 * 	
 	 * 
 	 * Created date ; 2-2-2014
@@ -75,8 +71,9 @@ class Migrate extends CI_Controller {
 	 * function name : createExcelFile
 	 * 
 	 * Description : 
-	 * This function will do the following:
-	 * 	3.read excel file
+	 * write an excel file for provider and family data
+	 * each field is sorounded by "", so when we need to read the excel file we
+	 * have to strip thise quotes
 	 * 	
 	 * 	
 	 * parameter:
@@ -116,11 +113,12 @@ class Migrate extends CI_Controller {
 		for($i = 0 ; $i < count($provider_header); $i++)
 		{				
 			//add header data				
-			$objPHPExcel->getActiveSheet()->SetCellValue($cell_index."1", $provider_header[$i]['Field']);
+			$objPHPExcel->getActiveSheet()->SetCellValue($cell_index."1", $provider_header[$i]['Field']);			
 		
 			for($j=0 ; $j<count($provider_data) ; $j++)
 			{
-				$objPHPExcel->getActiveSheet()->SetCellValue($cell_index.($j+2), $provider_data[$j][$provider_header[$i]['Field']]);		
+				//$objPHPExcel->getActiveSheet()->SetCellValue($cell_index.($j+2), "\"" .  $provider_data[$j][$provider_header[$i]['Field']] . "\"");
+				$objPHPExcel->getActiveSheet()->setCellValueExplicit($cell_index.($j+2), $provider_data[$j][$provider_header[$i]['Field']], PHPExcel_Cell_DataType::TYPE_STRING);		
 			}			
 			$cell_index++;					
 		}
@@ -142,11 +140,9 @@ class Migrate extends CI_Controller {
 			//add header data				
 			$objWorkSheet->SetCellValue($cell_index."1", $family_header[$i]['Field']);						
 			
-			for($j=0 ; $j<count($provider_data) ; $j++)
-			{
-				
-				
-				$objWorkSheet->SetCellValue($cell_index.($j+2), $family_data[$j][$family_header[$i]['Field']]);		
+			for($j=0 ; $j<count($family_data) ; $j++)
+			{								
+				$objWorkSheet->setCellValueExplicit($cell_index.($j+2), $family_data[$j][$family_header[$i]['Field']] , PHPExcel_Cell_DataType::TYPE_STRING);					
 			}			
 			$cell_index++;					
 		}
@@ -163,7 +159,7 @@ class Migrate extends CI_Controller {
 		// rename the output file
 		
 		//$orginal_file_name = pathinfo($_FILES["exam_excel"]["name"])['filename'];
-		$file_name = "relief";
+		$file_name = "relief".date("Y-m-d");;
 		header('Content-Disposition: attachment; filename="'.$file_name.'.xls"');
 								
 		$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
@@ -176,6 +172,46 @@ class Migrate extends CI_Controller {
 	}
 	
 	
+	
+	/**
+	 * function name : import
+	 * 
+	 * Description : 
+	 * this function will import providers information and thier families from excel form
+	 * this function consist of this partial steps:
+	 * 1. upload the excel file
+	 * 2. read sheet 1 and add providers (check if the provider is exist then just update their information)
+	 * 3. read sheet 2 and add families member
+	 * 4. thats all	
+	 * 
+	 * 
+	 * Created date ; 28-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	public function import()
+	{
+		//load provider and family model
+		$this->load->model('provider_model');
+		$this->load->model('family_member_model');											
+				
+		/** get provider and family data**/
+		$providers = $this->provider_model->getAllProviders();
+		$families = $this->family_member_model->getAllFamilyMembers();
+						
+		/** create new excel file **/
+		//get provider header
+		$provider_header = $this->provider_model->getProviderColumn();			
+		$family_header = $this->family_member_model->getFamilyColumn();
+		$this->createExcelFile($provider_header , $providers , $family_header , $families);
+		
+		//redrect to show convet page and show message
+		$status_message = "Exam excel file has been converted succesfully, it should be downloaded now";
+		
+		//$this->showConvert($status_message);
+	}
 	
 }
 
