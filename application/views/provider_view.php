@@ -22,6 +22,7 @@
 							<?php echo $provider['full_name'];?>
 						</td>
 						
+						
 					</tr>
 										
 					<tr >
@@ -166,6 +167,15 @@
 						<td colspan="3"> 
 							<?php echo $provider['note'];?>
 						</td>
+					</tr>
+					<tr class="odd">
+						<td class="title-td">
+							الباركود:
+						</td>
+						<td colspan="5">
+							<img src="<?php echo base_url();?>files/barcode/<?php echo $provider['code'];?>.png" />
+						</td>
+						
 					</tr>
 					<tr></tr>
 				</table>
