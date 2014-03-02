@@ -142,6 +142,66 @@ class Area extends CI_Controller {
 	
 	
 	/**
+	 * function name : getUnique
+	 * 
+	 * Description : 
+	 * This function checks if the entered name and code of the area are unique.
+	 * 
+	 * Created date ; 2-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	public function getUnique()
+	{
+		$this->load->model('area_model');
+		
+		$this->area_model->name = $_GET['name'];
+		$this->area_model->code = $_GET['code'];
+		
+		//if this is an edit operation and the old code doesn't match 
+		//the new one check if the new code is unique
+		if(isset($_GET['old_code'])){
+			if($_GET['old_code'] !== ""){
+				//check if the area code is unique
+				$area = $this->area_model->getAreaByCode();
+				if(isset($area[0])){
+					echo "code";
+				}else{
+					//check if the area name is unique
+					$area = $this->area_model->getAreaByName();
+					if(isset($area[0])){
+						echo "name";
+					}
+				}
+			}else
+			//if this is an edit operation and the old name doesn't match 
+			//the new one check if the new name is unique
+			if($_GET['old_name'] !== ""){
+				//check if the area name is unique
+				$area = $this->area_model->getAreaByName();
+				if(isset($area[0])){
+					echo "name";
+				}
+			}
+		}else{		
+			//check if the area code is unique
+			$area = $this->area_model->getAreaByCode();
+			if(isset($area[0])){
+				echo "code";
+			}else{
+			//check if the area name is unique
+				$area = $this->area_model->getAreaByName();
+				if(isset($area[0])){
+					echo "name";
+				}
+			}	
+		}	
+	}
+	
+	
+	/**
 	 * function name : saveData
 	 * 
 	 * Description : 

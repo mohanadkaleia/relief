@@ -145,7 +145,7 @@ class Association extends CI_Controller {
 		$this->association_model->address = $this->input->post('address');		
 		$this->association_model->about = $this->input->post('about');
 		$this->association_model->created_date = $this->input->post('created_date');
-		$this->association_model->creator_id = 1;
+		$this->association_model->creator_id = $this->session->userdata['user']['id'];
 		
 		
 		if(isset($action)){
@@ -217,9 +217,12 @@ class Association extends CI_Controller {
 							$extension = substr($logo["name"],$pos);
 							//if the directory doesn't exist create one
 							if (!is_dir($path)) {
-								mkdir($path, 0777, true);         
+								if(!mkdir($path, 0777, true)) 
+									echo 'Could not make directory '.$path;         
 							}else{
-							//delete old logo..
+								//delete old logo..
+								$old_logo = $this->input->post("old_logo");
+								unlike($path."/".$old_logo);
 							}
 							
 							//move the uploaded file to the desired folder
@@ -236,7 +239,6 @@ class Association extends CI_Controller {
 				$this->association_model->modifyAssociation();
 			}
 		}
-		echo $this->input->post("old_logo");
 		redirect(base_url()."association");	
 	}
 
@@ -308,6 +310,67 @@ class Association extends CI_Controller {
 		//Go back to association page to view the execution result.
 		redirect("association");
 	}
+	
+	
+	/**
+	 * function name : getUnique
+	 * 
+	 * Description : 
+	 * This function checks if the entered name and code of the association are unique.
+	 * 
+	 * Created date ; 2-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	public function getUnique()
+	{
+		$this->load->model('association_model');
+		
+		$this->association_model->name = $_GET['name'];
+		$this->association_model->code = $_GET['code'];
+		
+		//if this is an edit operation and the old code doesn't match 
+		//the new one check if the new code is unique
+		if(isset($_GET['old_code'])){
+			if($_GET['old_code'] !== ""){
+				//check if the association code is unique
+				$association = $this->association_model->getAssociationByCode();
+				if(isset($association[0])){
+					echo "code";
+				}else{
+					//check if the association name is unique
+					$association = $this->association_model->getAssociationByName();
+					if(isset($association[0])){
+						echo "name";
+					}
+				}
+			}else
+			//if this is an edit operation and the old name doesn't match 
+			//the new one check if the new name is unique
+			if($_GET['old_name'] !== ""){
+				//check if the association name is unique
+				$association = $this->association_model->getAssociationByName();
+				if(isset($association[0])){
+					echo "name";
+				}
+			}
+		}else{		
+			//check if the association code is unique
+			$association = $this->association_model->getAssociationByCode();
+			if(isset($association[0])){
+				echo "code";
+			}else{
+			//check if the association name is unique
+				$association = $this->association_model->getAssociationByName();
+				if(isset($association[0])){
+					echo "name";
+				}
+			}	
+		}	
+	}
+	
 }
 
 /* End of file association.php */

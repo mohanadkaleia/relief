@@ -261,7 +261,29 @@ class Association_model extends CI_Model{
 	 public function searchAssociationByName(){
 		$query = "SELECT * 
 				  FROM association
-				  WHERE name LIKE %{$this->name}% ";
+				  WHERE name LIKE '%{$this->name}%' ";
+		$query = $this->db->query($query);
+		return $query->result_array();
+	 }
+	 
+	 /**
+	 * function name : getAssociationByName
+	 * 
+	 * Description : 
+	 * Gets the association specified by the given Name.
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 2-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	 public function getAssociationByName(){
+		$query = "SELECT * 
+				  FROM association
+				  WHERE name like '{$this->name}' ";
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }

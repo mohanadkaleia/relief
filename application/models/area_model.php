@@ -201,7 +201,29 @@ class Area_model extends CI_Model{
 	 public function searchAreaByName(){
 		$query = "SELECT * 
 				  FROM area
-				  WHERE name LIKE %{$this->name}% ";
+				  WHERE name LIKE '%{$this->name}%' ";
+		$query = $this->db->query($query);
+		return $query->result_array();
+	 }
+	 
+	 /**
+	 * function name : getAreaByName
+	 * 
+	 * Description : 
+	 * Gets the area of the given name
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 2-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	 public function getAreaByName(){
+		$query = "SELECT * 
+				  FROM area
+				  WHERE name LIKE '{$this->name}' ";
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }
