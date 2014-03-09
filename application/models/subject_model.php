@@ -1,12 +1,12 @@
 <?php if (!defined("BASEPATH")) exit("No direct script access allowed");
     
 /**
- * Class name : Area_model
+ * Class name : Subject_model
  * 
  * Description :
- * This class contain functions to deal with the area database table (Add , Edit , Delete)
+ * This class contain functions to deal with the subject database table (Add , Edit , Delete)
  * 
- * Created date ; 13-2-2014
+ * Created date ; 4-3-2014
  * Modification date : ---
  * Modfication reason : ---
  * Author : Ahmad Mulhem Barakat
@@ -14,16 +14,16 @@
  */    
     
     
-class Area_model extends CI_Model{
+class Subject_model extends CI_Model{
 	/**class variable**/
-	//The id field of the area in the database
+	//The id field of the subject in the database
 	var $id;
 	
-	//the name of the area
+	//the name of the subject
 	var $name = "";
 	
-	//3-Numeric code that is unique for every area
-	var $code = "";
+	//the id of the category of this subject
+	var $subject_category_id = "";
 	
 	
 	/**
@@ -39,28 +39,28 @@ class Area_model extends CI_Model{
 	 **/
 	
 	/**
-	 * function name : addArea
+	 * function name : addSubject
 	 * 
 	 * Description : 
-	 * Add new area to the database.
+	 * Add new subject to the database.
 	 * 
 	 * parameters:
 	 * 
-	 * Created date ; 13-2-2014
+	 * Created date ; 4-3-2014
 	 * Modification date : ---
 	 * Modfication reason : ---
 	 * Author : Ahmad Mulhem Barakat
 	 * contact : molham225@gmail.com
 	 */
-	 public function addArea()
+	 public function addSubject()
 	 {
-	 	$query = "INSERT INTO  area (
+	 	$query = "INSERT INTO  subject (
 				name,
-				code		
+				subject_category_id		
 				)
 				VALUES (  
-				'{$this->name}',
-				'{$this->code}' 
+				'{$this->name}', 
+				'{$this->subject_category_id}' 
 				);
 					 	";	
 		$this->db->query($query);
@@ -68,26 +68,26 @@ class Area_model extends CI_Model{
 	 
 	 
 	 /**
-	 * function name : modifyArea
+	 * function name : modifySubject
 	 * 
 	 * Description : 
-	 * modify the data of the area specified with
+	 * modify the data of the subject specified with
 	 * the given id.
 	 * 
 	 * parameters:
 	 * 
-	 * Created date ; 13-2-2014
+	 * Created date ; 4-3-2014
 	 * Modification date : ---
 	 * Modfication reason : ---
 	 * Author : Ahmad Mulhem Barakat
 	 * contact : molham225@gmail.com
 	 */
-	 public function modifyArea()
+	 public function modifySubject()
 	 {
-	 	$query = "UPDATE  area
+	 	$query = "UPDATE  subject
 					SET	
-						code = '{$this->code}',
-						name = '{$this->name}'
+						name = '{$this->name}',
+						subject_category_id = '{$this->subject_category_id}'
 					WHERE id = {$this->id}
 					";	
 		$this->db->query($query);
@@ -95,32 +95,32 @@ class Area_model extends CI_Model{
 	 
 	 
 	 /**
-	 * function name : deleteArea
+	 * function name : deleteSubject
 	 * 
 	 * Description : 
-	 * Delete the data of the area specified with 
+	 * Delete the data of the subject specified with 
 	 * the given id from database.
 	 * 
 	 * parameters:
 	 * 
-	 * Created date ; 13-2-2014
+	 * Created date ; 4-3-2014
 	 * Modification date : ---
 	 * Modfication reason : ---
 	 * Author : Ahmad Mulhem Barakat
 	 * contact : molham225@gmail.com
 	 */
-	 public function deleteArea(){
-		$query = "DELETE FROM area
+	 public function deleteSubject(){
+		$query = "DELETE FROM subject
 				    WHERE id = {$this->id}";
 		$this->db->query($query);
 	 }
 	 
 	 
 	 /**
-	 * function name : getAllAreas
+	 * function name : getAllSubjects
 	 * 
 	 * Description : 
-	 * Gets all of the areas in the database.
+	 * Gets all of the Subjects in the database.
 	 * 
 	 * parameters:
 	 * 
@@ -130,104 +130,106 @@ class Area_model extends CI_Model{
 	 * Author : Ahmad Mulhem Barakat
 	 * contact : molham225@gmail.com
 	 */
-	 public function getAllAreas(){
+	 public function getAllSubjects(){
 		$query = "SELECT * 
-				  FROM area ";
+				  FROM subject ";
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }
 	 
 	 
+	 
 	 /**
-	 * function name : getAreaByCode
+	 * function name : getAllSubjectsForView
 	 * 
 	 * Description : 
-	 * Gets the area specified by the given code.
+	 * Gets all of the Subjects in the database.
 	 * 
 	 * parameters:
 	 * 
-	 * Created date ; 13-2-2014
+	 * Created date ; 5-3-2014
 	 * Modification date : ---
 	 * Modfication reason : ---
 	 * Author : Ahmad Mulhem Barakat
 	 * contact : molham225@gmail.com
 	 */
-	 public function getAreaByCode(){
-		$query = "SELECT * 
-				  FROM area 
-				  WHERE code = '{$this->code}'";				
+	 public function getAllSubjectsForView(){
+		$query = "SELECT subject.id AS id,subject.name AS subject,category.name AS category 
+				  FROM subject,subject_category AS category
+				  WHERE subject.subject_category_id = category.id ";
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }
 	 
-	 
 	 /**
-	 * function name : getAreaById
+	 * function name : getSubjectById
 	 * 
 	 * Description : 
-	 * Gets the area specified by the given id.
+	 * Gets the Subject specified by the given id.
 	 * 
 	 * parameters:
 	 * 
-	 * Created date ; 13-2-2014
+	 * Created date ; 4-3-2014
 	 * Modification date : ---
 	 * Modfication reason : ---
 	 * Author : Ahmad Mulhem Barakat
 	 * contact : molham225@gmail.com
 	 */
-	 public function getAreaById(){
+	 public function getSubjectById(){
 		$query = "SELECT * 
-				  FROM area
+				  FROM subject
 				  WHERE id = {$this->id} ";
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }
 	 
-	 
 	 /**
-	 * function name : searchAreaByName
+	 * function name : getSubjectsByCategory
 	 * 
 	 * Description : 
-	 * Gets the area that has the string inserted as name.
+	 * Gets the Subject specified by the given subject category id.
 	 * 
 	 * parameters:
 	 * 
-	 * Created date ; 13-2-2014
+	 * Created date ; 4-3-2014
 	 * Modification date : ---
 	 * Modfication reason : ---
 	 * Author : Ahmad Mulhem Barakat
 	 * contact : molham225@gmail.com
 	 */
-	 public function searchAreaByName(){
+	 public function getSubjectsByCategory(){
 		$query = "SELECT * 
-				  FROM area
-				  WHERE name LIKE '%{$this->name}%' ";
+				  FROM subject
+				  WHERE subject_category_id = {$this->subject_category_id} ";
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }
 	 
 	 /**
-	 * function name : getAreaByName
+	 * function name : getSubjectByName
 	 * 
 	 * Description : 
-	 * Gets the area of the given name
+	 * Gets the Subject specified by the given subject name.
 	 * 
 	 * parameters:
 	 * 
-	 * Created date ; 2-3-2014
+	 * Created date ; 4-3-2014
 	 * Modification date : ---
 	 * Modfication reason : ---
 	 * Author : Ahmad Mulhem Barakat
 	 * contact : molham225@gmail.com
 	 */
-	 public function getAreaByName(){
+	 public function getSubjectByName(){
 		$query = "SELECT * 
-				  FROM area
-				  WHERE name LIKE '{$this->name}' ";
+				  FROM subject
+				  WHERE name like '{$this->name}' ";
 		$query = $this->db->query($query);
 		return $query->result_array();
-	 }
+	 }  
+	 
 }    
+
+
     
     
     
