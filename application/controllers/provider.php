@@ -46,6 +46,7 @@ class Provider extends CI_Controller {
 		//$data["settings"] = $settings_value;
 		//$data["status_message"] = $status_message;
 				
+															
 		$this->load->view('gen/header');
 		$this->load->view('gen/slogan');
 		$this->load->view('provider_manage');
@@ -275,12 +276,12 @@ class Provider extends CI_Controller {
 		$this->provider_model->created_date = date("y/m/d"); 		
 			
 		//area and association
-		$association_code = "01" ;
-		$area_code = $this->input->post('area');;
+		$association_code = $this->session->userdata['user']['association_code'];
+		$area_code = $this->input->post('area');
 		
 		//provider code
-		$provider_code = $association_code . $area_code . $this->input->post('national_id');
-		$this->provider_model->code = $association_code . $area_code . $this->input->post('national_id');
+		$provider_code = $association_code . "-" . $area_code . "-" . $this->input->post('national_id');
+		$this->provider_model->code = $provider_code;
 		
 		//provide informaion
 		$provider_info['name'] = $this->input->post('full_name');
@@ -348,8 +349,7 @@ class Provider extends CI_Controller {
 									);												
 						
 		//render our grid :)
-		echo $this->grid->gridRender();
-												
+		echo $this->grid->gridRender();											
 	}
 }
 

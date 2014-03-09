@@ -1,5 +1,13 @@
 <div  class="row-fluid">	  	
 	  	<div class="span8 main-content offset2">
+	  		<br />
+	  		
+	  		<!-- breacrumb -->
+	  		<ul class="breadcrumb">
+			  <li><a href="<?php echo base_url();?>dashboard">الرئيسية</a> <span class="divider">/</span></li>			  			  
+			  <li class="active">استيراد\تصدير</li>
+			</ul>
+	  		
 			<h1>استيراد \ تصدير بيانات</h1>  
 			<br/>
 			<div class="row">
@@ -22,9 +30,9 @@
 						قم باختيار ملف الاكسل ليتم استيراد البيانات منه ودمجها مع البيانات الحالية الموجودة في قاعدة البيانات،
 						في حال وجود بيانات قديمة أو مكررة فأنه لن يتم إضافتها. 						
 					</p>
-					<form method="post" action="<?php echo base_url()?>migrate/import">
+					<form method="post" action="<?php echo base_url()?>migrate/import" enctype="multipart/form-data">
 						
-						<input type="file" name="imported_file"/>
+						<input type="file" name="imported_file" id=imported_file""/>
 						<input type="submit" class="btn btn-success" value="استيراد البيانات"/>	
 					</form>	
 				</div>

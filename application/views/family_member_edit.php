@@ -21,6 +21,17 @@
 				<table>
 					<tr>
 						<td>
+							الرقم الوطني:
+						</td>
+						
+						<td>
+							<input type="text" name="national_id" value="<?php echo $family_member['national_id'];?>"/>
+						</td>
+					</tr>
+					
+					
+					<tr>
+						<td>
 							الاسم الثلاثي الكامل:
 						</td>
 						

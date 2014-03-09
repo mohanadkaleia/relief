@@ -155,7 +155,7 @@ class Area_model extends CI_Model{
 	 public function getAreaByCode(){
 		$query = "SELECT * 
 				  FROM area 
-				  WHERE code = '{$this->code}'";
+				  WHERE code = '{$this->code}'";				
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }

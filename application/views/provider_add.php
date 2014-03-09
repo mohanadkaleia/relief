@@ -34,19 +34,19 @@
 										
 					<tr>
 						<td>
-							الاسم الثلاثي الكامل:
+							الاسم الثلاثي الكامل: *
 						</td>
 						
 						<td>
-							<input type="text" name="full_name" />
+							<input type="text" name="full_name" required/>
 						</td>
 						
 						<td>
-							الرقم الوطني:
+							الرقم الوطني: *
 						</td>
 						
 						<td>
-							<input type="text" name="national_id"  />
+							<input type="text" name="national_id"  required/>
 						</td>
 					</tr>
 					

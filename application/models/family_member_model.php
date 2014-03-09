@@ -22,6 +22,9 @@ class Family_member_model extends CI_Model{
 	//The code of the provider of this family member.
 	var $provider_code= "";
 	
+	//national id of family member
+	var $national_id = "";
+	
 	//Family member's full name.
 	var $full_name = "";
 	
@@ -81,8 +84,9 @@ class Family_member_model extends CI_Model{
 	 */
 	 public function addFamilyMember()
 	 {
-	 	$query = "INSERT INTO  family_member (
+	 	$query = "INSERT INTO  family_member (	 						
 							provider_code,
+							national_id,
 							full_name,
 							gender,
 							birth_date,
@@ -96,6 +100,7 @@ class Family_member_model extends CI_Model{
 							)
 					VALUES (  
 							'{$this->provider_code}',
+							'{$this->national_id}',
 							'{$this->full_name}',
 							'{$this->gender}',
 							'{$this->birth_date}',
@@ -132,6 +137,7 @@ class Family_member_model extends CI_Model{
 	 	$query = "UPDATE  family_member
 					SET	
 						provider_code = '{$this->provider_code}',
+						national_id = '{$this->national_id}',
 						full_name = '{$this->full_name}',
 						gender = '{$this->gender}',
 						birth_date = '{$this->birth_date}',
@@ -185,8 +191,13 @@ class Family_member_model extends CI_Model{
 	 * contact : molham225@gmail.com
 	 */
 	 public function getAllFamilyMembers(){
-		$query = "SELECT * 
-				  FROM family_member ";
+		$query = "SELECT distinct family_member.* , provider.full_name as provider_name 
+				  FROM family_member, provider 
+				  where 
+				  provider.code = family_member.provider_code
+				  and
+				  provider.is_deleted = 'F' 
+				  ";
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }
@@ -285,6 +296,85 @@ class Family_member_model extends CI_Model{
 		$query =  $this->db->query($query);
 		return $query->result_array();		
 	 }
+	 
+	 
+	 /**
+	 * function name : importFamilyMember
+	 * 
+	 * Description : 
+	 * import familt info:
+	  * if the member is exist then just update his info
+	  * else add new one
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 7-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function importFamilyMember()
+	 {
+	 	$query = "select * from family_member
+	 	          where
+	 	          national_id = '{$this->national_id}'";
+		$query =  $this->db->query($query);
+		$member =  $query->result_array();
+		
+		if(count($member) == 0)
+		{
+			$query = "INSERT INTO  family_member (
+							provider_code,
+							national_id , 
+							full_name,
+							gender,
+							birth_date,
+							relationship,
+							is_emigrant,
+							job,
+							study_status,
+							social_status,
+							health_status,
+							note		
+							)
+					VALUES (  
+							'{$this->provider_code}',
+							'{$this->national_id}',
+							'{$this->full_name}',							
+							'{$this->gender}',
+							'{$this->birth_date}',
+							'{$this->relationship}',
+							'{$this->is_emigrant}',
+							'{$this->job}',
+							'{$this->study_status}',
+							'{$this->social_status}',
+							'{$this->health_status}',
+							'{$this->note}' 
+							);
+					";	
+		}	
+		else
+		{
+			$query = "UPDATE  family_member
+					SET	
+						provider_code = '{$this->provider_code}',						
+						full_name = '{$this->full_name}',
+						gender = '{$this->gender}',
+						birth_date = '{$this->birth_date}',
+						relationship = '{$this->relationship}',
+						is_emigrant = '{$this->is_emigrant}',
+						job = '{$this->job}',
+						study_status = '{$this->study_status}',
+						social_status = '{$this->social_status}',
+						health_status = '{$this->health_status}',
+						note = '{$this->note}'		
+					WHERE national_id = {$this->national_id}
+					";		
+		}							
+		$this->db->query($query);
+	 }
+	 
 }    
     
     

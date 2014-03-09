@@ -21,7 +21,7 @@
 			<table id="family_member" action="<?php echo base_url();?>family_member/ajaxGetFamilyMember" dir="rtl">				
 				<tr>																
 					<th col="full_name" type="text">الاسم الثلاثي</th>
-					<th col="full_name" type="text">اسم المعيل</th>
+					<th col="provider_name" type="text">اسم المعيل</th>
 					<th col="relationship" type="text">صلة القربى</th>
 					<th col="gender" type="text">الجنس</th>
 					<th col="birth_date" type="text">التولد</th>

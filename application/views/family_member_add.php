@@ -39,6 +39,18 @@
 					</tr>
 				<?php }?>
 				
+				
+					<tr>
+						<td>
+							الرقم الوطني:
+						</td>
+						
+						<td>
+							<input type="text" name="national_id" />
+						</td>
+					</tr>
+				
+				
 					<tr>
 						<td>
 							الاسم الثلاثي الكامل:
