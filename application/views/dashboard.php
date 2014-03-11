@@ -93,7 +93,7 @@
 	  		
 	  		  
 	  		<div class="row-fluid" style="margin-top:10px">	  			
-	  			<div class="span3">
+	  			<div class="span4">
 	  				<!-- ABOUT-->
 	  				<div class="button-box" align="center">	
 	  					<a href="<?php echo base_url()?>fraud">	
@@ -103,6 +103,26 @@
 	  				</div>	  					  			
 	  			</div>
 	  			
+	  			
+	  			<div class="span4">
+	  				<!-- ABOUT-->
+	  				<div class="button-box" align="center">	
+	  					<a href="<?php echo base_url()?>package">	
+		  					<img src="<?php echo base_url()?>/images/warning.png"/>	  					
+		  					<p>إدارة السلات الغذائية</p>	
+	  					</a>
+	  				</div>	  					  			
+	  			</div>
+	  			
+	  			<div class="span4">
+	  				<!-- ABOUT-->
+	  				<div class="button-box" align="center">	
+	  					<a href="<?php echo base_url()?>subject">	
+		  					<img src="<?php echo base_url()?>/images/warning.png"/>	  					
+		  					<p>إدارة المواد الغذائية</p>	
+	  					</a>
+	  				</div>	  					  			
+	  			</div>
 	  			  			
 	  		</div>		  			  				  		
 	  			    	
