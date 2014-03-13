@@ -351,6 +351,7 @@ class Provider extends CI_Controller {
 		//render our grid :)
 		echo $this->grid->gridRender();											
 	}
+
 }
 
 /* End of file user.php */

@@ -36,8 +36,8 @@
 	  			<div class="span3">
 	  				<!-- forms manage-->
 	  				<div class="button-box" align="center">		  					
-	  					<a href="<?php echo base_url()?>form">
-		  					<img src="<?php echo base_url()?>/images/blank_page.png"/>	  					
+	  					<a href="<?php echo base_url()?>aid">
+		  					<img src="<?php echo base_url()?>/images/link.png"/>	  					
 		  					<p>إدارة المعونات</p>	
 	  					</a>
 	  				</div>
@@ -108,7 +108,7 @@
 	  				<!-- ABOUT-->
 	  				<div class="button-box" align="center">	
 	  					<a href="<?php echo base_url()?>package">	
-		  					<img src="<?php echo base_url()?>/images/warning.png"/>	  					
+		  					<img src="<?php echo base_url()?>/images/shopping_cart.png"/>	  					
 		  					<p>إدارة السلات الغذائية</p>	
 	  					</a>
 	  				</div>	  					  			
@@ -118,7 +118,7 @@
 	  				<!-- ABOUT-->
 	  				<div class="button-box" align="center">	
 	  					<a href="<?php echo base_url()?>subject">	
-		  					<img src="<?php echo base_url()?>/images/warning.png"/>	  					
+		  					<img src="<?php echo base_url()?>/images/tag.png"/>	  					
 		  					<p>إدارة المواد الغذائية</p>	
 	  					</a>
 	  				</div>	  					  			

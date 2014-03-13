@@ -437,3 +437,9 @@ table#details tr td.title-td{
 	padding:10px;
 	text-justify: auto;
 }
+
+
+.breadcrumb
+{
+	font-family: "gess";
+}

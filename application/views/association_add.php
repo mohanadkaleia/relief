@@ -2,8 +2,16 @@
 
 <div  class="row-fluid">	  	
 	  	<div class="span8 main-content offset2">
+			<!-- breacrumb -->
+	  		<ul class="breadcrumb">
+			  <li><a href="<?php echo base_url();?>dashboard">الرئيسية</a> <span class="divider">/</span></li>			  
+			  <li><a href="<?php echo base_url();?>association">إدارة الجمعيات</a> <span class="divider">/</span></li>
+			  <li class="active">إضافة جمعية</li>
+			</ul>
+			
 			<h1>إضافة جمعية</h1>  
-			<br />
+			
+			
 			<!-- error message -->
 			<div  id="error" style="display: none;">
 			

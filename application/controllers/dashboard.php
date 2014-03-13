@@ -19,7 +19,20 @@ class Dashboard extends CI_Controller {
 	
 	public function index()
 	{
-		$this->showDashboard();
+		//for the first time used a user need to fill out association info	
+		$this->load->model("association_model");
+		$association = $this->association_model->getAllAssociations();
+		
+		if(count($association) == 0)
+		{
+			//redirect to add association page
+			redirect(base_url()."association/add");
+		}
+		else 
+		{
+			$this->showDashboard();	
+		}
+		
 	}
 	
 	

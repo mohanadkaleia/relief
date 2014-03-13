@@ -137,8 +137,12 @@ class Provider_package_model extends CI_Model{
 	 * contact : molham225@gmail.com
 	 */
 	 public function getAllProviderPackages(){
-		$query = "SELECT * 
-				  FROM provider_package ";
+		$query = "SELECT provider.full_name as provider_name, package.name as package_name , provider_package.date as deliever_date
+				  FROM provider_package  , provider , package
+				  where
+				  provider_package.package_id = package.id
+				  and
+				  provider_code = provider.code";
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }

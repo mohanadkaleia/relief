@@ -143,8 +143,7 @@
 	<tr class="odd">	
 		<td colspan="4">
 			<img src="<?php echo base_url();?>files/barcode/<?php echo $provider['code'];?>.png" />
-		</td>
-		
+		</td>		
 	</tr>	
 </table>
 

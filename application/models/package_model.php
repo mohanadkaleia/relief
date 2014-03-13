@@ -176,6 +176,31 @@ class Package_model extends CI_Model{
 		return $query->result_array();
 	 }
 	 
+	 
+	/**
+	 * function name : aidDelivery 
+	 * 
+	 * Description : 
+	 * deliever aid to provider
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 12-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function aidDelivery($provider_code)
+	 {	 	 
+		$query = "insert into provider_package
+				  (package_id , provider_code , date)
+				  values
+				  ({$this->id} , '{$provider_code}' , curdate())
+				  ";		
+		$this->db->query($query);
+	 }	 
+	 
 }    
     
     

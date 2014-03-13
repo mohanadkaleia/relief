@@ -78,7 +78,7 @@
 						</td>
 						
 						<td>													
-							<input type="text" name="birth_date" id="birth_date"/>
+							<input type="text" name="birth_date" id="birth_date" placeholder="YYYY-MM-DD"/>
 						</td>
 						
 						<td>

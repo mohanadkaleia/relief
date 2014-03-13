@@ -2,8 +2,15 @@
 
 <div  class="row-fluid">	  	
 	  	<div class="span8 main-content offset2">
-			<h1>تعديل بيانات جمعية</h1>  
-			<br />
+			<h1>تعديل بيانات جمعية</h1>
+			
+			<!-- breacrumb -->
+	  		<ul class="breadcrumb">
+			  <li><a href="<?php echo base_url();?>dashboard">الرئيسية</a> <span class="divider">/</span></li>			  
+			  <li><a href="<?php echo base_url();?>association">إدارة الجمعيات</a> <span class="divider">/</span></li>
+			  <li class="active">تعديل بيانات جمعية</li>
+			</ul>
+			
 			<!-- error message -->
 			<div  id="error" style="display: none;">
 			

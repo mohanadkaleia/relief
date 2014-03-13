@@ -8,6 +8,13 @@
 <div class="container">
 	
 	<div class="hero-unit">
+		<!-- breacrumb -->
+  		<ul class="breadcrumb">
+		  <li><a href="<?php echo base_url();?>dashboard">الرئيسية</a> <span class="divider">/</span></li>			  		 
+		  <li class="active">إدارة الجمعيات</li>		  
+		</ul>
+		
+		
 		<h3 class="title">إدارة الجمعيات</h3>	 
 		
 		<div class="grid">

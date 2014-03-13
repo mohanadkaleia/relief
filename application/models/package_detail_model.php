@@ -226,12 +226,18 @@ class Package_detail_model extends CI_Model{
 	 * contact : molham225@gmail.com
 	 */
 	 public function getPackageDetailsByPackageId(){
-		$query = "SELECT * 
-				  FROM package_detail
-				  WHERE package_id = {$this->package_id} ";
+		$query = "SELECT package.name as package_name,subject.name as subject_name, package_detail.amount as amount
+					FROM package_detail  , package , subject
+					where 
+					package.id = package_detail.package_id
+					and
+					subject.id = package_detail.subject_id
+					and
+					package.id = {$this->package_id}";
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }
+	 
 	 
 }    
     
