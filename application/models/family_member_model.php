@@ -244,11 +244,10 @@ class Family_member_model extends CI_Model{
 		$query = "SELECT distinct family_member.* , provider.full_name as provider_name 
 				  FROM family_member , provider 
 				  WHERE 
-				  family_member.provider_code = {$this->provider_code}
+				  family_member.provider_code = '{$this->provider_code}'
 				  and
 				  provider.code = family_member.provider_code
-				  ";
-						  
+				  ";						 
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }

@@ -12,7 +12,7 @@
 			<h1>بيانات المعيل <?php echo $provider['code'];?>#</h1>  
 			 <br />
 				<table id="details">									
-					
+						
 					<tr class="odd">
 						<td class="title-td">
 							الاسم الثلاثي الكامل:

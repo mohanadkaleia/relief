@@ -10,6 +10,12 @@
 	<div class="hero-unit">
 		<h3 class="title">إدارة المستخدمين</h3>	 
 		
+		<!-- breacrumb -->
+  		<ul class="breadcrumb">
+		  <li><a href="<?php echo base_url();?>dashboard">الرئيسية</a> <span class="divider">/</span></li>		 
+		  <li class="active">إدارة المستخدمين</li>
+		</ul>
+		
 		<div class="grid">
 			<table id="user" action="<?php echo base_url();?>user/ajaxGetUsers" dir="rtl">				
 				<tr>																

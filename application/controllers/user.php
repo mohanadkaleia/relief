@@ -166,7 +166,12 @@ class User extends CI_Controller {
 		$this->user_model->mobile = $this->input->post('mobile');		
 		$this->user_model->address = $this->input->post('address');		
 		$this->user_model->username = $this->input->post('username');
-		$this->user_model->association_code = "001";
+		
+		//get the association code from the database
+		$this->load->model("association_model");
+		$current_association = $this->association_model->getAllAssociations();
+		$association_code = $current_association[0]["code"];
+		$this->user_model->association_code = $association_code;
 		 
 		 if($action === "add"){
 			 if(trim($this->input->post('password').$this->input->post('re_password'))
