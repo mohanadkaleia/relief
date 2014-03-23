@@ -256,27 +256,39 @@ class Provider extends CI_Controller {
 			$this->load->model("family_member_model");
 			//load area model 
 			$this->load->model("area_model");
+			//load association model
+			$this->load->model("association_model");
+			
 			
 			//set the code of the wanted provider in the model
 			$this->provider_model->code = $provider_code;
 			//get the data of the provider to edit
 			$provider = $this->provider_model->getProviderByCode();
 			
-			if(isset($provider[0])){
+			if(isset($provider[0]))
+			{
 				//set the code of the wanted provider in the model
 				$this->family_member_model->provider_code = $provider_code;
+				
 				//get the provider's family members
 				$family_members = $this->family_member_model->getFamilyMemberByProviderCode();
 				
 				//set the id of the wanted provider's area in the model
 				$this->area_model->code = $provider[0]['area_code'];
+				
 				//get the area of the provider
 				$area  = $this->area_model->getAreaByCode();
+				
+				//get asspciation information
+				$association = $this->association_model->getAllAssociations();
 				
 				//set the data array to be passed to the view page
 				$data["provider"] = $provider[0];
 				$data["family_members"] = $family_members;
 				$data["area"] = $area;
+				$data["association"] = $association[0];
+				
+				
 				
 				//load the views with data			
 				//$this->load->view('gen/header');
@@ -314,7 +326,9 @@ class Provider extends CI_Controller {
 		$this->load->model('provider_model');				
 		
 		// assign values to the model variable
-		$this->provider_model->full_name = $this->input->post('full_name');			
+		$this->provider_model->fname = $this->input->post('full_name');			
+		$this->provider_model->lname = $this->input->post('lname');
+		$this->provider_model->father_name = $this->input->post('father_name');		
 		$this->provider_model->national_id = $this->input->post('national_id');
 		$this->provider_model->family_book_num = $this->input->post('family_book_num');
 		$this->provider_model->family_book_letter = $this->input->post('family_book_letter');

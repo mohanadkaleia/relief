@@ -12,33 +12,12 @@
 		<!-- breacrumb -->
   		<ul class="breadcrumb">
 		  <li><a href="<?php echo base_url();?>dashboard">الرئيسية</a> <span class="divider">/</span></li>			  		  
-		  <li class="active">إدارة معيل</li>
+		  <li class="active">بحث عن معيل</li>
 		</ul>
 		
-		<h3 class="title">إدارة المعيل</h3>	 
+		<h3 class="title">بحث عن معيل</h3>	 
 		
-		<form method="post" action="#">
-			<table>
-				<tr>
-					<td>
-						الاسم:			
-					</td>
-					<td>
-						<input type="text" name="fname" placeholder="الاسم" />
-					</td>
-					
-					<td>
-						الكنية:
-					</td>
-					<td>
-						<input type="text" name="lname" placeholder="الكنية" />
-					</td>										
-				</tr>
-			</table>
-			
-			
-			
-		</form>
+		
 		
 		<div class="grid">								
 			<table id="provider" action="<?php echo base_url();?>provider/ajaxGetProviders" dir="rtl">				

@@ -34,11 +34,32 @@
 										
 					<tr>
 						<td>
-							الاسم الثلاثي الكامل: *
+							الاسم: *
 						</td>
 						
 						<td>
-							<input type="text" name="full_name" required/>
+							<input type="text" name="fname" required/>
+						</td>
+						
+						<td>
+							الكنية: *
+						</td>
+						
+						<td>
+							<input type="text" name="lname" required/>
+						</td>
+						
+						
+					</tr>
+					
+					<tr>
+						
+						<td>
+							اسم الأب: *
+						</td>
+						
+						<td>
+							<input type="text" name="father_name" required/>
 						</td>
 						
 						<td>

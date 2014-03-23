@@ -34,11 +34,31 @@
 										
 					<tr>
 						<td>
-							الاسم الثلاثي الكامل:
+							الاسم:
 						</td>
 						
 						<td>
-							<input type="text" name="full_name"  value="<?php echo $provider['full_name'];?>" />
+							<input type="text" name="fname"  value="<?php echo $provider['fname'];?>" />
+						</td>
+						
+						<td>
+							الكنية:
+						</td>
+						
+						<td>
+							<input type="text" name="lname"  value="<?php echo $provider['lname'];?>" />
+						</td>
+						
+					</tr>
+					
+					<tr>
+						
+						<td>
+							اسم الأب:
+						</td>
+						
+						<td>
+							<input type="text" name="father_name"  value="<?php echo $provider['father_name'];?>" />
 						</td>
 						
 						<td>

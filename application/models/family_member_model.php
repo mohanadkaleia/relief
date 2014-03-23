@@ -241,14 +241,14 @@ class Family_member_model extends CI_Model{
 	 * contact : molham225@gmail.com
 	 */
 	 public function getFamilyMemberByProviderCode(){
-		$query = "SELECT distinct family_member.* , provider.full_name as provider_name 
+		$query = "SELECT distinct family_member.* , concat(provider.fname , ' ' , provider.father_name , ' ' , provider.lname) as provider_name 
 				  FROM family_member , provider 
 				  WHERE 
 				  family_member.provider_code = '{$this->provider_code}'
 				  and
 				  provider.code = family_member.provider_code
 				  ";						 
-		$query = $this->db->query($query);
+		$query = $this->db->query($query);				
 		return $query->result_array();
 	 }
 	 
@@ -372,6 +372,37 @@ class Family_member_model extends CI_Model{
 					";		
 		}							
 		$this->db->query($query);
+	 }
+	 
+	 
+	 
+	  /**
+	 * function name : getMaleAbove12 
+	 * 
+	 * Description : 
+	 * Get male family member above 12 that belong to provider
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 20-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getMaleAbove12($provider_code)
+	 {
+		$query = "SELECT * 
+				  FROM family_member
+				  WHERE 
+				  gender = 'M'
+				  and
+				  DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(birth_date)), '%Y') > 12
+				  and
+				  provider_code = '{$provider_code}'				  
+				  ";
+		$query = $this->db->query($query);
+		return $query->result_array();
 	 }
 	 
 }    

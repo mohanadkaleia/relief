@@ -45,8 +45,31 @@
 							الرقم الوطني:
 						</td>
 						
-						<td>
-							<input type="text" name="national_id" />
+						<td colspan="2">
+							<input type="text" name="national_id" id="national_id"/>
+							
+							<input name="randomNationalId" id="randomNationalId" type="checkbox" value="true"/>توليد رقم عشوائي
+							<script>
+								$( "#randomNationalId" ).change(function() {
+									if($(this).is(':checked')) 
+									{
+										var current_time = ((new Date).getTime());
+										
+										current_time = current_time.toString();
+										
+										
+										random = "R" + current_time.slice(3);
+										
+										
+										$("#national_id").val(random);								      	
+								    }
+								    else
+								    {
+								    	$("#national_id").val("");
+								    }
+								});							
+							</script>
+							
 						</td>
 					</tr>
 				

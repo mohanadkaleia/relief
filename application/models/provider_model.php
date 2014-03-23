@@ -27,7 +27,10 @@ class Provider_model extends CI_Model
 	var $code;
 	
 	//full name of provider
-	var $full_name ="";
+	var $fname ="";
+	var $lname ="";
+	var $father_name ="";
+	
 	
 	//national id
 	var $national_id;
@@ -116,7 +119,9 @@ class Provider_model extends CI_Model
 				area_code,
 				association_code ,
 				code ,
-				full_name ,
+				fname ,
+				lname,
+				father_name,
 				national_id ,
 				family_book_num ,
 				family_book_letter ,
@@ -142,7 +147,9 @@ class Provider_model extends CI_Model
 				'{$area_code}',  
 				'{$association_code}',  
 				'{$this->code}',  
-				'{$this->full_name}',  
+				'{$this->fname}',  
+				'{$this->lname}',
+				'{$this->father_name}',
 				'{$this->national_id}',  
 				'{$this->family_book_num}',  
 				'{$this->family_book_letter}',  
@@ -192,7 +199,9 @@ class Provider_model extends CI_Model
 					area_code = '{$area_code}',
 					association_code  = '{$association_code}',
 					code = '{$this->code}',
-					full_name = '{$this->full_name}',
+					fname = '{$this->fname}',
+					lname = '{$this->lname}',
+					father_name = '{$this->father_name}',
 					national_id = '{$this->national_id}',
 					family_book_num = '{$this->family_book_num}',
 					family_book_letter = '{$this->family_book_letter}',
@@ -283,7 +292,8 @@ class Provider_model extends CI_Model
 	 */
 	 public function getAllProviders()
 	 {	 	
-	 	$query = "select * from provider
+	 	$query = "select * , CONCAT( fname,  ' ', father_name,  ' ', lname ) as full_name 
+	 			  from provider
 	 			  where 
 	 			  is_deleted= 'F'";
 		$query =  $this->db->query($query);
@@ -305,7 +315,8 @@ class Provider_model extends CI_Model
 	 */
 	 public function getProviderByCode()
 	 {	 	
-	 	$query = "select * from provider
+	 	$query = "select * ,  CONCAT( fname,  ' ', father_name,  ' ', lname ) as full_name
+	 			  from provider
 	 			  where 
 	 			  code = '{$this->code}' and
 	 			  is_deleted= 'F'";
@@ -429,7 +440,9 @@ class Provider_model extends CI_Model
 				area_code,
 				association_code ,
 				code ,
-				full_name ,
+				fname ,
+				lname,
+				father_name,
 				national_id ,
 				family_book_num ,
 				family_book_letter ,
@@ -455,7 +468,9 @@ class Provider_model extends CI_Model
 				'{$area_code}',  
 				'{$association_code}',  
 				'{$this->code}',  
-				'{$this->full_name}',  
+				'{$this->fname}',
+				'{$this->lname}',
+				'{$this->father_name}',  
 				'{$this->national_id}',  
 				'{$this->family_book_num}',  
 				'{$this->family_book_letter}',  

@@ -5,7 +5,7 @@
 <head>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="description" content="Database backup system" />
+	<meta name="description" content="Relief managment system" />
     <meta name="abstract" content="Database backup system" />
     <meta name="keywords" content="backup , database , web based" />   
     <meta name="viewport" content="width=device-width, initial-scale=1.0">	
@@ -27,6 +27,8 @@
 	<script src="<?php echo base_url();?>js/bootstrap.min.js"></script>
 	<script src="<?php echo base_url();?>js/grid.js"></script>
 	<script src="<?php echo base_url();?>js/bootstrap-datepicker.js"></script>
+	<script src="<?php echo base_url();?>js/jquery.sheepItPlugin-1.1.1.min.js"></script>
+	
 	  
 </head>
 		

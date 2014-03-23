@@ -186,7 +186,44 @@ class Form extends CI_Controller {
 		$this->load->view("form_view" , $data); 
 	}
 	
-	
+	/**
+	 * function name : acceptReject
+	 * 
+	 * Description : 
+	 * accept or reject multi forms 
+	 * 
+	 * Created date :22-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	public function acceptReject()
+	{														
+		//load model
+		$this->load->model("provider_model");
+		
+		
+		$providers =  $this->input->post("provider");
+		$action = $this->input->post("save");
+		foreach ($providers as $provider_code) 
+		{
+			$this->provider_model->code = $provider_code;
+			
+			if($action == "قبول")
+			{				
+				$this->provider_model->acceptProvider(); 
+			}	
+			else 
+			{
+				$this->provider_model->rejectProvider();
+			}
+			
+			//redirect to manage page
+			$this->manage();	
+			
+		}		
+	}
 		
 	
 }
