@@ -147,10 +147,17 @@ class Provider extends CI_Controller {
 	 */
 	public function search($providers = "")
 	{
-		
+		//load area model
+		$this->load->model("area_model");
+
+		//get all areas		
+		$areas = $this->area_model->getAllAreas();
+		$data["areas"] = $areas;
 				
 		if(isset($providers))	
+		{
 			$data["providers"] = $providers;
+		}			
 		else 
 		{
 				$data["providers"] = "";
@@ -477,12 +484,36 @@ class Provider extends CI_Controller {
 		// assign values to the model variable
 		$fname = $this->input->post('fname');		
 		$lname = $this->input->post('lname');
+		$national_id = $this->input->post('national_id');
 		
+		$area = $this->input->post('area');
+		
+		$family_book_num = $this->input->post('family_book_num');
+		$family_book_letter = $this->input->post('family_book_letter');
+		$family_book_family_num = $this->input->post('family_book_family_num');
+		
+		$family_num_less = $this->input->post('family_less');
+		$family_num_bigger = $this->input->post('family_bigger');
+		$family_num_equal = $this->input->post('family_equal');
+				
 		$reg_date_less = $this->input->post('register_date_less');
 		$reg_date_big = $this->input->post('register_date_bigger');
 		$reg_date_equal = $this->input->post('register_date_equal');
 		
-		$providers = $this->provider_model->searchProvider($fname , $lname , $reg_date_less , $reg_date_big , $reg_date_equal);
+		$providers = $this->provider_model->searchProvider($fname , 
+														   $lname , 
+														   $national_id, 
+														   $area , 
+														   $family_book_num , 
+														   $family_book_letter , 
+														   $family_book_family_num , 
+														   $family_num_less , 
+														   $family_num_bigger , 
+														   $family_num_equal , 
+														   $reg_date_less , 
+														   $reg_date_big , 
+														   $reg_date_equal);
+		
 		
 		$this->search($providers);
 		

@@ -580,13 +580,41 @@ class Provider_model extends CI_Model
 	 * Author : Mohanad Shab Kaleia
 	 * contact : ms.kaleia@gmail.com
 	 */
-	 public function searchProvider($fname = "" , $lname = "" , $reg_date_less = "" , $reg_date_big = "", $reg_date_equal="")
-	 {
+	 public function searchProvider($fname ="", 
+								   $lname ="", 
+								   $national_id = "", 
+								   $area = "", 
+								   $family_book_num ="", 
+								   $family_book_letter = "" , 
+								   $family_book_family_num = "" , 
+								   $family_num_less = "", 
+								   $family_num_bigger = "", 
+								   $family_num_equal = "", 
+								   $reg_date_less = "", 
+								   $reg_date_big  = "", 
+								   $reg_date_equal = "")
+	 {	 				 	
+	 	$query = "select distinct * from provider";
 	 	
-		$query = "select * from provider where is_deleted='F'";
-		
+	 	if($area<> "all") {$query .= ", area ";}
+		if($family_num_less <> "" || $family_num_bigger <> "" || $family_num_equal <> "") 
+		{$query.= ", family_member ";}
+				
+		$query .= " where provider.is_deleted = 'F'";
+				
 		if($fname <> "") {$query.= " and fname = '{$fname}'";}
 		if($lname <> "") {$query.= " and lname = '{$lname}'";}
+		if($national_id <> "") {$query.= " and national_id = '{$national_id}'";}				
+		
+		if($family_book_num <> "") {$query.= " and family_book_num = '{$family_book_num}'";}
+		if($family_book_letter <> "") {$query.= " and family_book_letter = '{$family_book_letter}'";}
+		if($family_book_family_num <> "") {$query.= " and family_book_family_number = '{$family_book_family_num}'";}
+		
+		//if($family_num_less <> "") {$query.= " and (count(select id from family_member where )) < {$family_num_less}";}
+		//if($reg_date_big <> "") {$query.= " and created_date > '{$reg_date_big}'";}
+		//if($reg_date_equal <> "") {$query.=	 " and created_date = '{$reg_date_equals}'";}
+		
+		
 		if($reg_date_less <> "") {$query.= " and created_date < '{$reg_date_less}'";}
 		if($reg_date_big <> "") {$query.= " and created_date > '{$reg_date_big}'";}
 		if($reg_date_equal <> "") {$query.=	 " and created_date = '{$reg_date_equals}'";}

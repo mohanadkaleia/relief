@@ -8,13 +8,14 @@
 		<!-- breacrumb -->
   		<ul class="breadcrumb">
 		  <li><a href="<?php echo base_url();?>dashboard">الرئيسية</a> <span class="divider">/</span></li>			  		  
+		  <li><a href="<?php echo base_url();?>provider">إدارة معيل</a> <span class="divider">/</span></li>
 		  <li class="active">بحث عن معيل</li>
 		</ul>
 		
 		<h3 class="title">بحث عن معيل</h3>	 
 		
 		<form method="post" action="<?php echo base_url();?>provider/searchData">
-			<table>								
+			<table class="table">								
 				<tr>
 					<td>
 						الاسم:			
@@ -33,34 +34,97 @@
 				
 				<tr>
 					<td>
-						تاريخ التسجيل:
-					</td>
-				</tr>
-				
-				<tr>
-					<td>
-						أكبر من:
-					</td>
-					<td>
-						<input type="date" name="register_date_bigger" placeholder="تاريخ أكبر من"/>
-					</td>
-				</tr>
-				
-				<tr>
-					<td>
-						أصغر من:	
+						المنطقة:
 					</td>
 					
-					<td>						
-						<input type="date" name="register_date_less" placeholder="تاريخ أصغر من"/>
+					<td>
+						<select name="area">
+							<option value="all">الكل</option>
+							<?php
+								foreach($areas as $area)
+								{
+							?>
+									<option value="<?php echo $area["id"];?>"><?php echo $area["name"];?></option>
+							<?php										
+								} 
+							?>							
+						</select>
 					</td>
-						
+					
+					<td>
+						الرقم الوطني:
+					</td>
+					
+					<td>
+						<input type="text" name="national_id"/>
+					</td>
 				</tr>
+				
+				<tr>
 					<td>
-						مساوٍ للتاريخ:
+						دفتر العائلة:
 					</td>
+					
 					<td>
-						<input type="date" name="register_date_equal" placeholder="تاريخ مساوي"/>
+						<input type="text" name="family_book_num"/>
+					</td>
+					
+					<td>
+						الحرف:
+					</td>
+					
+					<td>
+						<input type="text" name="family_book_letter"/>
+					</td>										
+				</tr>
+				
+				<tr>
+					<td>
+						الرقم الأسري:
+					</td>
+					
+					<td>
+						<input type="text" name="family_book_family_number" />
+					</td>														
+				</tr>
+				
+				<tr>
+					<td>
+						عدد أفراد الأسرة:
+					</td>
+					
+					<td>
+						<<input type="number" name="family_less"/>
+					</td>
+					
+					<td>
+						><input type="number" name="family_big"/>
+					</td>
+					
+					<td>
+						=<input type="number" name="family_equal"/>
+					</td>
+				</tr>
+				
+				
+				<tr>
+					<td>
+						تاريخ التسجيل:
+					</td>									
+					
+					<td>
+						<						
+						<input type="date" name="register_date_less" />
+					</td>
+					
+					<td>
+						>
+						<input type="date" name="register_date_bigger" />
+					</td>
+					
+					<td>
+						=
+						<input type="date" name="register_date_equal"/>
 					</td>
 				</tr>
 				
@@ -69,6 +133,7 @@
 						<input type="submit" value="بحث" class="btn btn-info"/>		
 					</td>
 				</tr>
+				
 			</table>									
 		</form>
 		
