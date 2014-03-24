@@ -17,29 +17,6 @@
 		
 		<h3 class="title">إدارة المعيل</h3>	 
 		
-		<form method="post" action="#">
-			<table>
-				<tr>
-					<td>
-						الاسم:			
-					</td>
-					<td>
-						<input type="text" name="fname" placeholder="الاسم" />
-					</td>
-					
-					<td>
-						الكنية:
-					</td>
-					<td>
-						<input type="text" name="lname" placeholder="الكنية" />
-					</td>										
-				</tr>
-			</table>
-			
-			
-			
-		</form>
-		
 		<div class="grid">								
 			<table id="provider" action="<?php echo base_url();?>provider/ajaxGetProviders" dir="rtl">				
 				<tr>																

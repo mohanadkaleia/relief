@@ -131,6 +131,37 @@ class Provider extends CI_Controller {
 	}
 	
 	
+	/**
+	 * function name : search
+	 * 
+	 * Description : 
+	 * search for provider
+	 * 
+	 * parameters:
+	 * $providers: array of providers
+	 * Created date ; 23-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	public function search($providers = "")
+	{
+		
+				
+		if(isset($providers))	
+			$data["providers"] = $providers;
+		else 
+		{
+				$data["providers"] = "";
+		}															
+		$this->load->view('gen/header');
+		$this->load->view('gen/slogan');
+		$this->load->view('provider_search' , $data);
+		$this->load->view('gen/footer');
+	}
+	
+	
 	
 	/**
 	 * function name : edit
@@ -326,7 +357,7 @@ class Provider extends CI_Controller {
 		$this->load->model('provider_model');				
 		
 		// assign values to the model variable
-		$this->provider_model->fname = $this->input->post('full_name');			
+		$this->provider_model->fname = $this->input->post('fname');			
 		$this->provider_model->lname = $this->input->post('lname');
 		$this->provider_model->father_name = $this->input->post('father_name');		
 		$this->provider_model->national_id = $this->input->post('national_id');
@@ -424,6 +455,38 @@ class Provider extends CI_Controller {
 		//render our grid :)
 		echo $this->grid->gridRender();											
 	}
+
+	
+	/**
+	 * function name : searchData
+	 * 
+	 * Description : 
+	 * search for data provider
+	 * 
+	 * Created date ; 23-4-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	public function searchData()
+	{															
+		//include model provider
+		$this->load->model('provider_model');				
+		
+		// assign values to the model variable
+		$fname = $this->input->post('fname');		
+		$lname = $this->input->post('lname');
+		
+		$reg_date_less = $this->input->post('register_date_less');
+		$reg_date_big = $this->input->post('register_date_bigger');
+		$reg_date_equal = $this->input->post('register_date_equal');
+		
+		$providers = $this->provider_model->searchProvider($fname , $lname , $reg_date_less , $reg_date_big , $reg_date_equal);
+		
+		$this->search($providers);
+		
+	}	
 
 }
 

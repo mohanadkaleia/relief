@@ -559,6 +559,45 @@ class Provider_model extends CI_Model
 		$query =  $this->db->query($query);
 		return $query->result_array();		 
 	 } 
+	 
+		
+	/**
+	 * function name : searchProvider
+	 * 
+	 * Description : 
+	 * search provider
+	 * 
+	 * parameters:
+	 * fname
+	 * lname
+	 * reg_date_less
+	 * reg_date_bigger
+	 * reg_date_equal
+	 * 		
+	 * Created date ; 8-2-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function searchProvider($fname = "" , $lname = "" , $reg_date_less = "" , $reg_date_big = "", $reg_date_equal="")
+	 {
+	 	
+		$query = "select * from provider where is_deleted='F'";
+		
+		if($fname <> "") {$query.= " and fname = '{$fname}'";}
+		if($lname <> "") {$query.= " and lname = '{$lname}'";}
+		if($reg_date_less <> "") {$query.= " and created_date < '{$reg_date_less}'";}
+		if($reg_date_big <> "") {$query.= " and created_date > '{$reg_date_big}'";}
+		if($reg_date_equal <> "") {$query.=	 " and created_date = '{$reg_date_equals}'";}
+		
+		
+		$query =  $this->db->query($query);
+		return $query->result_array();
+		//return $query->result(); 	
+	 }	
+		 
+	 
 }    
    
 ?>

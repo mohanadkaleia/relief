@@ -1,8 +1,4 @@
-<script>	
-	$(document).ready(function() {		
-	    gridRender('provider');
-	}); 
-</script>
+
 
 
 <div class="container">
@@ -17,17 +13,120 @@
 		
 		<h3 class="title">بحث عن معيل</h3>	 
 		
+		<form method="post" action="<?php echo base_url();?>provider/searchData">
+			<table>								
+				<tr>
+					<td>
+						الاسم:			
+					</td>
+					<td>
+						<input type="text" name="fname" placeholder="الاسم" />
+					</td>
+					
+					<td>
+						الكنية:
+					</td>
+					<td>
+						<input type="text" name="lname" placeholder="الكنية" />
+					</td>										
+				</tr>
+				
+				<tr>
+					<td>
+						تاريخ التسجيل:
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						أكبر من:
+					</td>
+					<td>
+						<input type="date" name="register_date_bigger" placeholder="تاريخ أكبر من"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						أصغر من:	
+					</td>
+					
+					<td>						
+						<input type="date" name="register_date_less" placeholder="تاريخ أصغر من"/>
+					</td>
+						
+				</tr>
+					<td>
+						مساوٍ للتاريخ:
+					</td>
+					<td>
+						<input type="date" name="register_date_equal" placeholder="تاريخ مساوي"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<input type="submit" value="بحث" class="btn btn-info"/>		
+					</td>
+				</tr>
+			</table>									
+		</form>
 		
+		<br/>
+		<?php			
+			if(isset($providers) && $providers != "")
+			{
+		?>
 		
-		<div class="grid">								
-			<table id="provider" action="<?php echo base_url();?>provider/ajaxGetProviders" dir="rtl">				
-				<tr>																
-					<th col="code" type="text">رمز المعيل</th>
-					<th col="full_name" type="text">اسم المعيل</th>						
-					<th col="created_date" type="date">تاريخ الإنشاء</th>
-				</tr>										
-			</table>	
-		</div>
+		<table class="table">
+			<tr>
+				<th>
+					الاسم
+				</th>
+				
+				<th>
+					الكنية
+				</th>
+				<th>
+					الرقم الوطني
+				</th>
+				<th>
+					تاريخ التسجيل
+				</th>
+			</tr>
+			
+			<?php
+				foreach($providers as $provider)
+				{
+			?>
+					<tr>
+						<td>
+							<?php echo $provider["fname"];?>
+						</td>
+						
+						<td>
+							<?php echo $provider["lname"];?>
+						</td>
+						
+						<td>
+							<?php echo $provider["national_id"];?>
+						</td>
+						
+						<td>
+							<?php echo $provider["created_date"];?>
+						</td>
+					</tr>
+			<?php
+				}			
+			?>	
+		</table>
+		
+		<?php		
+				
+			}
+		?>
+		
+	
 		
 	</div> <!-- end hero uit -->	
 	
