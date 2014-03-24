@@ -38,7 +38,20 @@
 						</td>
 						
 						<td>
-							<input type="text" name="fname" required/>
+							<!--
+								<input type="text" name="fname" required/>
+							-->
+							
+							<select name="fname" id="fname">
+								<option value="محمد">محمد</option>
+								<option value="عبد ">عبد </option>
+								<option value="عبد الرحمن">عبد الرحمن</option>								
+							</select>
+							
+							<script>
+								$("#fname").combify();
+							</script>
+							
 						</td>
 						
 						<td>

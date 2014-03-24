@@ -12,7 +12,7 @@
 		<!-- breacrumb -->
   		<ul class="breadcrumb">
 		  <li><a href="<?php echo base_url();?>dashboard">الرئيسية</a> <span class="divider">/</span></li>			  		  
-		  <li class="active">إدارة معيل</li>
+		  <li class="active">إدارة معيل</li>		  
 		</ul>
 		
 		<h3 class="title">إدارة المعيل</h3>	 
@@ -26,6 +26,12 @@
 				</tr>										
 			</table>	
 		</div>
+		
+		<p>
+			<a class="btn btn-success" href="<?php echo base_url();?>provider/search">
+			بحث متقدم
+			</a>
+		</p>
 		
 	</div> <!-- end hero uit -->	
 	
