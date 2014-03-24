@@ -97,9 +97,11 @@ class Login extends CI_Controller
 		$this->user_model->password = md5($this->input->post('password'));
 		//get the users specified by the given username and password
 		$users = $this->user_model->getUserByUsernameAndPassword();
+		if(isset($users[0])){
 		if($users[0]){
-			$this->session->set_userdata('user',$users[0]);
-			return TRUE;
+				$this->session->set_userdata('user',$users[0]);
+				return TRUE;
+			}
 		}else{
 			$this->form_validation->set_message('validateCreditials' , 'اسم مستخدم خاطئ أو كلمة المرور خاطئة :(');			
 			return FALSE;
