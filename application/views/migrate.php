@@ -10,7 +10,22 @@
 	  		
 			<h1>استيراد \ تصدير بيانات</h1>  
 			<br/>
+			
+			<?php if(isset($result) && $result!= "")
+				{
+				?>
+					<p class="alert alert-success">
+						<?php echo $result;?>						
+					</p>
+				<?php	
+				}
+				?>
+				
 			<div class="row">
+				
+				
+				
+				
 				<div class="span6 right-side">
 					
 					<p class="alert alert-info">
@@ -26,7 +41,7 @@
 				
 				
 				<div class="span6">					
-					<p class="alert alert-success">
+					<p class="alert alert-warning">
 						قم باختيار ملف الاكسل ليتم استيراد البيانات منه ودمجها مع البيانات الحالية الموجودة في قاعدة البيانات،
 						في حال وجود بيانات قديمة أو مكررة فأنه لن يتم إضافتها. 						
 					</p>

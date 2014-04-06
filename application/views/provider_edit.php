@@ -30,6 +30,17 @@
 								
 							</select>
 						</td>
+						
+						<td>
+							وضع السكن:
+						</td>
+						
+						<td>
+							<select name="is_emigrant">
+								<option value="T" <?php if($provider['is_emigrant'] == 'T') echo "selected"; ?>>نازح</option>
+								<option value="F" <?php if($provider['is_emigrant'] == 'F') echo "selected"; ?>>مقيم</option>
+							</select>
+						</td>
 					</tr>
 										
 					<tr>
@@ -56,17 +67,34 @@
 						<td>
 							اسم الأب:
 						</td>
-						
+										
 						<td>
 							<input type="text" name="father_name"  value="<?php echo $provider['father_name'];?>" />
 						</td>
+					
+						<td>
+							اسم الأم:
+						</td>
 						
+						<td>
+							<input type="text" name="mother_name" value="<?php echo $provider['mother_name'];?>"/>
+						</td>
+					</tr>
+					
+					<tr>	
 						<td>
 							الرقم الوطني:
 						</td>
 						
 						<td>
 							<input type="text" name="national_id" value="<?php echo $provider['national_id'];?>" />
+						</td>
+						
+						<td>
+							التولد:
+						</td>
+						<td>
+							<input type="date" name="birth_date" value="<?php echo $provider['birth_date'];?>"/>
 						</td>
 					</tr>
 					

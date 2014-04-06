@@ -49,6 +49,9 @@ class Association_model extends CI_Model{
 	//The logo of the association
 	var $logo = "";
 	
+	//is deleted
+	var $is_deleted = "";
+	
 	//Creation date of the association
 	var $created_date = "";
 	
@@ -197,6 +200,27 @@ class Association_model extends CI_Model{
 		return $query->result_array();
 	 }
 	 
+	 /**
+	 * function name : getAllAssociationsToExport
+	 * 
+	 * Description : 
+	 * Gets all of the associations in the database to export even it the record is deleted
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 26-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	 public function getAllAssociationsToExport(){
+		$query = "SELECT * 
+				  FROM association";
+		$query = $this->db->query($query);
+		return $query->result_array();
+	 }
+	 
 	 
 	 /**
 	 * function name : getAssociationByCode
@@ -287,6 +311,109 @@ class Association_model extends CI_Model{
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }
+	 
+	 /**
+	 * function name : getAssociationColumn
+	 * 
+	 * Description : 
+	 * this function will get the area column names and return it in an array
+	 * ararry {field , type , null , key  ,default , extra}
+	 * 		
+	 * Created date ; 26-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getAssociationColumn()
+	 {	 	
+	 	$query = "SHOW COLUMNS FROM association";
+		$query =  $this->db->query($query);
+		return $query->result_array();		
+	 }
+	 
+	 
+	 /**
+	 * function name : importAssociations
+	 * 
+	 * Description : 
+	 * import associations
+	  *  
+	  *  
+	 * 
+	 * parameters:
+	 * 	
+	 * Created date ; 26-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function importAssociations()
+	 {
+	 	
+		//check if exist
+		$query = "select * from association where
+				  code = '{$this->code}'";
+	    
+		$query =  $this->db->query($query);
+		$assocaition =  $query->result_array();
+		
+		
+		
+		if(count($assocaition) == 0)
+		{
+			$query = "INSERT INTO  association (
+						code,
+						name,
+						manager_name,
+						phone1,
+						phone2,
+						mobile1,
+						mobile2,
+						address,
+						about,
+						logo,
+						created_date,
+						is_deleted						
+						)
+						VALUES (  
+						'{$this->code}',  
+						'{$this->name}',  
+						'{$this->manager_name}',  
+						'{$this->phone1}',  
+						'{$this->phone2}',  
+						'{$this->mobile1}',  
+						'{$this->mobile2}',  
+						'{$this->address}',
+						'{$this->about}',
+						'{$this->logo}',
+						'{$this->created_date}',
+						'{$this->is_deleted}');";
+		}
+		
+		else {
+				$query = "UPDATE  association 
+					SET							
+						name = '{$this->name}',
+						manager_name = '{$this->manager_name}',
+						phone1 = '{$this->phone1}',
+						phone2 = '{$this->phone2}',
+						mobile1 = '{$this->mobile1}',
+						mobile2 = '{$this->mobile2}',
+						address = '{$this->address}',
+						about = '{$this->about}',			
+						logo = '{$this->logo}',
+						created_date = '{$this->created_date}',
+						creator_id = '{$this->creator_id}' , 
+						is_deleted = '{$this->is_deleted}'
+					WHERE code = {$this->code}
+					";	
+		}
+					 	
+		$this->db->query($query);
+	 }
+	 
 }    
     
     

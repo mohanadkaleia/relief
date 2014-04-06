@@ -1,18 +1,15 @@
-
-
-
 <div class="container">
 	
 	<div class="hero-unit">
 		
 		<!-- breacrumb -->
   		<ul class="breadcrumb">
-		  <li><a href="<?php echo base_url();?>dashboard">الرئيسية</a> <span class="divider">/</span></li>			  		  
-		  <li><a href="<?php echo base_url();?>provider">إدارة معيل</a> <span class="divider">/</span></li>
-		  <li class="active">بحث عن معيل</li>
+		  <li><a href="<?php echo base_url();?>dashboard">الرئيسية</a> <span class="divider">/</span></li>			  		  		  
+		  <li class="active">إحصائيات</li>
 		</ul>
 		
 		<h3 class="title">بحث عن معيل</h3>	 
+				
 		
 		<form method="post" action="<?php echo base_url();?>provider/searchData">
 			<table class="table">								
@@ -21,14 +18,14 @@
 						الاسم:			
 					</td>
 					<td>
-						<input type="text" name="fname" placeholder="الاسم" />
+						<input type="text" name="fname" placeholder="الاسم" value="<?php echo $this->input->post("fname");?>"/>
 					</td>
 					
 					<td>
 						الكنية:
 					</td>
 					<td>
-						<input type="text" name="lname" placeholder="الكنية" />
+						<input type="text" name="lname" placeholder="الكنية" value="<?php echo $this->input->post("lname");?>"/>
 					</td>										
 				</tr>
 				
@@ -56,7 +53,7 @@
 					</td>
 					
 					<td>
-						<input type="text" name="national_id"/>
+						<input type="text" name="national_id" value="<?php echo $this->input->post("national_id");?>"/>
 					</td>
 				</tr>
 				
@@ -66,7 +63,7 @@
 					</td>
 					
 					<td>
-						<input type="text" name="family_book_num"/>
+						<input type="text" name="family_book_num" <?php echo $this->input->post("family_book_num");?>/>
 					</td>
 					
 					<td>
@@ -74,7 +71,7 @@
 					</td>
 					
 					<td>
-						<input type="text" name="family_book_letter"/>
+						<input type="text" name="family_book_letter" value="<?php echo $this->input->post("family_book_letter");?>"/>
 					</td>										
 				</tr>
 				
@@ -84,7 +81,7 @@
 					</td>
 					
 					<td>
-						<input type="text" name="family_book_family_number" />
+						<input type="text" name="family_book_family_number" value="<?php echo $this->input->post("family_book_family_number");?>"/>
 					</td>														
 				</tr>
 				
@@ -94,15 +91,15 @@
 					</td>
 					
 					<td>
-						<<input type="number" name="family_less"/>
+						<input type="number" name="family_less" placeholder="أًصغر من" value="<?php echo $this->input->post("family_less");?>"/>
 					</td>
 					
 					<td>
-						><input type="number" name="family_big"/>
+						<input type="number" name="family_big" placeholder="أكبر من" value="<?php echo $this->input->post("family_big");?>"/>
 					</td>
 					
 					<td>
-						=<input type="number" name="family_equal"/>
+						<input type="number" name="family_equal" placeholder="مساوٍ" value="<?php echo $this->input->post("family_equal");?>"/>
 					</td>
 				</tr>
 				
@@ -112,19 +109,16 @@
 						تاريخ التسجيل:
 					</td>									
 					
-					<td>
-						<						
-						<input type="date" name="register_date_less" />
+					<td>						
+						<input type="text" name="register_date_less" placeholder="من تاريخ yyyy-mm-dd" value="<?php echo $this->input->post("register_date_less");?>"/>
+					</td>
+					
+					<td>						
+						<input type="text" name="register_date_bigger" placeholder="إلى تاريخ yyyy-mm-dd" value="<?php echo $this->input->post("register_date_bigger");?>"/>
 					</td>
 					
 					<td>
-						>
-						<input type="date" name="register_date_bigger" />
-					</td>
-					
-					<td>
-						=
-						<input type="date" name="register_date_equal"/>
+						<input type="text" name="register_date_equal" placeholder="تاريخ محدد yyyy-mm-dd" value="<?php echo $this->input->post("register_date_equal");?>"/>
 					</td>
 				</tr>
 				
@@ -155,6 +149,12 @@
 				<th>
 					الرقم الوطني
 				</th>
+				<td>
+					التولد
+				</td>
+				<td>
+					عدد أفراد الأسرة
+				</td>
 				<th>
 					تاريخ التسجيل
 				</th>
@@ -175,6 +175,14 @@
 						
 						<td>
 							<?php echo $provider["national_id"];?>
+						</td>
+						
+						<td>
+							<?php echo $provider["birth_date"];?>
+						</td>
+						
+						<td>
+							<?php echo $provider["family_members"];?>
 						</td>
 						
 						<td>

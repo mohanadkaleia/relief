@@ -13,25 +13,8 @@
  * Author : Mohanad Shab Kaleia
  * contact : ms.kaleia@gmail.com
  */
-class Provider extends CI_Controller {
+class Report extends CI_Controller {
 
-
-	/**
-	 * Function name : __construct
-	 * Description: 
-	 * this contructor is called as this object is initiated.
-	 * 
-	 * created date: 5-3-2014
-	 * ccreated by: Eng. Ahmad Mulhem Barakat
-	 * contact: molham225@gmail.com 
-	 */
-	public function __construct(){
-		parent::__construct();
-		//check login state of the user requesting this controller.
-		$this->load->helper('login');
-		checkLogin($this->session->userdata['user']);
-	}
-	
 
 	
 	public function index()
@@ -43,7 +26,7 @@ class Provider extends CI_Controller {
 	/**
 	 * function name : manage
 	 * 
-	 * Description : 
+	 * Description: 
 	 * call settings page
 	 * 
 	 * Created date ; 29-4-2013
@@ -54,19 +37,32 @@ class Provider extends CI_Controller {
 	 */
 	public function manage($status_message = null)
 	{
-		//load setting model
-		//$this->load->model('setting_model');
-		
-		//get the setting values
-		//$settings_value = $this->setting_model->getSettingsByUserId();
-			
-		//$data["settings"] = $settings_value;
-		//$data["status_message"] = $status_message;
+		//load models
+		$this->load->model("provider_model");
+		$this->load->model("family_member_model");
 				
-															
+		//get all providers
+		$providers = $this->provider_model->getAllProviders();	
+		
+		//get all family_members
+		$family_members = $this->family_member_model->getAllFamilyMembers();
+		
+		//get all members by gender
+		$members_male = $this->family_member_model->getFamilyMembersByGender('M');
+		$members_female = $this->family_member_model->getFamilyMembersByGender('F');
+		
+		//get all members by their health status "disabled" 
+		$members_disabled = $this->family_member_model->getFamilyMembersByHealth("disabled");
+			
+		$data["providers"] = $providers;
+		$data["members"] = $family_members;
+		$data["male"] = $members_male;
+		$data["female"] = $members_female;
+		$data["disabled"] = $members_disabled;
+																	
 		$this->load->view('gen/header');
 		$this->load->view('gen/slogan');
-		$this->load->view('provider_manage');
+		$this->load->view('report_manage' , $data);
 		$this->load->view('gen/footer');
 	}
 	
@@ -101,24 +97,7 @@ class Provider extends CI_Controller {
 	}
 	
 	
-	/**
-	 * function name : barcode_generate
-	 * 
-	 * Description : 
-	 * deletes the provider specified by the id
-	 * 
-	 * Created date ; 22-2-2014
-	 * Modification date : ---
-	 * Modfication reason : ---
-	 * Author : Ahmad Mulhem Barakat
-	 * contact : molham225@gmail.com
-	 */
-	public function barcode_generate($provider_code)
-	{			
-		$data['provider_code'] = $provider_code;
-		$this->load->view('barcode_generate' , $data);
-		
-	}
+	
 	
 	/**
 	 * function name : delete

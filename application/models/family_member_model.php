@@ -26,8 +26,11 @@ class Family_member_model extends CI_Model{
 	var $national_id = "";
 	
 	//Family member's full name.
-	var $full_name = "";
+	var $fname = "";
+	var $lname = "";
+	var $father_name = "";
 	
+
 	//family member's gender
 	var $gender = "";
 	
@@ -36,9 +39,6 @@ class Family_member_model extends CI_Model{
 	
 	//The relationship between the provider and this family member
 	var $relationship = "";
-	
-	//A flag that tells if this family member is emigrant or not.
-	var $is_emigrant = "";
 	
 	//Describtion of the family member's current job.
 	var $job = "";
@@ -87,11 +87,12 @@ class Family_member_model extends CI_Model{
 	 	$query = "INSERT INTO  family_member (	 						
 							provider_code,
 							national_id,
-							full_name,
+							fname,
+							lname,
+							father_name,
 							gender,
 							birth_date,
-							relationship,
-							is_emigrant,
+							relationship,							
 							job,
 							study_status,
 							social_status,
@@ -101,11 +102,12 @@ class Family_member_model extends CI_Model{
 					VALUES (  
 							'{$this->provider_code}',
 							'{$this->national_id}',
-							'{$this->full_name}',
+							'{$this->fname}',
+							'{$this->lname}',
+							'{$this->father_name}',
 							'{$this->gender}',
 							'{$this->birth_date}',
-							'{$this->relationship}',
-							'{$this->is_emigrant}',
+							'{$this->relationship}',							
 							'{$this->job}',
 							'{$this->study_status}',
 							'{$this->social_status}',
@@ -113,6 +115,8 @@ class Family_member_model extends CI_Model{
 							'{$this->note}' 
 							);
 					";	
+		echo $query;			
+					
 		$this->db->query($query);
 	 }
 	 
@@ -138,11 +142,12 @@ class Family_member_model extends CI_Model{
 					SET	
 						provider_code = '{$this->provider_code}',
 						national_id = '{$this->national_id}',
-						full_name = '{$this->full_name}',
+						fname = '{$this->fname}',
+						lname = '{$this->lname}',
+						father_name = '{$this->father_name}',
 						gender = '{$this->gender}',
 						birth_date = '{$this->birth_date}',
-						relationship = '{$this->relationship}',
-						is_emigrant = '{$this->is_emigrant}',
+						relationship = '{$this->relationship}',						
 						job = '{$this->job}',
 						study_status = '{$this->study_status}',
 						social_status = '{$this->social_status}',
@@ -170,8 +175,11 @@ class Family_member_model extends CI_Model{
 	 * contact : molham225@gmail.com
 	 */
 	 public function deleteFamilyMember(){
-		$query = "DELETE FROM family_member
-				    WHERE id = {$this->id}";
+		$query = "UPDATE  family_member
+				  SET	
+				  is_deleted = 'T',
+				  modification_date = curdate()		
+				  WHERE id = {$this->id}";
 		$this->db->query($query);
 	 }
 	 
@@ -191,7 +199,7 @@ class Family_member_model extends CI_Model{
 	 * contact : molham225@gmail.com
 	 */
 	 public function getAllFamilyMembers(){
-		$query = "SELECT distinct family_member.* , provider.full_name as provider_name 
+		$query = "SELECT distinct family_member.* , CONCAT( family_member.fname,  ' ', family_member.father_name,  ' ', family_member.lname ) as full_name ,  CONCAT( provider.fname,  ' ', provider.father_name,  ' ', provider.lname ) as provider_name 
 				  FROM family_member, provider 
 				  where 
 				  provider.code = family_member.provider_code
@@ -241,7 +249,7 @@ class Family_member_model extends CI_Model{
 	 * contact : molham225@gmail.com
 	 */
 	 public function getFamilyMemberByProviderCode(){
-		$query = "SELECT distinct family_member.* , concat(provider.fname , ' ' , provider.father_name , ' ' , provider.lname) as provider_name 
+		$query = "SELECT distinct family_member.* , CONCAT( family_member.fname,  ' ', family_member.father_name,  ' ', family_member.lname ) as full_name ,  concat(provider.fname , ' ' , provider.father_name , ' ' , provider.lname) as provider_name 
 				  FROM family_member , provider 
 				  WHERE 
 				  family_member.provider_code = '{$this->provider_code}'
@@ -326,11 +334,12 @@ class Family_member_model extends CI_Model{
 			$query = "INSERT INTO  family_member (
 							provider_code,
 							national_id , 
-							full_name,
+							fname,
+							lname,
+							father_name,
 							gender,
 							birth_date,
-							relationship,
-							is_emigrant,
+							relationship,							
 							job,
 							study_status,
 							social_status,
@@ -340,11 +349,12 @@ class Family_member_model extends CI_Model{
 					VALUES (  
 							'{$this->provider_code}',
 							'{$this->national_id}',
-							'{$this->full_name}',							
+							'{$this->fname}',
+							'{$this->lname}',
+							'{$this->father_name}',							
 							'{$this->gender}',
 							'{$this->birth_date}',
-							'{$this->relationship}',
-							'{$this->is_emigrant}',
+							'{$this->relationship}',							
 							'{$this->job}',
 							'{$this->study_status}',
 							'{$this->social_status}',
@@ -358,17 +368,18 @@ class Family_member_model extends CI_Model{
 			$query = "UPDATE  family_member
 					SET	
 						provider_code = '{$this->provider_code}',						
-						full_name = '{$this->full_name}',
+						fname = '{$this->fname}',
+						lname = '{$this->lname}',
+						father_name = '{$this->father_name}',
 						gender = '{$this->gender}',
 						birth_date = '{$this->birth_date}',
-						relationship = '{$this->relationship}',
-						is_emigrant = '{$this->is_emigrant}',
+						relationship = '{$this->relationship}',						
 						job = '{$this->job}',
 						study_status = '{$this->study_status}',
 						social_status = '{$this->social_status}',
 						health_status = '{$this->health_status}',
 						note = '{$this->note}'		
-					WHERE national_id = {$this->national_id}
+					WHERE national_id = '{$this->national_id}'
 					";		
 		}							
 		$this->db->query($query);
@@ -404,6 +415,96 @@ class Family_member_model extends CI_Model{
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }
+	 
+	 
+	 /**
+	 * function name : getFamilyMembersByGender($gender)
+	 * 
+	 * Description : 
+	 * Gets all of the family members in the database by chooosing gender
+	 * 
+	 * parameters:
+	 * gender: 'F' for female 'M' for male
+	 * Created date ; 1-4-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getFamilyMembersByGender($gender)
+	 {
+		$query = "SELECT distinct family_member.* , CONCAT( family_member.fname,  ' ', family_member.father_name,  ' ', family_member.lname ) as full_name ,  CONCAT( provider.fname,  ' ', provider.father_name,  ' ', provider.lname ) as provider_name 
+				  FROM family_member, provider 
+				  where 
+				  provider.code = family_member.provider_code
+				  and
+				  provider.is_deleted = 'F'
+				  and
+				  gender = '{$gender}' 
+				  ";
+		$query = $this->db->query($query);
+		return $query->result_array();
+	 }
+	 
+	 
+	 /**
+	 * function name : getFamilyMembersByHealth($health)
+	 * 
+	 * Description : 
+	 * Gets all of the family members in the database by chooosing health status
+	 * 
+	 * parameters:
+	 * health status 
+	 * Created date ; 1-4-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getFamilyMembersByHealth($health)
+	 {
+		$query = "SELECT distinct family_member.* 
+				  FROM family_member, provider 
+				  where 
+				  provider.code = family_member.provider_code
+				  and
+				  provider.is_deleted = 'F'
+				  and
+				  health_status = '{$health}' 
+				  ";
+		$query = $this->db->query($query);
+		return $query->result_array();
+	 }
+	 
+	  /**
+	 * function name : getFamilyMembersBelow3 
+	 * 
+	 * Description : 
+	 * Gets all of the family members in the database where they are below 3
+	 * 
+	 * parameters:
+	 * health status 
+	 * Created date ; 1-4-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getFamilyMembersBelow3()
+	 {
+		$query = "SELECT distinct family_member.* 
+				  FROM family_member, provider 
+				  where 
+				  provider.code = family_member.provider_code
+				  and
+				  provider.is_deleted = 'F'
+				  and
+				  birth_date  = '{$health}' 
+				  ";
+		$query = $this->db->query($query);
+		return $query->result_array();
+	 }
+	 
 	 
 }    
     

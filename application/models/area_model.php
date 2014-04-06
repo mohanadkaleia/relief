@@ -227,6 +227,82 @@ class Area_model extends CI_Model{
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }
+	 
+	 
+	 /**
+	 * function name : getAreaColumn
+	 * 
+	 * Description : 
+	 * this function will get the area column names and return it in an array
+	 * ararry {field , type , null , key  ,default , extra}
+	 * 		
+	 * Created date ; 26-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getAreaColumn()
+	 {	 	
+	 	$query = "SHOW COLUMNS FROM area";
+		$query =  $this->db->query($query);
+		return $query->result_array();		
+	 }
+	 
+	 
+	 /**
+	 * function name : importAreas
+	 * 
+	 * Description : 
+	 * import provider
+	  *  if the provider is exist then just update its info
+	  *  if the provider does not exist then inster new one
+	 * 
+	 * parameters:
+	 * 	$association_id: the id of the association that the provider belong to
+	 * 	$area_id: the area id that the provider belong to
+	 * Created date ; 7-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function importAreas()
+	 {
+	 	
+		//check if exist
+		$query = "select * from area where
+				  code = '{$this->code}'";
+	    
+		$query =  $this->db->query($query);
+		$area =  $query->result_array();
+		
+		
+		
+		if(count($area) == 0)
+		{
+			$query = "INSERT INTO  area (				
+				code,
+				name				
+				)
+				VALUES (
+				'{$this->code}',  				 
+				'{$this->name}'				
+				);	";
+		}
+		
+		else {
+				$query = "UPDATE area 
+				  SET 
+					code = '{$this->code}',					
+					name = '{$this->name}'								
+				  WHERE 
+					code =  '{$this->code}';
+					 	";
+		}
+					 	
+		$this->db->query($query);
+	 }
 }    
     
     

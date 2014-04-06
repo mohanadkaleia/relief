@@ -50,8 +50,10 @@
     <script type="text/javascript">
 	$(document).ready(function() {
 	// Create two variable with the names of the months and days in an array
-	var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]; 
-	var dayNames= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+	var monthNames = [ "كانون الثاني", "شباط", "آذار", "نيسان", "آيار", "حزيان", "تموز", "آب", "إيلول", "تشرين الأول", "تشرين الثاني", "كانون الأول" ];
+	
+	//	var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]; 
+	var dayNames= ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"]
 	
 	// Create a newDate() object
 	var newDate = new Date();
@@ -87,10 +89,10 @@
     <style>
     	.clock {width:800px; margin:0 auto; padding:30px; border:0px solid #333; color:#fff;}
 
-		#Date { font-family:'BebasNeueRegular', Arial, Helvetica, sans-serif; font-size:36px; text-align:center; text-shadow:0 0 5px #00c6ff; margin-bottom:25px; }
+		#Date { font-family:'BebasNeueRegular', Arial, Helvetica, sans-serif; font-size:36px; text-align:center; text-shadow:0 0 5px #00c6ff; margin-bottom:25px;float:right }
 		
-		ul { width:800px; margin:0 auto; padding:0px; list-style:none; text-align:center;}
-		ul li { display:inline; font-size:5em; text-align:center; font-family:'BebasNeueRegular', Arial, Helvetica, sans-serif; text-shadow:0 0 5px #00c6ff; float:left;}
+		ul { width:800px; margin:0 auto; padding:0px; list-style:none; text-align:center;direction:rtl;}
+		ul li { display:inline; font-size:5em; text-align:center; font-family:'BebasNeueRegular', Arial, Helvetica, sans-serif; text-shadow:0 0 5px #00c6ff;float:left}
 		
 		#point { position:relative; -moz-animation:mymove 1s ease infinite; -webkit-animation:mymove 1s ease infinite; padding-left:10px; padding-right:10px; }
 		
@@ -123,6 +125,7 @@
 	    <li id="sec"> </li>
 	</ul>
 	
+	<div style="clear:both"></div>
 	</div>
     
     

@@ -157,10 +157,8 @@ class Aid extends CI_Controller {
 		$this->grid->data = $this->provider_package_model->getAllProviderPackages();
 		
 		//grid controls
-		$this->grid->control = array(									  
-									  array("title" => "تعديل" , "icon"=>"icon-pencil" , "url"=>base_url()."provider/edit" , "message_type"=>null , "message"=>"") , 
-									  array("title" => "حذف" , "icon"=>"icon-trash" ,"url"=>base_url()."provider/delete" , "message_type"=>"confirm" , "message"=>"Are you sure?"),
-									  array("title" => "طباعة" , "icon"=>"icon-file" ,"url"=>base_url()."provider/barcode_generate" , "message_type"=>null , "message"=>"")
+		$this->grid->control = array(									  									  
+									  //array("title" => "طباعة" , "icon"=>"icon-file" ,"url"=>base_url()."provider/barcode_generate" , "message_type"=>null , "message"=>"")
 									);												
 						
 		//render our grid :)

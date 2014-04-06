@@ -30,10 +30,17 @@ class Provider_model extends CI_Model
 	var $fname ="";
 	var $lname ="";
 	var $father_name ="";
+	var $mother_name ="";
 	
 	
 	//national id
 	var $national_id;
+	
+	//birth date
+	var $birth_date;
+	
+	//is emigrant
+	var $is_emigrant;
 	
 	//family book number
 	var $family_book_num;
@@ -122,7 +129,10 @@ class Provider_model extends CI_Model
 				fname ,
 				lname,
 				father_name,
+				mother_name ,
 				national_id ,
+				birth_date,
+				is_emigrant , 
 				family_book_num ,
 				family_book_letter ,
 				family_book_family_number ,
@@ -149,8 +159,11 @@ class Provider_model extends CI_Model
 				'{$this->code}',  
 				'{$this->fname}',  
 				'{$this->lname}',
-				'{$this->father_name}',
-				'{$this->national_id}',  
+				'{$this->father_name}',				
+				'{$this->mother_name}',
+				'{$this->national_id}',
+				'{$this->birth_date}',
+				'{$this->is_emigrant}',   
 				'{$this->family_book_num}',  
 				'{$this->family_book_letter}',  
 				'{$this->family_book_family_number}',  
@@ -202,7 +215,10 @@ class Provider_model extends CI_Model
 					fname = '{$this->fname}',
 					lname = '{$this->lname}',
 					father_name = '{$this->father_name}',
+					mother_name = '{$this->mother_name}',
 					national_id = '{$this->national_id}',
+					birth_date = '{$this->birth_date}',
+					is_emigrant = '{$this->is_emigrant}',
 					family_book_num = '{$this->family_book_num}',
 					family_book_letter = '{$this->family_book_letter}',
 					family_book_family_number = '{$this->family_book_family_number}',
@@ -217,8 +233,7 @@ class Provider_model extends CI_Model
 					phone2 = '{$this->phone2}',
 					mobile1 = '{$this->mobile1}',
 					mobile2 = '{$this->mobile2}',
-					note = '{$this->note}',
-					relief_form_status = '{$this->relief_form_status}',
+					note = '{$this->note}',					
 					created_date = '{$this->created_date}',
 					creator_id = {$this->user_id},
 					is_deleted = '{$this->is_deleted}'			
@@ -272,7 +287,7 @@ class Provider_model extends CI_Model
 	 			  set
 	 			  is_deleted = 'T'
 	 			  where
-	 			  code = {$this->code}
+	 			  code = '{$this->code}'
 	 			;";
 		$this->db->query($query);
 	 }
@@ -282,7 +297,7 @@ class Provider_model extends CI_Model
 	 * function name : getAllProviders
 	 * 
 	 * Description : 
-	 * get all providers from the database
+	 * get all providers from the database where they are active and accepted
 	 * 		
 	 * Created date ; 8-2-2014
 	 * Modification date : ---
@@ -295,7 +310,32 @@ class Provider_model extends CI_Model
 	 	$query = "select * , CONCAT( fname,  ' ', father_name,  ' ', lname ) as full_name 
 	 			  from provider
 	 			  where 
-	 			  is_deleted= 'F'";
+	 			  is_deleted= 'F'
+	 			  and
+	 			  relief_form_status = 'T'";
+		$query =  $this->db->query($query);
+		return $query->result_array();
+		//return $query->result(); 	
+	 }
+	 
+	 
+	 /**
+	 * function name : getAllProvidersToExport
+	 * 
+	 * Description : 
+	 * get all providers from the database even if they are not active or deleted
+	 * 		
+	 * Created date ; 26-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getAllProvidersToExport()
+	 {	 	
+	 	$query = "select * 
+	 			  from provider
+	 			 ";
 		$query =  $this->db->query($query);
 		return $query->result_array();
 		//return $query->result(); 	
@@ -443,7 +483,10 @@ class Provider_model extends CI_Model
 				fname ,
 				lname,
 				father_name,
+				mother_name,
 				national_id ,
+				birth_date,
+				is_emigrant ,
 				family_book_num ,
 				family_book_letter ,
 				family_book_family_number ,
@@ -470,8 +513,11 @@ class Provider_model extends CI_Model
 				'{$this->code}',  
 				'{$this->fname}',
 				'{$this->lname}',
-				'{$this->father_name}',  
-				'{$this->national_id}',  
+				'{$this->father_name}',
+				'{$this->mother_name}',  
+				'{$this->national_id}',
+				'{$this->birth_date}',
+				'{$this->is_emigrant}',    
 				'{$this->family_book_num}',  
 				'{$this->family_book_letter}',  
 				'{$this->family_book_family_number}',  
@@ -500,8 +546,13 @@ class Provider_model extends CI_Model
 					area_code = '{$area_code}',
 					association_code  = '{$association_code}',
 					code = '{$this->code}',
-					full_name = '{$this->full_name}',
+					fname = '{$this->fname}',
+					lname = '{$this->lname}',
+					father_name = '{$this->father_name}',
+					mother_name = '{$this->mother_name}',
 					national_id = '{$this->national_id}',
+					birth_date = '{$this->birth_date}',
+					is_emigrant = '{$this->is_emigrant}',
 					family_book_num = '{$this->family_book_num}',
 					family_book_letter = '{$this->family_book_letter}',
 					family_book_family_number = '{$this->family_book_family_number}',
@@ -594,13 +645,15 @@ class Provider_model extends CI_Model
 								   $reg_date_big  = "", 
 								   $reg_date_equal = "")
 	 {	 				 	
-	 	$query = "select distinct * from provider";
+	 	$query = "select distinct * from provider_data";
 	 	
-	 	if($area<> "all") {$query .= ", area ";}
+	 	//if($area<> "all") {$query .= ", area ";}
 		if($family_num_less <> "" || $family_num_bigger <> "" || $family_num_equal <> "") 
-		{$query.= ", family_member ";}
+		{
+			//$query.= ", family_member ";
+		}
 				
-		$query .= " where provider.is_deleted = 'F'";
+		$query .= " where is_deleted = 'F'";
 				
 		if($fname <> "") {$query.= " and fname = '{$fname}'";}
 		if($lname <> "") {$query.= " and lname = '{$lname}'";}
@@ -610,22 +663,87 @@ class Provider_model extends CI_Model
 		if($family_book_letter <> "") {$query.= " and family_book_letter = '{$family_book_letter}'";}
 		if($family_book_family_num <> "") {$query.= " and family_book_family_number = '{$family_book_family_num}'";}
 		
-		//if($family_num_less <> "") {$query.= " and (count(select id from family_member where )) < {$family_num_less}";}
-		//if($reg_date_big <> "") {$query.= " and created_date > '{$reg_date_big}'";}
-		//if($reg_date_equal <> "") {$query.=	 " and created_date = '{$reg_date_equals}'";}
+		/*
+		if($family_num_less <> "") {$query.= " and (select count(family_member.id) from provider , family_member where provider.code = family_member.provider_code) < {$family_num_less}";}
+		if($family_num_bigger <> "") {$query.= " and (select count(family_member.id) from provider , family_member where provider.code = family_member.provider_code) > {$family_num_bigger}";}
+		if($family_num_equal <> "") {$query.=	 " and (select count(family_member.id) from provider , family_member where provider.code = family_member.provider_code) = {$family_num_equal}";}
+		*/
+		
+		if($family_num_less <> "") {$query.= " and family_members < '{$family_num_less}'";}
+		if($family_num_bigger <> "") {$query.= " and family_members > '{$family_num_bigger}'";}
+		if($family_num_equal <> "") {$query.=	 " and family_members = '{$family_num_equal}'";}
 		
 		
 		if($reg_date_less <> "") {$query.= " and created_date < '{$reg_date_less}'";}
 		if($reg_date_big <> "") {$query.= " and created_date > '{$reg_date_big}'";}
 		if($reg_date_equal <> "") {$query.=	 " and created_date = '{$reg_date_equals}'";}
 		
+		//echo $family_num_bigger;
 		
+		
+				
 		$query =  $this->db->query($query);
 		return $query->result_array();
 		//return $query->result(); 	
 	 }	
 		 
+	
+	/**
+	 * function name : getProviderWithStatusX
+	 * 
+	 * Description : 
+	 * get all unkown status of providers
+	 * 		
+	 * Created date ; 25-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getProviderWithStatusX()
+	 {	 	
+	 	$query = "select * , CONCAT( fname,  ' ', father_name,  ' ', lname ) as full_name 
+	 			  from provider
+	 			  where 
+	 			  is_deleted= 'F'
+	 			  and
+	 			  relief_form_status = 'X'";
+		$query =  $this->db->query($query);
+		return $query->result_array();
+		//return $query->result(); 	
+	 }
+
+
+	/**
+	 * function name : chkExist
+	 * 
+	 * Description : 
+	 * check if the provider is exist or not 
+	 * if exist then return true
+	 * else false
+	 * 		
+	 * Created date ; 29-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function chkExist()
+	 {	 	
+	 	$query = "select * from provider 
+	 			  where 
+	 			  national_id = '{$this->national_id}' and
+	 			  is_deleted = 'F'";
+		$query =  $this->db->query($query);
+		$providers =  $query->result_array();
+		
+		if(count($providers) > 0)
+			return true;
+		else 
+			return false;				 
+	 }
 	 
+	 	 
 }    
    
 ?>

@@ -32,11 +32,28 @@
 					
 					<tr>
 						<td>
-							الاسم الثلاثي الكامل:
+							الاسم:
 						</td>
 						
 						<td>
-							<input type="text" name="full_name" value="<?php echo $family_member['full_name'];?>"/>
+							<input type="text" name="fname" value="<?php echo $family_member['fname'];?>"/>
+						</td>
+						
+						<td>
+							الكنية:
+						</td>
+						
+						<td>
+							<input type="text" name="lname" value="<?php echo $family_member['lname'];?>"/>
+						</td>
+					</tr>
+					<tr>	
+						<td>
+							اسم الأب:
+						</td>
+						
+						<td>
+							<input type="text" name="father_name" value="<?php echo $family_member['father_name'];?>"/>
 						</td>
 						
 						<td>
@@ -56,8 +73,43 @@
 							التولد:
 						</td>
 						
-						<td>													
-							<input type="text" name="birth_date" id="birth_date" value="<?php echo $family_member['birth_date'];?>"/>
+						<td dir="ltr" align="right">						
+							<?php
+								$birth_date = explode("-", $family_member['birth_date']);
+							?>
+																					
+							<select name="birth_year" style="width:70px;">
+								<?php
+									for($i=1900 ; $i<=date(Y);$i++)
+									{
+								?>
+									<option value="<?php echo $i;?>" <?php if($birth_date[0] == $i) echo "selected";?>><?php echo $i;?></option>
+								<?php		
+									}
+								?>
+							</select>
+							-
+							<select name="birth_month" style="width:60px;">
+								<?php
+									for($i=1 ; $i<=12;$i++)
+									{
+								?>
+									<option value="<?php echo $i;?>" <?php if($birth_date[1] == $i) echo "selected";?>><?php echo $i;?></option>
+								<?php		
+									}
+								?>
+							</select>
+							-
+							<select name="birth_day" style="width:60px;">
+								<?php
+									for($i=1 ; $i<=31;$i++)
+									{
+								?>
+									<option value="<?php echo $i;?>" <?php if($birth_date[2] == $i) echo "selected";?>><?php echo $i;?></option>
+								<?php		
+									}
+								?>
+							</select>
 						</td>
 						
 						<td>
@@ -77,8 +129,7 @@
 						</td>
 					</tr>
 					
-					<tr>						
-						
+					<tr>												
 						<td>
 							الوضع الصحي:
 						</td>
@@ -90,17 +141,7 @@
 								<option value="sustenance" <?php  if($family_member['health_status'] == "sustenance") echo 'selected';?>>إعالة</option>
 								<option value="pregnant" <?php  if($family_member['health_status'] == "pregnant") echo 'selected';?>>حامل</option>
 							</select>
-						</td>
-						
-						<td>
-							نازح\مقيم:
-						</td>
-						<td>
-							<select name="is_emigrant">
-								<option value="T" <?php  if($family_member['is_emigrant'] == "T") echo 'selected';?> >نازح</option>
-								<option value="F" <?php  if($family_member['is_emigrant'] == "F") echo 'selected';?>>مقيم</option>
-							</select>							
-						</td>						
+						</td>											
 					</tr>
 					
 					<tr>
@@ -127,6 +168,7 @@
 						<td>							
 							<select name="social_status">
 								<option value="married" <?php  if($family_member['social_status'] == "married") echo 'selected';?>>متزوج</option>
+								<option value="single" <?php  if($family_member['social_status'] == "single") echo 'selected';?>>عازب</option>
 								<option value="divorced" <?php  if($family_member['social_status'] == "divorced") echo 'selected';?>>مطلق</option>
 								<option value="fatherless" <?php  if($family_member['social_status'] == "fatherless") echo 'selected';?>>يتيم</option>
 								<option value="widow" <?php  if($family_member['social_status'] == "widow") echo 'selected';?>>أرملة</option>

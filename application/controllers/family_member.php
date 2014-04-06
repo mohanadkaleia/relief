@@ -16,6 +16,23 @@
 class Family_member extends CI_Controller {
 
 
+	/**
+	 * Function name : __construct
+	 * Description: 
+	 * this contructor is called as this object is initiated.
+	 * 
+	 * created date: 5-3-2014
+	 * ccreated by: Eng. Ahmad Mulhem Barakat
+	 * contact: molham225@gmail.com 
+	 */
+	public function __construct(){
+		parent::__construct();
+		//check login state of the user requesting this controller.
+		$this->load->helper('login');
+		checkLogin($this->session->userdata['user']);
+	}
+	
+	
 	
 	public function index()
 	{
@@ -219,12 +236,13 @@ class Family_member extends CI_Controller {
 		// assign values to the model variable
 		$this->family_member_model->provider_code = $this->input->post('provider_code');
 		$this->family_member_model->national_id = $this->input->post('national_id');
-		$this->family_member_model->full_name = $this->input->post('full_name');			
+		$this->family_member_model->fname = $this->input->post('fname');			
+		$this->family_member_model->lname = $this->input->post('lname');
+		$this->family_member_model->father_name = $this->input->post('father_name');				
 		$this->family_member_model->gender = $this->input->post('gender');
-		$this->family_member_model->birth_date = $this->input->post('birth_date');
+		$this->family_member_model->birth_date = $this->input->post('birth_year').'-'.$this->input->post('birth_month').'-'.$this->input->post('birth_day');
 		$this->family_member_model->relationship = $this->input->post('relationship');
-		$this->family_member_model->health_status = $this->input->post('health_status');
-		$this->family_member_model->is_emigrant = $this->input->post('is_emigrant');
+		$this->family_member_model->health_status = $this->input->post('health_status');		
 		$this->family_member_model->job = $this->input->post('job');
 		$this->family_member_model->study_status = $this->input->post('study_status');
 		$this->family_member_model->social_status = $this->input->post('social_status');		

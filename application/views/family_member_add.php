@@ -76,12 +76,29 @@
 				
 					<tr>
 						<td>
-							الاسم الثلاثي الكامل:
+							الاسم:
 						</td>
 						
 						<td>
-							<input type="text" name="full_name" />
+							<input type="text" name="fname" required/>
 						</td>
+						
+						<td>
+							الكنية:
+						</td>
+						
+						<td>
+							<input type="text" name="lname" value="<?php echo $provider[0]['lname'];?>" required/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							اسم الأب
+						</td>
+						
+						<td>
+							<input type="text" name="father_name" required value="<?php echo $provider[0]['fname'];?>"/>
+						</td>											
 						
 						<td>
 							الجنس:
@@ -100,8 +117,39 @@
 							التولد:
 						</td>
 						
-						<td>													
-							<input type="text" name="birth_date" id="birth_date" placeholder="YYYY-MM-DD"/>
+						<td dir="ltr" align="right">																				
+							<select name="birth_year" style="width:70px;">
+								<?php
+									for($i=1900 ; $i<=date(Y);$i++)
+									{
+								?>
+									<option value="<?php echo $i;?>"><?php echo $i;?></option>
+								<?php		
+									}
+								?>
+							</select>
+							-
+							<select name="birth_month" style="width:60px;">
+								<?php
+									for($i=1 ; $i<=12;$i++)
+									{
+								?>
+									<option value="<?php echo $i;?>"><?php echo $i;?></option>
+								<?php		
+									}
+								?>
+							</select>
+							-
+							<select name="birth_day" style="width:60px;">
+								<?php
+									for($i=1 ; $i<=31;$i++)
+									{
+								?>
+									<option value="<?php echo $i;?>"><?php echo $i;?></option>
+								<?php		
+									}
+								?>
+							</select>
 						</td>
 						
 						<td>
@@ -116,7 +164,7 @@
 								<option value="brother">أخ</option>
 								<option value="sister">أخت</option>
 								<option value="son">إبن</option>
-								<option value="daughter">إبنه</option>
+								<option value="daughter">إبنه</option>								
 							</select>														
 						</td>
 					</tr>
@@ -135,16 +183,7 @@
 								<option value="pregnant">حامل</option>
 							</select>
 						</td>
-						
-						<td>
-							نازح\مقيم:
-						</td>
-						<td>
-							<select name="is_emigrant">
-								<option value="T">نازح</option>
-								<option value="F">مقيم</option>
-							</select>							
-						</td>						
+												
 					</tr>
 					
 					<tr>
@@ -171,6 +210,7 @@
 						<td>							
 							<select name="social_status">
 								<option value="married">متزوج</option>
+								<option value="single">عازب</option>
 								<option value="divorced">مطلق</option>
 								<option value="fatherless">يتيم</option>
 								<option value="widow">أرملة</option>

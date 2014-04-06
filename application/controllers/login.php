@@ -34,10 +34,10 @@ class Login extends CI_Controller
 	public function __construct(){
 		parent::__construct();
 		//load the login_helper
-		$this->load->helper('login');
+		//$this->load->helper('login');
 		//if the user already logged in redirect him/her to dash board page.
 		if(isset($this->session->userdata['user'])){
-			redirect(base_url()."dashboard");
+			//redirect(base_url()."dashboard");
 		}
 	}
 	
@@ -123,8 +123,11 @@ class Login extends CI_Controller
 		//destroy the session	
 		$this->session->sess_destroy();
 		
+		//echo "session has been removeed";
+		
 		//redirect to login page
-		$this->index();
+		redirect(base_url());
+		//$this->index();
 	}	
 }
 	

@@ -76,7 +76,7 @@ class Form extends CI_Controller {
 		$this->grid->columns = array('code','full_name' , 'national_id' , 'created_date');//'code' removed
 		
 		//get the data	
-		$this->grid->data = $this->provider_model->getAllProviders();
+		$this->grid->data = $this->provider_model->getProviderWithStatusX();
 		
 		//grid controls
 		$this->grid->control = array(									  

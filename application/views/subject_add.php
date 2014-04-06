@@ -1,5 +1,13 @@
 <div  class="row-fluid">	  	
 	  	<div class="span8 main-content offset2">
+			
+			<!-- breacrumb -->
+	  		<ul class="breadcrumb">
+			  <li><a href="<?php echo base_url();?>dashboard">الرئيسية</a> <span class="divider">/</span></li>			  		  
+			  <li><a href="<?php echo base_url();?>subject">إدارة المواد</a> <span class="divider">/</span></li>
+			  <li class="active">إضافة مادة</li>
+			</ul>
+			
 			<h1>إضافة مادة</h1>  
 			<br />
 			<!-- error message -->

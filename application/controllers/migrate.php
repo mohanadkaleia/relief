@@ -17,11 +17,12 @@ class Migrate extends CI_Controller {
 
 
 	
-	public function index()
-	{		
+	public function index($result = "")
+	{
+		$data["result"]  = $result;		
 		$this->load->view('gen/header');
 		$this->load->view('gen/slogan');
-		$this->load->view('migrate');
+		$this->load->view('migrate' , $data);
 		$this->load->view('gen/footer');
 	}
 	
@@ -47,16 +48,28 @@ class Migrate extends CI_Controller {
 		//load provider and family model
 		$this->load->model('provider_model');
 		$this->load->model('family_member_model');											
+		$this->load->model('area_model');
+		$this->load->model('association_model');
 				
 		/** get provider and family data**/
-		$providers = $this->provider_model->getAllProviders();
+		$providers = $this->provider_model->getAllProvidersToExport();
 		$families = $this->family_member_model->getAllFamilyMembers();
-						
+		$areas = $this->area_model->getAllAreas();	
+		$associations = $this->association_model->getAllAssociationsToExport();
+		
+					
 		/** create new excel file **/
 		//get provider header
 		$provider_header = $this->provider_model->getProviderColumn();			
 		$family_header = $this->family_member_model->getFamilyColumn();
-		$this->createExcelFile($provider_header , $providers , $family_header , $families);
+		$area_header = $this->area_model->getAreaColumn();
+		$association_header = $this->association_model->getAssociationColumn();
+		
+		
+		$this->createExcelFile($provider_header , $providers , //provider  
+							   $family_header , $families ,    // family member
+							   $area_header , $areas , 		   // areas
+							   $association_header , $associations); //association
 		
 		//redrect to show convet page and show message
 		$status_message = "Exam excel file has been converted succesfully, it should be downloaded now";
@@ -88,7 +101,10 @@ class Migrate extends CI_Controller {
 	 * Author : Mohanad Shab Kaleia
 	 * contact : ms.kaleia@gmail.com
 	 */
-	public function createExcelFile($provider_header , $provider_data , $family_header , $family_data )
+	public function createExcelFile($provider_header , $provider_data , 
+								    $family_header , $family_data , 
+								    $area_header , $area_data , 
+									$association_header , $association_data)
 	{
 								
 		//include the phpExcel classes from third party folder
@@ -156,6 +172,57 @@ class Migrate extends CI_Controller {
 		// Rename sheet		
 		$objWorkSheet->setTitle('أفراد الأسرة');
 		
+		
+		/** add areas **/
+		
+		//create new sheet for areas
+		$objWorkSheet = $objPHPExcel->createSheet(2); //Setting index when creating
+		
+		//set right to left
+		$objWorkSheet->setRightToLeft(true);
+		
+		$cell_index = "A";
+		/** add header and data **/		
+		for($i = 0 ; $i < count($area_header); $i++)
+		{				
+			//add header data				
+			$objWorkSheet->SetCellValue($cell_index."1", $area_header[$i]['Field']);						
+			
+			for($j=0 ; $j<count($area_data) ; $j++)
+			{								
+				$objWorkSheet->setCellValueExplicit($cell_index.($j+2), $area_data[$j][$area_header[$i]['Field']] , PHPExcel_Cell_DataType::TYPE_STRING);					
+			}			
+			$cell_index++;					
+		}
+		
+		// Rename sheet		
+		$objWorkSheet->setTitle('المناطق');
+		
+		
+		/** add association **/
+		
+		//create new sheet for areas
+		$objWorkSheet = $objPHPExcel->createSheet(3); //Setting index when creating
+		
+		//set right to left
+		$objWorkSheet->setRightToLeft(true);
+		
+		$cell_index = "A";
+		/** add header and data **/		
+		for($i = 0 ; $i < count($association_header); $i++)
+		{				
+			//add header data				
+			$objWorkSheet->SetCellValue($cell_index."1", $association_header[$i]['Field']);						
+			
+			for($j=0 ; $j<count($association_data) ; $j++)
+			{								
+				$objWorkSheet->setCellValueExplicit($cell_index.($j+2), $association_data[$j][$association_header[$i]['Field']] , PHPExcel_Cell_DataType::TYPE_STRING);					
+			}			
+			$cell_index++;					
+		}
+		
+		// Rename sheet		
+		$objWorkSheet->setTitle('الجمعية');
 		
 		
 		// Save Excel 2007 file		
@@ -225,8 +292,8 @@ class Migrate extends CI_Controller {
 				
 		//redrect to show convet page and show message
 		//$status_message = "Exam excel file has been converted succesfully, it should be downloaded now";
-		
-		$this->showConvert($status_message);
+		$status = "تم استيراد البيانات بنجاح";
+		$this->index($status);
 	}
 	
 	
@@ -290,12 +357,12 @@ class Migrate extends CI_Controller {
 	 * 	3.read excel file
 	 * 	read sheet one where is the provider exist
 	 * 	read sheet two where family member is exist
-	 * 	
+	 * 	read sheet tree and four where areas and associations are
 	 *	
 	 * 	
 	 * parameter:
 	 * 		$inputFileName: the excel file name including its path	 
-	 * Created date ; 28-2-2014
+	 * Created date ; 26-3-2014
 	 * Modification date : ---
 	 * Modfication reason : ---
 	 * Author : Mohanad Shab Kaleia
@@ -306,10 +373,15 @@ class Migrate extends CI_Controller {
 		//load provider and family model
 		$this->load->model('provider_model');
 		$this->load->model('family_member_model');											
+		$this->load->model('area_model');
+		$this->load->model('association_model');		
 				
 		//get provider header
 		$provider_header = $this->provider_model->getProviderColumn();			
 		$family_header = $this->family_member_model->getFamilyColumn();
+		$area_header = $this->area_model->getAreaColumn();
+		$association_header = $this->association_model->getAssociationColumn(); 
+		
 		
 		//include the phpExcel classes from third party folder
 		$include_path = "./application/third_party/phpexcel/";
@@ -336,10 +408,13 @@ class Migrate extends CI_Controller {
 		$workseet_data = array(); //this array is 3D array firt index is for sheet, second for column and the third one for row
 		$provider = array();
 		$family_member = array();
+		$areas = array();
+		$asociations = array();
+		
 					
 		//sheet number counter
 		$sheet_number = 0;		
-		$column = array("A" , "B" , "C" , "D" , "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U" , "V", "W", "X", "Y", "Z");					
+		$column = array("A" , "B" , "C" , "D" , "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U" , "V", "W", "X", "Y", "Z" , "AA" , "AB");					
 		
 		$sheet_number = 0;
 		foreach ($objPHPExcel->getWorksheetIterator() as $sheet) 
@@ -360,7 +435,7 @@ class Migrate extends CI_Controller {
 					}
 				}	
 			}	
-			else 
+			else if($sheet_number == 1)
 			{
 				for($i = 0 ; $i < count($family_header) ; $i++)
 				{
@@ -375,12 +450,44 @@ class Migrate extends CI_Controller {
 				}	
 			}		
 			
+			else if($sheet_number == 2) //this sheet is for areas
+			{
+				for($i = 0 ; $i < count($area_header) ; $i++)
+				{
+					$row = 2;
+					$current_cell = $column[$i].$row;				
+					//true while the id field is empty
+					while($sheet->getCell("A".$row) != "")
+					{
+						$areas[$row-2][$area_header[$i]["Field"]] = $sheet->getCell($column[$i].$row)->getFormattedValue();;
+						$row++; 
+					}
+				}	
+			}
+			
+			else if($sheet_number == 3) //this sheet is for associations
+			{
+				for($i = 0 ; $i < count($association_header) ; $i++)
+				{
+					$row = 2;
+					$current_cell = $column[$i].$row;				
+					//true while the id field is empty
+					while($sheet->getCell("A".$row) != "")
+					{
+						$associations[$row-2][$association_header[$i]["Field"]] = $sheet->getCell($column[$i].$row)->getFormattedValue();;
+						$row++; 
+					}
+				}	
+			}
+			
 			//increase sheet number to enable adding family member data					
 			$sheet_number++;
 		}
 		
 		$result[] = $provider;
 		$result[] = $family_member;
+		$result[] = $areas;
+		$result[] = $associations;
 		//return array_merge($provider, $family_member);
 		return $result;				
 	}
@@ -406,13 +513,17 @@ class Migrate extends CI_Controller {
 	public function saveToDatabase($data)
 	{
 		//load provider model
-		$this->load->model("provider_model");					
+		$this->load->model("provider_model");
+		$this->load->model("area_model");
+		$this->load->model("association_model");							
 				
 		// assign values to the model variable
 		foreach ($data[0] as $provider) 
 		{
 			
-			$this->provider_model->full_name = $provider["full_name"];
+			$this->provider_model->fname = $provider["fname"];
+			$this->provider_model->lname = $provider["lname"];
+			$this->provider_model->father_name = $provider["father_name"];
 			$this->provider_model->code = $provider["code"];						
 			$this->provider_model->national_id = $provider['national_id'];
 			$this->provider_model->family_book_num = $provider['family_book_num'];
@@ -430,6 +541,7 @@ class Migrate extends CI_Controller {
 			$this->provider_model->mobile1 = $provider['mobile1'];
 			$this->provider_model->mobile2 =$provider['mobile2'];
 			$this->provider_model->note = $provider['note'];
+			$this->provider_model->relief_form_status = $provider['relief_form_status'];
 			$this->provider_model->created_date = $provider['created_date'];
 			
 			//area and association
@@ -447,12 +559,13 @@ class Migrate extends CI_Controller {
 			// assign values to the model variable
 			$this->family_member_model->provider_code = $family['provider_code'];
 			$this->family_member_model->national_id = $family['national_id'];
-			$this->family_member_model->full_name = $family['full_name'];			
+			$this->family_member_model->fname = $family['fname'];			
+			$this->family_member_model->lname = $family['lname'];
+			$this->family_member_model->father_name = $family['father_name'];
 			$this->family_member_model->gender = $family['gender'];
 			$this->family_member_model->birth_date = $family['birth_date'];
 			$this->family_member_model->relationship = $family['relationship'];
-			$this->family_member_model->health_status = $family['health_status'];
-			$this->family_member_model->is_emigrant = $family['is_emigrant'];
+			$this->family_member_model->health_status = $family['health_status'];		
 			$this->family_member_model->job = $family['job'];
 			$this->family_member_model->study_status = $family['study_status'];
 			$this->family_member_model->social_status = $family['social_status'];		
@@ -460,6 +573,42 @@ class Migrate extends CI_Controller {
 			
 			//add to the database
 			$this->family_member_model->importFamilyMember();									
+		}
+
+		// assign values to the model variable
+		foreach ($data[2] as $area) 
+		{
+			
+			// assign values to the model variable
+			$this->area_model->name  = $area["name"];
+			$this->area_model->code  = $area["code"];			
+			
+			//add to the database
+			$this->area_model->importAreas();									
+		}	
+		
+		
+		
+		/* associations */
+		foreach ($data[3] as $association) 
+		{
+			
+			// assign values to the model variable
+			$this->association_model->name  = $association["name"];
+			$this->association_model->code  = $association["code"];
+			$this->association_model->manager_name  = $association["manager_name"];
+			$this->association_model->phone1  = $association["phone1"];
+			$this->association_model->phone2  = $association["phone2"];
+			$this->association_model->mobile1  = $association["mobile1"];
+			$this->association_model->mobile2  = $association["mobile2"];
+			$this->association_model->address  = $association["address"];
+			$this->association_model->about  = $association["about"];
+			$this->association_model->logo  = $association["logo"];
+			$this->association_model->is_deleted  = $association["is_deleted"];									
+			$this->association_model->created_date  = $association["created_date"];
+			
+			//add to the database
+			$this->association_model->importAssociations();									
 		}				 		
 	}
 	

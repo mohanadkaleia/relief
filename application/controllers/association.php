@@ -222,7 +222,7 @@ class Association extends CI_Controller {
 							}else{
 								//delete old logo..
 								$old_logo = $this->input->post("old_logo");
-								unlike($path."/".$old_logo);
+								unlink($path."/".$old_logo);
 							}
 							
 							//move the uploaded file to the desired folder

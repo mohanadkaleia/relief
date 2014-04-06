@@ -26,5 +26,5 @@ $drawing->draw();
 header('Content-Type: image/png');
  
 $drawing->finish(BCGDrawing::IMG_FORMAT_PNG);
-redirect(base_url()."provider/view/".$provider_code);
+//redirect(base_url()."provider/view/".$provider_code);
 ?>

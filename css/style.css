@@ -28,7 +28,7 @@
 body 
 {		
 	background-color: #353535;
-	background-image:url('../images/bg.jpg');	  
+	/*background-image:url('../images/bg.jpg');*/	  
     background-repeat: no-repeat;
     background-position: top center;  
     background-attachment: fixed;
@@ -265,7 +265,7 @@ content
 
 .main-content input[type=text]
 {
-	padding-right:20px;
+	
 }
 
 .main-content table tr td
@@ -443,3 +443,12 @@ table#details tr td.title-td{
 {
 	font-family: "gess";
 }
+
+
+table.report-table tr td { padding:5px;border:1px solid gray;min-width: 50px;border:1px solid gray;text-align:center}
+table.report-table tr th { padding:5px; background-color:#ccc;border:1px solid gray;}
+table.report-table {width:100%;}		
+
+table.info tr th{background-color:white; border:0px;height:25px;}
+.title span{font-size:14px;}
+span{font-weight:bold; margin-right:5px;}

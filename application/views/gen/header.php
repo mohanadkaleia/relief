@@ -21,7 +21,9 @@
 	<link rel="stylesheet" media="all" type="text/css" href="<?php echo base_url();?>css/datepicker.less"/>
 	<link rel="stylesheet" media="all" type="text/css" href="<?php echo base_url();?>css/reset.css" />		    	
 	<link rel="stylesheet" media="all" type="text/css" href="<?php echo base_url();?>css/style.css" />
+	<!--
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" type="text/css" media="all" />
+	-->
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/jquery.ui.combify.css"/>
 	
 	<!-- load js -->
@@ -30,9 +32,10 @@
 	<script src="<?php echo base_url();?>js/grid.js"></script>
 	<script src="<?php echo base_url();?>js/bootstrap-datepicker.js"></script>
 	<script src="<?php echo base_url();?>js/jquery.sheepItPlugin-1.1.1.min.js"></script>
+	<!--
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url();?>js/jquery.ui.combify.js"></script>
-	  
+	-->  
 </head>
 		
 <body>				
