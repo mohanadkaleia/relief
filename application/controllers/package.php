@@ -130,8 +130,9 @@ class Package extends CI_Controller {
 		$details = $this->package_detail_model->getPackageDetailsByPackageId();
 		if(isset($details[0]))
 		$data['details'] = $details;
-		//get package details subkject names
+		//get package details subject names
 		foreach($details as $detail){
+		//var_dump($detail);
 			$this->subject_model->id = $detail['subject_id'];
 			$subject = $this->subject_model->getSubjectById();
 			

@@ -226,7 +226,11 @@ class Package_detail_model extends CI_Model{
 	 * contact : molham225@gmail.com
 	 */
 	 public function getPackageDetailsByPackageId(){
+<<<<<<< HEAD
 		$query = "SELECT package.id as id ,   subject.id as subject_id ,  package.name as package_name,subject.name as subject_name, package_detail.amount as amount
+=======
+		$query = "SELECT package_detail.id as id,subject.id as subject_id,package.name as package_name,subject.name as subject_name, package_detail.amount as amount
+>>>>>>> 22d720676fdbfc92c554b87e34ca3aaa1fb7c1b7
 					FROM package_detail  , package , subject
 					where 
 					package.id = package_detail.package_id

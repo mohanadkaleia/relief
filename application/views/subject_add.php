@@ -42,7 +42,7 @@
 							اسم المادة:
 						</td>
 						<td>
-							<input type="text" name="subject_name" id="subject_name" placeholder="اسم المادة">
+							<input type="text" name="subject_name" id="subject_name" placeholder="اسم المادة" required="required" />
 						</td>
 					</tr>
 					<tr>
@@ -65,14 +65,16 @@
 			$('input:radio#new').change(function () {
 				if ($('input:radio#new').is(":checked")) {
 					$('select#category_id').prop("disabled", true);
+					$('input:text#category_name').prop("required", true);
 					$('input:text#category_name').removeProp("disabled");
 				} 
 			});
 			
 			$('input:radio#choose').change(function () {
 				if ($('input:radio#choose').is(":checked")) {
-					$('input:text#category_name').prop("disabled", true);
-					$('select#category_id').removeProp("disabled");
+					$('input:text#category_name').prop("disabled", true);					
+					$('input:text#category_name').removeProp("required", true);
+					$('select#category_id').removeProp("disabled");					
 				}
 			});
 		});
