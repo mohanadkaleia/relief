@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 01, 2014 at 08:40 AM
+-- Generation Time: Apr 06, 2014 at 09:40 PM
 -- Server version: 5.5.34-0ubuntu0.13.04.1
 -- PHP Version: 5.4.9-4ubuntu2.4
 
@@ -96,14 +96,15 @@ CREATE TABLE IF NOT EXISTS `family_member` (
   `creator_id` int(11) DEFAULT NULL,
   `is_deleted` varchar(1) COLLATE utf8_bin DEFAULT 'F',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `family_member`
 --
 
 INSERT INTO `family_member` (`id`, `provider_code`, `national_id`, `fname`, `lname`, `father_name`, `gender`, `birth_date`, `relationship`, `job`, `study_status`, `social_status`, `health_status`, `note`, `created_date`, `creator_id`, `is_deleted`) VALUES
-(9, '01-001-R6238275206', 'R6238287711', 'تجربة تولد', '1', 'تجربة', 'M', '1973-07-06', 'father', '', '', 'married', 'disabled', '', NULL, NULL, 'F');
+(9, '01-001-R6238275206', 'R6238287711', 'تجربة تولد', '1', 'تجربة', 'M', '1973-07-06', 'father', '', '', 'married', 'disabled', '', NULL, NULL, 'F'),
+(11, '01-001-R6241065299', 'R6415149627', 'فرد ', 'باركود', 'تجربة2', 'F', '1901-01-01', 'father', 'طالب', 'طالب', 'single', 'disabled', '', NULL, NULL, 'F');
 
 -- --------------------------------------------------------
 
@@ -115,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `package` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -129,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `package_detail` (
   `subject_id` int(11) NOT NULL DEFAULT '0',
   `package_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -235,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `provider_package` (
   `package_id` int(11) NOT NULL DEFAULT '0',
   `provider_code` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -248,7 +249,7 @@ CREATE TABLE IF NOT EXISTS `subject` (
   `name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `subject_category_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -260,7 +261,7 @@ CREATE TABLE IF NOT EXISTS `subject_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
