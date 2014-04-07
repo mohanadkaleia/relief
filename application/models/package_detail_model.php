@@ -19,8 +19,8 @@ class Package_detail_model extends CI_Model{
 	//The id field of the package detail in the database
 	var $id;
 	
-	//the id of the subject of this package detail
-	var $subject_id = "";
+	//the code of the subject of this package detail
+	var $subject_code = "";
 	
 	//the id of the package of this package detail
 	var $package_id = "";
@@ -59,12 +59,12 @@ class Package_detail_model extends CI_Model{
 	 {
 	 	$query = "INSERT INTO  package_detail (
 					package_id,
-					subject_id,
+					subject_code,
 					amount
 					)
 					VALUES (  
 					'{$this->package_id}', 
-					'{$this->subject_id}',
+					'{$this->subject_code}',
 					'{$this->amount}' 
 					);
 					 	";	
@@ -92,7 +92,7 @@ class Package_detail_model extends CI_Model{
 	 	$query = "UPDATE  package_detail
 					SET	
 						package_id = '{$this->package_id}',
-						subject_id = '{$this->subject_id}',
+						subject_code = '{$this->subject_code}',
 						amount = '{$this->amount}'
 					WHERE id = {$this->id}
 					";	
@@ -226,16 +226,12 @@ class Package_detail_model extends CI_Model{
 	 * contact : molham225@gmail.com
 	 */
 	 public function getPackageDetailsByPackageId(){
-<<<<<<< HEAD
-		$query = "SELECT package.id as id ,   subject.id as subject_id ,  package.name as package_name,subject.name as subject_name, package_detail.amount as amount
-=======
-		$query = "SELECT package_detail.id as id,subject.id as subject_id,package.name as package_name,subject.name as subject_name, package_detail.amount as amount
->>>>>>> 22d720676fdbfc92c554b87e34ca3aaa1fb7c1b7
+		$query = "SELECT package.id as id ,   subject.id as subject_id ,subject.code as subject_code ,  package.name as package_name,subject.name as subject_name, package_detail.amount as amount
 					FROM package_detail  , package , subject
 					where 
 					package.id = package_detail.package_id
 					and
-					subject.id = package_detail.subject_id
+					subject.code = package_detail.subject_code
 					and
 					package.id = {$this->package_id}";
 		$query = $this->db->query($query);

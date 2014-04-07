@@ -185,7 +185,7 @@ class Subject extends CI_Controller {
 			if(isset($category[0])){
 				echo "category";
 			}
-		}else{
+		}else if(isset($_GET['subject'])){
 			$this->load->model('subject_model');
 		
 			$this->subject_model->name = $_GET['subject'];
@@ -194,6 +194,16 @@ class Subject extends CI_Controller {
 			
 			if(isset($subject[0])){
 				echo "subject";
+			}
+		}else if(isset($_GET['code'])){
+			$this->load->model('subject_model');
+		
+			$this->subject_model->code = $_GET['code'];
+			
+			$subject = $this->subject_model->getSubjectByCode();
+			
+			if(isset($subject[0])){
+				echo "code";
 			}
 		}	
 	}
@@ -232,6 +242,7 @@ class Subject extends CI_Controller {
 		 
 		// assign values to the model variable
 		$this->subject_model->name = $this->input->post('subject_name');			
+		$this->subject_model->code = $this->input->post('subject_code');			
 		$this->subject_model->subject_category_id = $category_id;		
 		
 		if($action === "add"){
@@ -276,7 +287,7 @@ class Subject extends CI_Controller {
 		$this->grid->option['add_url'] = base_url()."subject/add"; //add url
 		$this->grid->option['add_title'] = "إضافة مادة"; //add title
 			
-		$this->grid->columns = array('subject' , 'category');
+		$this->grid->columns = array('code', 'subject' , 'category');
 		
 		//get the data	
 		$this->grid->data = $this->subject_model->getAllSubjectsForView();

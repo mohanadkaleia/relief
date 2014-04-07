@@ -20,6 +20,7 @@
 		<div class="grid">
 			<table id="subject" action="<?php echo base_url();?>subject/ajaxGetSubjects" dir="rtl">				
 				<tr>																
+					<th col="code" type="text">رمز المادة</th>
 					<th col="subject" type="text">اسم المادة</th>
 					<th col="category" type="text">فئة المادة</th>
 				</tr>										

@@ -61,7 +61,7 @@
 									<td>
 										<select id="subjectSelect1" name="subjectSelect1">
 											<?php foreach($subjects as $subject){?>
-											<option value="<?php echo $subject['id'];?>"><?php echo $subject['name'];?></option>
+											<option value="<?php echo $subject['code'];?>"><?php echo $subject['name'];?></option>
 											<?php }?>
 										</select>
 									</td>

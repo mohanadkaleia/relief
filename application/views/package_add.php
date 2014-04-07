@@ -37,7 +37,7 @@
 									<td>
 										<select id="subjectSelect1" name="subjectSelect1">
 											<?php foreach($subjects as $subject){?>
-											<option value="<?php echo $subject['id'];?>"><?php echo $subject['name'];?></option>
+											<option value="<?php echo $subject['code'];?>"><?php echo $subject['name'];?></option>
 											<?php }?>
 										</select>
 										<input type="hidden" name="id[1]" />
@@ -87,7 +87,7 @@
 						var subjects = JSON.parse(data);
 						options = "";
 						for(var i=0;i<subjects.length;i++){
-							options +="<option value='"+subjects[i].id+"'>"+subjects[i].name+"</option>"
+							options +="<option value='"+subjects[i].code+"'>"+subjects[i].name+"</option>"
 						}
 						category.parent().next().find('select').html(options);
 					});

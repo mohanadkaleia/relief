@@ -22,6 +22,9 @@ class Subject_model extends CI_Model{
 	//the name of the subject
 	var $name = "";
 	
+	//the code of the subject
+	var $code = "";
+	
 	//the id of the category of this subject
 	var $subject_category_id = "";
 	
@@ -56,10 +59,12 @@ class Subject_model extends CI_Model{
 	 {
 	 	$query = "INSERT INTO  subject (
 				name,
+				code,
 				subject_category_id		
 				)
 				VALUES (  
 				'{$this->name}', 
+				'{$this->code}', 
 				'{$this->subject_category_id}' 
 				);
 					 	";	
@@ -87,6 +92,7 @@ class Subject_model extends CI_Model{
 	 	$query = "UPDATE  subject
 					SET	
 						name = '{$this->name}',
+						code = '{$this->code}',
 						subject_category_id = '{$this->subject_category_id}'
 					WHERE id = {$this->id}
 					";	
@@ -154,7 +160,7 @@ class Subject_model extends CI_Model{
 	 * contact : molham225@gmail.com
 	 */
 	 public function getAllSubjectsForView(){
-		$query = "SELECT subject.id AS id,subject.name AS subject,category.name AS category 
+		$query = "SELECT subject.id AS id,subject.name AS subject,subject.code AS code,category.name AS category 
 				  FROM subject,subject_category AS category
 				  WHERE subject.subject_category_id = category.id ";
 		$query = $this->db->query($query);
@@ -179,6 +185,28 @@ class Subject_model extends CI_Model{
 		$query = "SELECT * 
 				  FROM subject
 				  WHERE id = {$this->id} ";
+		$query = $this->db->query($query);
+		return $query->result_array();
+	 }
+	 
+	 /**
+	 * function name : getSubjectByCode
+	 * 
+	 * Description : 
+	 * Gets the Subject specified by the given code.
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 4-3-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	 public function getSubjectByCode(){
+		$query = "SELECT * 
+				  FROM subject
+				  WHERE code like '{$this->code}' ";
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }

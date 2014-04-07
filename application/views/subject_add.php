@@ -18,7 +18,9 @@
 				<table>
 					<tr>
 						<td>
-							 <input type="radio" name="category" id="choose" value="choose" class="radio" /> اختر الفئة:
+							<?php if(count($categories) !== 0){?>
+							 <input type="radio" name="category" id="choose" value="choose" class="radio" />
+							 <?php }?> اختر الفئة:
 						</td>
 						
 						<td>
@@ -30,7 +32,11 @@
 						</td>
 						
 						<td>
-							<input type="radio" name="category" id="new" value="new" class="radio"/>       إنشاء فئة جديدة:
+							<?php if(count($categories) !== 0){?>
+							<input type="radio" name="category" id="new" value="new" class="radio"/>
+							<?php }else{?>
+								<input type="hidden" name="category" value="new" />
+							<?php }?>       إنشاء فئة جديدة:
 						</td>
 						
 						<td>
@@ -43,6 +49,12 @@
 						</td>
 						<td>
 							<input type="text" name="subject_name" id="subject_name" placeholder="اسم المادة" required="required" />
+						</td>
+						<td>
+							رمز المادة:
+						</td>
+						<td>
+							<input type="text" name="subject_code" id="subject_code" placeholder="رمز المادة" required="required" />
 						</td>
 					</tr>
 					<tr>
@@ -60,8 +72,10 @@
 	
 	<script>
 		$(document).ready(function(){
-			$('input:radio#choose').prop("checked", true);
-			$('input:text#category_name').prop("disabled", true);
+			$('input:radio#new').prop("checked", true);
+			$('input:text#category_name').removeProp("disabled", true);
+			$('input:text#category_name').prop("required", true);
+			$('select#category_id').prop("disabled", true);
 			$('input:radio#new').change(function () {
 				if ($('input:radio#new').is(":checked")) {
 					$('select#category_id').prop("disabled", true);
@@ -73,21 +87,24 @@
 			$('input:radio#choose').change(function () {
 				if ($('input:radio#choose').is(":checked")) {
 					$('input:text#category_name').prop("disabled", true);					
-					$('input:text#category_name').removeProp("required", true);
+					$('input:text#category_name').removeProp("required");
 					$('select#category_id').removeProp("disabled");					
 				}
 			});
 		});
 		
-		function getUnique(){
-			
-			
+		function getUnique(){			
 			var subject = $('#subject_name').val();
+			var code = $('#subject_code').val();
 			var category = $('#category_name').val();
+			<?php if(count($categories) !== 0) {?>
 			if ($('input:radio#new').is(":checked")) {
-				$.get('<?php echo base_url();?>'+'subject/getUnique?subject='+subject+'&category='+category,function(data){
+				$.get('<?php echo base_url();?>'+'subject/getUnique?subject='+subject+'&code='+code+'&category='+category,function(data){
 					if(data == "subject"){
 						$('div#error').html('<div class="alert alert-error"><button class="close" data-dismiss="alert" type="button">×</button> اسم المادة هذا موجود مسبقاً في قاعدة البيانات..</div>');
+						$('div#error').slideDown("slow");
+					}else if(data == "code"){
+						$('div#error').html('<div class="alert alert-error"><button class="close" data-dismiss="alert" type="button">×</button> رمز المادة هذا موجود مسبقاً في قاعدة البيانات..</div>');
 						$('div#error').slideDown("slow");
 					}else if(data == "category"){
 						$('div#error').html('<div class="alert alert-error"><button class="close" data-dismiss="alert" type="button">×</button> اسم الفئة الجديدة موجود مسبقاً في قاعدة البيانات..</div>');
@@ -98,14 +115,34 @@
 					}
 				});
 			}else{
-				$.get('<?php echo base_url();?>'+'subject/getUnique?subject='+subject,function(data){
+				$.get('<?php echo base_url();?>'+'subject/getUnique?subject='+subject+'&code='+code,function(data){
 					if(data == "subject"){
 						$('div#error').html('<div class="alert alert-error"><button class="close" data-dismiss="alert" type="button">×</button> اسم المادة هذا موجود مسبقاً في قاعدة البيانات..</div>');
+						$('div#error').slideDown("slow");
+					}else if(data == "code"){
+						$('div#error').html('<div class="alert alert-error"><button class="close" data-dismiss="alert" type="button">×</button> رمز المادة هذا موجود مسبقاً في قاعدة البيانات..</div>');
 						$('div#error').slideDown("slow");
 					}else{
 						$('#submit').click();
 					}
 				});
 			}
+			<?php }else{?>
+				$.get('<?php echo base_url();?>'+'subject/getUnique?subject='+subject+'&code='+code+'&category='+category,function(data){
+					if(data == "subject"){
+						$('div#error').html('<div class="alert alert-error"><button class="close" data-dismiss="alert" type="button">×</button> اسم المادة هذا موجود مسبقاً في قاعدة البيانات..</div>');
+						$('div#error').slideDown("slow");
+					}else if(data == "code"){
+						$('div#error').html('<div class="alert alert-error"><button class="close" data-dismiss="alert" type="button">×</button> رمز المادة هذا موجود مسبقاً في قاعدة البيانات..</div>');
+						$('div#error').slideDown("slow");
+					}else if(data == "category"){
+						$('div#error').html('<div class="alert alert-error"><button class="close" data-dismiss="alert" type="button">×</button> اسم الفئة الجديدة موجود مسبقاً في قاعدة البيانات..</div>');
+						$('div#error').slideDown("slow");
+					}else{
+						//alert(subject+" "+category+" "+data)
+						$('#submit').click();
+					}
+				});
+			<?php }?>
 		}
 	</script>

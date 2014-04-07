@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `package` (
 CREATE TABLE IF NOT EXISTS `package_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `amount` float(11,0) DEFAULT '0',
-  `subject_id` int(11) NOT NULL DEFAULT '0',
+  `subject_code` varchar(250) NOT NULL,
   `package_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT AUTO_INCREMENT=1 ;
@@ -247,6 +247,7 @@ CREATE TABLE IF NOT EXISTS `provider_package` (
 CREATE TABLE IF NOT EXISTS `subject` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `code` varchar(250) CHARACTER SET utf8 NOT NULL,
   `subject_category_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

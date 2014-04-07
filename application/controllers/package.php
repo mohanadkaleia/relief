@@ -133,8 +133,8 @@ class Package extends CI_Controller {
 		//get package details subject names
 		foreach($details as $detail){
 		//var_dump($detail);
-			$this->subject_model->id = $detail['subject_id'];
-			$subject = $this->subject_model->getSubjectById();
+			$this->subject_model->code = $detail['subject_code'];
+			$subject = $this->subject_model->getSubjectByCode();
 			
 			$subject_names[] = $subject[0]['name'];
 		}
@@ -309,9 +309,9 @@ class Package extends CI_Controller {
 		$this->package_detail_model->package_id = $id;
 		//get actual subjects and add them
 		for($i=1;$i<=$count;$i++){
-			$subject_id = $this->input->post('subjectSelect'.$i);
-			if($subject_id > 0){
-				$this->package_detail_model->subject_id = $this->input->post('subjectSelect'.$i);
+			$subject_code = $this->input->post('subjectSelect'.$i);
+			if($subject_code != ""){
+				$this->package_detail_model->subject_code = $this->input->post('subjectSelect'.$i);
 				$this->package_detail_model->amount = $this->input->post('amount'.$i);
 				$this->package_detail_model->addPackageDetail();
 			}

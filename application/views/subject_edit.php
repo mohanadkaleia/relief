@@ -16,6 +16,7 @@
 			</div>
 			<form method="post" action="<?php echo base_url();?>subject/saveData/edit/<?php echo $subject['id'];?>" >
 			<input type="hidden" value="<?php echo $subject['name'];?>" name="old_name" id="old_name" />
+			<input type="hidden" value="<?php echo $subject['code'];?>" name="old_code" id="old_code" />
 				<table>
 					<tr>
 						<td>
@@ -35,7 +36,13 @@
 							اسم المادة:
 						</td>
 						<td>
-							<input type="text" name="subject_name" id="subject_name" placeholder="اسم المادة" value="<?php echo $subject['name'];?>" />
+							<input type="text" name="subject_name" id="subject_name" placeholder="اسم المادة" value="<?php echo $subject['name'];?>" required="required"/>
+						</td>
+						<td>
+							رمز المادة:
+						</td>
+						<td>
+							<input type="text" name="subject_code" id="subject_code" placeholder="رمز المادة" required="required" value="<?php echo $subject['code'];?>"/>
 						</td>
 					</tr>
 					<tr>
@@ -55,17 +62,39 @@
 		function getUnique(){
 			var subject_name = $('#subject_name').val();
 			var old_name = $('#old_name').val();
+			var subject_code = $('#subject_code').val();
+			var old_code = $('#old_code').val();
 			if(subject_name !== old_name){
 				$.get('<?php echo base_url();?>'+'subject/getUnique?subject='+subject_name,function(data){
 					if(data == "subject"){
 						$('div#error').html('<div class="alert alert-error"><button class="close" data-dismiss="alert" type="button">×</button> اسم المادة هذا موجود مسبقاً في قاعدة البيانات..</div>');
 						$('div#error').slideDown("slow");
+					}else if(subject_code !== old_code){
+						$.get('<?php echo base_url();?>'+'subject/getUnique?code='+subject_code,function(data){
+							if(data == "code"){
+								$('div#error').html('<div class="alert alert-error"><button class="close" data-dismiss="alert" type="button">×</button> رمز المادة هذا موجود مسبقاً في قاعدة البيانات..</div>');
+								$('div#error').slideDown("slow");
+							}else{
+								$('#submit').click();
+							}
+						});
 					}else{
 						$('#submit').click();
 					}
 				});
 			}else{
-				$('#submit').click();
+				if(subject_code !== old_code){
+					$.get('<?php echo base_url();?>'+'subject/getUnique?code='+subject_code,function(data){
+						if(data == "code"){
+							$('div#error').html('<div class="alert alert-error"><button class="close" data-dismiss="alert" type="button">×</button> رمز المادة هذا موجود مسبقاً في قاعدة البيانات..</div>');
+							$('div#error').slideDown("slow");
+						}else{
+							$('#submit').click();
+						}
+					});
+				}else{
+					$('#submit').click();
+				}
 			}
 		}
 	</script>
