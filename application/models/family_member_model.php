@@ -115,7 +115,7 @@ class Family_member_model extends CI_Model{
 							'{$this->note}' 
 							);
 					";	
-		echo $query;			
+		//echo $query;			
 					
 		$this->db->query($query);
 	 }

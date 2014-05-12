@@ -258,7 +258,7 @@ class Family_member extends CI_Controller {
 			$this->family_member_model->addFamilyMember();
 			
 			//redirect to the setting page 
-			redirect(base_url()."family_member/add/". $provider_info['code']);
+			//redirect(base_url()."family_member/add/". $provider_info['code']);
 			
 		}else if($action == "edit"){
 			//add the id of family member to be edited
