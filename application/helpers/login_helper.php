@@ -13,11 +13,20 @@
  * contact : molham225@gmail.com
  */
 
-function checkLogin($user){
-	if(!$user){
+function checkLogin()
+{
+	// get the superobject
+	$CI =& get_instance();
+	
+	// call the session library			
+	if(!isset($CI->session->userdata['user']))
+	{
 		redirect(base_url().'login');
 		return FALSE;
-	}else{
+	}
+	else
+	{
 		return TRUE;
 	}
 }
+

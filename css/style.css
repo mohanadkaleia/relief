@@ -28,7 +28,7 @@
 body 
 {		
 	background-color: #353535;
-	/*background-image:url('../images/bg.jpg');*/	  
+	background-image:url('../images/bg.jpg');	  
     background-repeat: no-repeat;
     background-position: top center;  
     background-attachment: fixed;
@@ -91,7 +91,7 @@ content
 .logo p
 {	
 	font-size:36px;
-	color:white;
+	color:gray;
 	margin-top:40px;
 	font-family: gess , ubuntu-r;	
 }

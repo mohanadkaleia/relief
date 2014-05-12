@@ -289,7 +289,7 @@
 							<input type="button" class="btn btn-default" value="إلغاء" name="cencel_settings" onclick="window.location='<?php echo base_url()?>provider'" />
 						</td>
 					</tr>
-					
+					<!--
 					<tr>
 						<td>
 							
@@ -300,6 +300,7 @@
 							http://<?php echo gethostbyname(trim(`hostname`));?>:8080/relief/mobile
 						</td>
 					</tr>
+					-->
 				</table>
 			</form>
 	  	</div>

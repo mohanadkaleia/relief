@@ -16,6 +16,23 @@
 class Report extends CI_Controller {
 
 
+	/**
+	 * Function name : __construct
+	 * Description: 
+	 * this contructor is called as this object is initiated.
+	 * 
+	 * created date: 21-2-2014
+	 * ccreated by: Eng. Mohanad Kaleia
+	 * contact: ms.kaleia@gmail.com 
+	 */
+	public function __construct(){
+		parent::__construct();
+		//check login state of the user requesting this controller.
+		$this->load->helper('login');
+		checkLogin();
+	}
+	
+	
 	
 	public function index()
 	{

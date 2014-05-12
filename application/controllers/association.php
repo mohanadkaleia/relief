@@ -50,15 +50,16 @@ class Association extends CI_Controller {
 	 * this contructor is called as this object is initiated.
 	 * 
 	 * created date: 21-2-2014
-	 * ccreated by: Eng. Ahmad Mulhem Barakat
-	 * contact: molham225@gmail.com 
+	 * ccreated by: Eng. Mohanad Kaleia
+	 * contact: ms.kaleia@gmail.com 
 	 */
 	public function __construct(){
 		parent::__construct();
 		//check login state of the user requesting this controller.
 		$this->load->helper('login');
-		checkLogin($this->session->userdata['user']);
+		checkLogin();
 	}
+
 	
 	
 	/**

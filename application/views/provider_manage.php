@@ -27,11 +27,7 @@
 			</table>	
 		</div>
 		
-		<p>
-			<a class="btn btn-success" href="<?php echo base_url();?>provider/search">
-			بحث متقدم
-			</a>
-		</p>
+		
 		
 	</div> <!-- end hero uit -->	
 	

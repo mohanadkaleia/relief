@@ -62,10 +62,9 @@ class Login extends CI_Controller
 		
 		//check validation
 		$this->form_validation->set_rules('username', 'username', 'required|callback_validateCreditials');	
-		$this->form_validation->set_rules('password', 'Password', 'required|md5');				
-		
+		$this->form_validation->set_rules('password', 'Password', 'required|md5');						
 		if ($this->form_validation->run())
-		{				
+		{						
 			//redirect to dashboard page
 			redirect(base_url().'dashboard');
 		}
@@ -90,7 +89,8 @@ class Login extends CI_Controller
 	 * contact : ms.kaleia@gmail.com
 	 */
 	public function  validateCreditials()
-	{
+	{		
+		
 		$this->load->model('user_model');											
 		//set username and md5 hashed password from the request in the user model
 		$this->user_model->username = $this->input->post('username');
