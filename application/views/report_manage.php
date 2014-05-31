@@ -72,6 +72,17 @@
 			</tr>
 			
 			
+			<tr>
+				<th>
+					عدد العائلات النازحة:
+				</th>
+				
+				<td>
+					<?php echo $emigramt_family[0]['family_num'];?>
+				</td>
+			</tr>
+			
+			
 			
 		</table>		
 		

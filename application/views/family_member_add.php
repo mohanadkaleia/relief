@@ -164,7 +164,8 @@
 								<option value="brother">أخ</option>
 								<option value="sister">أخت</option>
 								<option value="son">إبن</option>
-								<option value="daughter">إبنه</option>								
+								<option value="daughter">إبنه</option>	
+								<option value="other">غير ذلك</option>															
 							</select>														
 						</td>
 					</tr>
@@ -177,10 +178,12 @@
 						
 						<td>							
 							<select name="health_status">
+								<option value="healthy">سليم</option>
 								<option value="disabled">عاجز</option>
 								<option value="sick">مريض</option>
 								<option value="sustenance">إعالة</option>
 								<option value="pregnant">حامل</option>
+								<option value="other">غير ذلك</option>
 							</select>
 						</td>
 												
@@ -192,14 +195,23 @@
 						</td>
 						
 						<td>
-							<input type="text" name="job" />
+							<select name="job">
+								<option value="unemployed">عاطل عن العمل</option>
+								<option value="employed">موظف</option>
+								<option value="freelance">عمل حر</option>
+							</select>							
 						</td>
 						
 						<td>
 							الوضع الدراسي:
 						</td>
 						<td>
-							<input type="text" name="study_status" />							
+							<select name="study_status">
+								<option value="illiterate">جاهل</option>
+								<option value="intermediate">شهادة متوسطة</option>
+								<option value="secondary">شهادة ثانوية</option>
+								<option value="university">شهادة جامعية</option>
+							</select>												
 						</td>
 					</tr>
 					
@@ -214,6 +226,7 @@
 								<option value="divorced">مطلق</option>
 								<option value="fatherless">يتيم</option>
 								<option value="widow">أرملة</option>
+								<option value="other">غير ذلك</option>
 							</select>
 						</td>
 						
