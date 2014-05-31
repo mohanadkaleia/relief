@@ -116,6 +116,18 @@
 						</td>
 					</tr>
 					
+					<tr>
+						<td>
+							الجنس:
+						</td>
+						<td>
+							<select name="gender">
+								<option value="M">ذكر</option>
+								<option value="F">أنثى</option>
+							</select>	
+						</td>
+					</tr>
+					
 					<tr>						
 						<td>
 							الرقم الوطني: *

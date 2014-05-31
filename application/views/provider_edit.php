@@ -63,6 +63,18 @@
 					</tr>
 					
 					<tr>
+						<td>
+							الجنس:
+						</td>
+						<td>
+							<select name="gender">
+								<option value="M" <?php if($provider['gender'] == "M") echo 'selected';?> >ذكر</option>
+								<option value="F" <?php if($provider['gender'] == "F") echo 'selected';?> >أنثى</option>
+							</select>
+						</td>
+					</tr>
+					
+					<tr>
 						
 						<td>
 							اسم الأب:

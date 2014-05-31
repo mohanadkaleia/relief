@@ -36,13 +36,25 @@ class Statistics_model extends CI_Model
 	 */
 	 public function searchByGender($gender = "M")
 	 {	 	
-	 	$query = "select count(id) 
+	 	$query = "select count(id) as member_count
 	 			  from family_member
 	 			  where gender = '{$gneder}'
 	 			  ";
 		$query =  $this->db->query($query);
-		return $query->result_array();
-		//return $query->result(); 	
+		$members =  $query->result_array();
+		
+		$query = "select count(id) as provider_count
+	 			  from provider
+	 			  where 
+	 			  gender = '{$gneder}' and
+	 			  relief_form_status = 'T' and
+	 			  is_deleted = 'F' 	 			   
+	 			  ";
+		$query =  $this->db->query($query);
+		$providers =  $query->result_array();
+		
+		return $members[0]["member_count"] + $providers[0]["provider_count"];
+		 	
 	 }
 	 
 	 

@@ -32,6 +32,8 @@ class Provider_model extends CI_Model
 	var $father_name ="";
 	var $mother_name ="";
 	
+	//provider gender
+	var $gender = "";
 	
 	//national id
 	var $national_id;
@@ -130,6 +132,7 @@ class Provider_model extends CI_Model
 				lname,
 				father_name,
 				mother_name ,
+				gender,
 				national_id ,
 				birth_date,
 				is_emigrant , 
@@ -161,6 +164,7 @@ class Provider_model extends CI_Model
 				'{$this->lname}',
 				'{$this->father_name}',				
 				'{$this->mother_name}',
+				'{$this->gender}',
 				'{$this->national_id}',
 				'{$this->birth_date}',
 				'{$this->is_emigrant}',   
@@ -216,6 +220,7 @@ class Provider_model extends CI_Model
 					lname = '{$this->lname}',
 					father_name = '{$this->father_name}',
 					mother_name = '{$this->mother_name}',
+					gender = '{$this->gender}',
 					national_id = '{$this->national_id}',
 					birth_date = '{$this->birth_date}',
 					is_emigrant = '{$this->is_emigrant}',

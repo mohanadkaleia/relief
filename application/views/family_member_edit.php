@@ -61,7 +61,7 @@
 						</td>
 						
 						<td>							
-							<select name="gender">
+							<select name="gender" id="gender">
 								<option value="M" <?php if($family_member['gender'] == "M") echo 'selected';?> >ذكر</option>
 								<option value="F" <?php if($family_member['gender'] == "F") echo 'selected';?> >أنثى</option>
 							</select>							
@@ -116,7 +116,7 @@
 							صلة القربى:
 						</td>
 						<td>
-							<select name="relationship">
+							<select name="relationship" id="relationship">
 								<option value="father" <?php  if($family_member['relationship'] == "father") echo 'selected';?>>أب</option>
 								<option value="mother" <?php  if($family_member['relationship'] == "mother") echo 'selected';?>>أم</option>
 								<option value="husband" <?php  if($family_member['relationship'] == "husband") echo 'selected';?>>زوج</option>
@@ -125,6 +125,7 @@
 								<option value="sister" <?php  if($family_member['relationship'] == "sister") echo 'selected';?>>أخت</option>
 								<option value="son" <?php  if($family_member['relationship'] == "son") echo 'selected';?>>إبن</option>
 								<option value="daughter" <?php  if($family_member['relationship'] == "daughter") echo 'selected';?>>إبنه</option>
+								<option value="other" <?php  if($family_member['relationship'] == "other") echo 'selected';?>>غير ذلك</option>	
 							</select>														
 						</td>
 					</tr>
@@ -135,11 +136,13 @@
 						</td>
 						
 						<td>							
-							<select name="health_status">
+							<select name="health_status" id="health_status">
+								<option value="healthy" <?php  if($family_member['health_status'] == "healthy") echo 'selected';?>>سليم</option>
 								<option value="disabled" <?php  if($family_member['health_status'] == "disabled") echo 'selected';?>>عاجز</option>
 								<option value="sick" <?php  if($family_member['health_status'] == "sick") echo 'selected';?>>مريض</option>
 								<option value="sustenance" <?php  if($family_member['health_status'] == "sustenance") echo 'selected';?>>إعالة</option>
 								<option value="pregnant" <?php  if($family_member['health_status'] == "pregnant") echo 'selected';?>>حامل</option>
+								<option value="other" <?php  if($family_member['health_status'] == "other") echo 'selected';?>>غير ذلك</option>
 							</select>
 						</td>											
 					</tr>
@@ -150,14 +153,23 @@
 						</td>
 						
 						<td>
-							<input type="text" name="job" value="<?php echo $family_member['job'];?>" />
+							<select name="job" id="job">
+								<option value="unemployed" <?php  if($family_member['job'] == "unemployed") echo 'selected';?>>عاطل عن العمل</option>
+								<option value="employed"<?php  if($family_member['job'] == "employed") echo 'selected';?>>موظف</option>
+								<option value="freelance" <?php  if($family_member['job'] == "freelance") echo 'selected';?>>عمل حر</option>
+							</select>							
 						</td>
 						
 						<td>
 							الوضع الدراسي:
 						</td>
 						<td>
-							<input type="text" name="study_status" value="<?php echo $family_member['study_status'];?>" />							
+							<select name="study_status" id="study_status">
+								<option value="illiterate" <?php  if($family_member['study_status'] == "illiterate") echo 'selected';?>>جاهل</option>
+								<option value="intermediate" <?php  if($family_member['study_status'] == "intermediate") echo 'selected';?>>شهادة متوسطة</option>
+								<option value="secondary" <?php  if($family_member['study_status'] == "secondary") echo 'selected';?>>شهادة ثانوية</option>
+								<option value="university" <?php  if($family_member['study_status'] == "university") echo 'selected';?>>شهادة جامعية</option>
+							</select>							
 						</td>
 					</tr>
 					
@@ -166,12 +178,13 @@
 							الوضع الاجتماعي:
 						</td>
 						<td>							
-							<select name="social_status">
-								<option value="married" <?php  if($family_member['social_status'] == "married") echo 'selected';?>>متزوج</option>
-								<option value="single" <?php  if($family_member['social_status'] == "single") echo 'selected';?>>عازب</option>
-								<option value="divorced" <?php  if($family_member['social_status'] == "divorced") echo 'selected';?>>مطلق</option>
-								<option value="fatherless" <?php  if($family_member['social_status'] == "fatherless") echo 'selected';?>>يتيم</option>
-								<option value="widow" <?php  if($family_member['social_status'] == "widow") echo 'selected';?>>أرملة</option>
+							<select name="social_status" id="social_status">
+								<option value="married" <?php  if($family_member['social_status'] == "married") echo 'selected';?>>متزوج(ة)</option>
+								<option value="single" <?php  if($family_member['social_status'] == "single") echo 'selected';?>>عازب(ة)</option>
+								<option value="divorced" <?php  if($family_member['social_status'] == "divorced") echo 'selected';?>>مطلق(ة)</option>
+								<option value="fatherless" <?php  if($family_member['social_status'] == "fatherless") echo 'selected';?>>يتيم(ة)</option>
+								<option value="widow" <?php  if($family_member['social_status'] == "widow") echo 'selected';?>>أرمل(ة)</option>
+								<option value="other" <?php  if($family_member['social_status'] == "other") echo 'selected';?>>غير ذلك</option>
 							</select>
 						</td>
 						
@@ -200,3 +213,33 @@
 	  	</div>
 	  
 	</div>
+
+
+
+
+
+<script>
+	/*this script will show and hide select options depending on gender*/
+	$(document).ready(function(){
+		$("#gender").change(function(){
+			gender = $('#gender').find(":selected").val();
+			
+			if(gender == "F")
+			{
+				$("#relationship option[value = 'father']").hide();	
+				$("#relationship option[value = 'husband']").hide();
+				$("#relationship option[value = 'brother']").hide();
+				$("#relationship option[value = 'son']").hide();
+			}
+			else
+			{
+				$("#relationship option[value = 'mother']").hide();	
+				$("#relationship option[value = 'wife']").hide();
+				$("#relationship option[value = 'sister']").hide();
+				$("#relationship option[value = 'daughter']").hide();
+			}
+			
+			
+		});
+	});
+</script>
