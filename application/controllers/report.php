@@ -75,6 +75,21 @@ class Report extends CI_Controller {
 		//get number of emigrant family
 		$emigramt_family = $this->statistics_model->searchByHouse("T");		
 		
+		//get all illiterate members
+		$illiterates = $this->statistics_model->searchByStudyStatus("illiterate");
+		
+		//get all university study status members
+		$university = $this->statistics_model->searchByStudyStatus("university");
+		
+		//get all unemployed members
+		$unemployed = $this->statistics_model->searchByJobStatus("unemployed");
+		
+		//get all employed members
+		$employed = $this->statistics_model->searchByJobStatus("employed");
+		
+		//get disabled member
+		$disabled = $this->statistics_model->searchByHealthStatus("disabled");
+				
 			
 		$data["providers"] = $providers;
 		$data["members"] = $family_members;
@@ -82,6 +97,11 @@ class Report extends CI_Controller {
 		$data["female"] = $members_female;
 		$data["disabled"] = $members_disabled;
 		$data["emigramt_family"] = $emigramt_family;
+		$data["illiterates"] = $illiterates;
+		$data["university"] = $university;
+		$data["unemployed"] = $unemployed;
+		$data["employed"] = $employed;
+		$data["disabled"] = $disabled;
 																	
 		$this->load->view('gen/header');
 		$this->load->view('gen/slogan');

@@ -440,7 +440,7 @@ class Family_member_model extends CI_Model{
 				  and
 				  provider.is_deleted = 'F'
 				  and
-				  gender = '{$gender}' 
+				  family_member.gender = '{$gender}' 
 				  ";
 		$query = $this->db->query($query);
 		return $query->result_array();

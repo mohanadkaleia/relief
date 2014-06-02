@@ -83,8 +83,89 @@ class Statistics_model extends CI_Model
 		return $query->result_array();
 		//return $query->result(); 	
 	 }
+	 
+	 
+	 /**
+	 * function name : searchByStudyStatus
+	 * 
+	 * Description : 
+	 * search members by their study status
+	 * 		
+	 * Parameters:
+	  * status: {illiterate - intermediate - secondary - university}
+	 * Created date ; 1-6-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function searchByStudyStatus($status = "illiterate")
+	 {	 	
+	 	$query = "select count(id) as member_num
+	 			  from family_member
+	 			  where 
+	 			  study_status = '{$status}' and	 			  
+	 			  is_deleted = 'F'
+	 			  ";
+		$query =  $this->db->query($query);
+		return $query->result_array();
+		//return $query->result(); 	
+	 }
+	 
+	 
+	 /**
+	 * function name : searchByStudyStatus
+	 * 
+	 * Description : 
+	 * search members by their study status
+	 * 		
+	 * Parameters:
+	  * status: {illiterate - intermediate - secondary - university}
+	 * Created date ; 1-6-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function searchByJobStatus($status = "unemployed")
+	 {	 	
+	 	$query = "select count(id) as member_num
+	 			  from family_member
+	 			  where 
+	 			  job = '{$status}' and	 			  
+	 			  is_deleted = 'F'
+	 			  ";
+		$query =  $this->db->query($query);
+		return $query->result_array();
+		//return $query->result(); 	
+	 }
 	 	 
-	 	 
+	/**
+	 * function name : searchByHealthStatus
+	 * 
+	 * Description : 
+	 * search members by health status
+	 * 		
+	 * Parameters:
+	  * status: {healthy - disabled - sick - sustenance - pregnant}
+	 * Created date ; 1-6-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function searchByHealthStatus($status)
+	 {	 	
+	 	$query = "select count(id) as member_num
+	 			  from family_member
+	 			  where 
+	 			  health_status = '{$status}' and	 			  
+	 			  is_deleted = 'F'
+	 			  ";
+		$query =  $this->db->query($query);
+		return $query->result_array();
+		//return $query->result(); 	
+	 }	 	 
 }    
    
 ?>

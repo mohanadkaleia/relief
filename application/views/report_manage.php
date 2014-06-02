@@ -80,8 +80,56 @@
 				<td>
 					<?php echo $emigramt_family[0]['family_num'];?>
 				</td>
+				
+				<th>
+					عدد العائلات المقيمة:
+				</th>
+				
+				<td>
+					<?php echo count($providers) - $emigramt_family[0]['family_num'];?>
+				</td>
 			</tr>
 			
+			<tr>
+				<th>
+					الأفراد الأميين:
+				</th>
+				<td>
+					<?php echo $illiterates[0]['member_num'];?>
+				</td>
+				
+				<th>
+					الأفراد الجامعيين:
+				</th>
+				<td>
+					<?php echo $university[0]['member_num'];?>
+				</td>
+			</tr>
+			
+			<tr>
+				<th>
+					الأفراد العاطلين عن العمل:
+				</th>
+				<td>
+					<?php echo $unemployed[0]['member_num'];?>
+				</td>
+				
+				<th>
+					الأفراد الموظفين:
+				</th>
+				<td>
+					<?php echo $employed[0]['member_num'];?>
+				</td>
+			</tr>
+			
+			<tr>
+				<th>
+					عدد المعاقين:
+				</th>
+				<td>
+					<?php echo $disabled[0]['member_num'];?>
+				</td>				
+			</tr>
 			
 			
 		</table>		
