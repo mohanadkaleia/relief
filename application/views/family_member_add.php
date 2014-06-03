@@ -105,7 +105,7 @@
 						</td>
 						
 						<td>							
-							<select name="gender">
+							<select name="gender" id="gender">
 								<option value="M">ذكر</option>
 								<option value="F">أنثى</option>
 							</select>							
@@ -156,7 +156,7 @@
 							صلة القربى:
 						</td>
 						<td>
-							<select name="relationship">
+							<select name="relationship" id="relationship">
 								<option value="father">أب</option>
 								<option value="mother">أم</option>
 								<option value="husband">زوج</option>
@@ -259,10 +259,18 @@
 
 <script>
 	/*this script will show and hide select options depending on gender*/
-	$(document).ready(function(){		
+	$(document).ready(function(){
+		
+		//initialize the relationship options with the male default options by hiding the female relations		
+		$("#relationship option[value = 'mother']").hide();	
+		$("#relationship option[value = 'wife']").hide();
+		$("#relationship option[value = 'sister']").hide();
+		$("#relationship option[value = 'daughter']").hide();  
+		
+		
+				
 		$("#gender").change(function(){
-			gender = $('#gender').find(":selected").val();
-			
+			gender = $('#gender').find(":selected").val();			
 			if(gender == "F")
 			{
 				//hide male relations 

@@ -222,17 +222,33 @@
 	/*this script will show and hide select options depending on gender*/
 	$(document).ready(function(){
 		$("#gender").change(function(){
-			gender = $('#gender').find(":selected").val();
-			
+			gender = $('#gender').find(":selected").val();			
 			if(gender == "F")
 			{
+				//hide male relations 
 				$("#relationship option[value = 'father']").hide();	
 				$("#relationship option[value = 'husband']").hide();
 				$("#relationship option[value = 'brother']").hide();
 				$("#relationship option[value = 'son']").hide();
+				
+				//show female relations
+				$("#relationship option[value = 'mother']").show();	
+				$("#relationship option[value = 'wife']").show();
+				$("#relationship option[value = 'sister']").show();
+				$("#relationship option[value = 'daughter']").show();
+				
+				$("#relationship option[value = 'mother']").selected = true;
 			}
 			else
 			{
+				//show male relations				
+				$("#relationship option[value = 'father']").show();	
+				$("#relationship option[value = 'husband']").show();
+				$("#relationship option[value = 'brother']").show();
+				$("#relationship option[value = 'son']").show();
+				
+				
+				//hide female relations
 				$("#relationship option[value = 'mother']").hide();	
 				$("#relationship option[value = 'wife']").hide();
 				$("#relationship option[value = 'sister']").hide();
