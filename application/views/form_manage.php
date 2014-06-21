@@ -40,7 +40,7 @@
 			
 				//disable subnit the form on enter key
 				$(document).ready(function() {
-					$('#accept_reject').bind("keypress", function(e) {
+					$('#provider_code').bind("keypress", function(e) {
 					  if (e.keyCode == 13) {               
 					    e.preventDefault();
 					    return false;

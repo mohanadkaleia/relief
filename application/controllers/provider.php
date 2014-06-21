@@ -382,12 +382,12 @@ class Provider extends CI_Controller {
 		$this->load->model('provider_model');				
 		
 		// assign values to the model variable
-		$this->provider_model->fname = $this->input->post('fname');			
-		$this->provider_model->lname = $this->input->post('lname');
-		$this->provider_model->father_name = $this->input->post('father_name');
-		$this->provider_model->mother_name = $this->input->post('mother_name');			
+		$this->provider_model->fname = trim($this->input->post('fname'));			
+		$this->provider_model->lname = trim($this->input->post('lname'));
+		$this->provider_model->father_name = trim($this->input->post('father_name'));
+		$this->provider_model->mother_name = trim($this->input->post('mother_name'));			
 		$this->provider_model->national_id = $this->input->post('national_id');
-		$this->provider_model->birth_date = $this->input->post('birth_date');
+		$this->provider_model->birth_date = $this->input->post('birth_year').'-'.$this->input->post('birth_month').'-'.$this->input->post('birth_day');
 		$this->provider_model->is_emigrant = $this->input->post('is_emigrant');
 		$this->provider_model->family_book_num = $this->input->post('family_book_num');
 		$this->provider_model->family_book_letter = $this->input->post('family_book_letter');

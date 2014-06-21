@@ -164,9 +164,42 @@
 						<td>
 							التولد:							
 						</td>
-						<td>
-							<input type="date" name="birth_date"/>
+						
+						<td dir="ltr" align="right">																				
+							<select name="birth_year" style="width:70px;">
+								<?php
+									for($i=1900 ; $i<=date(Y);$i++)
+									{
+								?>
+									<option value="<?php echo $i;?>"><?php echo $i;?></option>
+								<?php		
+									}
+								?>
+							</select>
+							-
+							<select name="birth_month" style="width:60px;">
+								<?php
+									for($i=1 ; $i<=12;$i++)
+									{
+								?>
+									<option value="<?php echo $i;?>"><?php echo $i;?></option>
+								<?php		
+									}
+								?>
+							</select>
+							-
+							<select name="birth_day" style="width:60px;">
+								<?php
+									for($i=1 ; $i<=31;$i++)
+									{
+								?>
+									<option value="<?php echo $i;?>"><?php echo $i;?></option>
+								<?php		
+									}
+								?>
+							</select>
 						</td>
+						
 					</tr>
 					
 					<tr>
@@ -203,22 +236,26 @@
 						</td>						
 					</tr>
 					
+					<tr>	
+						<td>
+							العنوان السابق:
+						</td>
+						<td colspan="3">
+							<input type="text" name="prev_address" style="width:100%"/>
+						</td>
+					</tr>
+					
+					
 					<tr>
 						<td>
 							العنوان الحالي:
 						</td>
 						
-						<td>
-							<input type="text" name="current_address"/>
-						</td>
-						
-						<td>
-							العنوان السابق:
-						</td>
-						<td>
-							<input type="text" name="prev_address"/>
+						<td colspan="3">
+							<input type="text" name="current_address" style="width:100%"/>
 						</td>
 					</tr>
+					
 					
 					<tr>
 						<td>

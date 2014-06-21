@@ -720,6 +720,31 @@ class Provider_model extends CI_Model
 
 
 	/**
+	 * function name : getProviderWithStatus
+	 * 
+	 * Description : 
+	 * get all status of providers
+	 * 		
+	 * Created date ; 21-6-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getProviderWithStatus()
+	 {	 	
+	 	$query = "select * , CONCAT( fname,  ' ', father_name,  ' ', lname ) as full_name 
+	 			  from provider
+	 			  where 
+	 			  is_deleted= 'F'
+	 			  ";
+		$query =  $this->db->query($query);
+		return $query->result_array();
+		//return $query->result(); 	
+	 }
+	
+
+	/**
 	 * function name : chkExist
 	 * 
 	 * Description : 

@@ -165,7 +165,7 @@
 						</td>
 						<td>
 							<select name="study_status" id="study_status">
-								<option value="illiterate" <?php  if($family_member['study_status'] == "illiterate") echo 'selected';?>>جاهل</option>
+								<option value="illiterate" <?php  if($family_member['study_status'] == "illiterate") echo 'selected';?>>أمّي</option>
 								<option value="intermediate" <?php  if($family_member['study_status'] == "intermediate") echo 'selected';?>>شهادة متوسطة</option>
 								<option value="secondary" <?php  if($family_member['study_status'] == "secondary") echo 'selected';?>>شهادة ثانوية</option>
 								<option value="university" <?php  if($family_member['study_status'] == "university") echo 'selected';?>>شهادة جامعية</option>

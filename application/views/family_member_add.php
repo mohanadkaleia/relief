@@ -207,7 +207,7 @@
 						</td>
 						<td>
 							<select name="study_status">
-								<option value="illiterate">جاهل</option>
+								<option value="illiterate">أمّي</option>
 								<option value="intermediate">شهادة متوسطة</option>
 								<option value="secondary">شهادة ثانوية</option>
 								<option value="university">شهادة جامعية</option>

@@ -105,9 +105,45 @@
 						<td>
 							التولد:
 						</td>
-						<td>
-							<input type="date" name="birth_date" value="<?php echo $provider['birth_date'];?>"/>
-						</td>
+						
+						<td dir="ltr" align="right">						
+							<?php
+								$birth_date = explode("-", $provider['birth_date']);
+							?>
+																					
+							<select name="birth_year" style="width:70px;">
+								<?php
+									for($i=1900 ; $i<=date(Y);$i++)
+									{
+								?>
+									<option value="<?php echo $i;?>" <?php if($birth_date[0] == $i) echo "selected";?>><?php echo $i;?></option>
+								<?php		
+									}
+								?>
+							</select>
+							-
+							<select name="birth_month" style="width:60px;">
+								<?php
+									for($i=1 ; $i<=12;$i++)
+									{
+								?>
+									<option value="<?php echo $i;?>" <?php if($birth_date[1] == $i) echo "selected";?>><?php echo $i;?></option>
+								<?php		
+									}
+								?>
+							</select>
+							-
+							<select name="birth_day" style="width:60px;">
+								<?php
+									for($i=1 ; $i<=31;$i++)
+									{
+								?>
+									<option value="<?php echo $i;?>" <?php if($birth_date[2] == $i) echo "selected";?>><?php echo $i;?></option>
+								<?php		
+									}
+								?>
+							</select>
+						</td>						
 					</tr>
 					
 					<tr>
@@ -144,22 +180,26 @@
 						</td>						
 					</tr>
 					
+					<tr>	
+						<td>
+							العنوان السابق:
+						</td>
+						<td colspan="3">							
+							<input type="text" name="prev_address" style="width:100%" value="<?php echo $provider['prev_address'];?>"/>							
+						</td>
+					</tr>
+					
+					
 					<tr>
 						<td>
 							العنوان الحالي:
 						</td>
 						
-						<td>
-							<textarea name="current_address"><?php echo $provider['current_address'];?></textarea>
-						</td>
-						
-						<td>
-							العنوان السابق:
-						</td>
-						<td>
-							<textarea name="prev_address"><?php echo $provider['prev_address'];?></textarea>
+						<td colspan="3">
+							<input type="text" name="current_address" style="width:100%" value="<?php echo $provider['current_address'];?>"/>							
 						</td>
 					</tr>
+					
 					
 					<tr>
 						<td>

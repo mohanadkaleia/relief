@@ -237,9 +237,9 @@ class Family_member extends CI_Controller {
 		// assign values to the model variable
 		$this->family_member_model->provider_code = $this->input->post('provider_code');
 		$this->family_member_model->national_id = $this->input->post('national_id');
-		$this->family_member_model->fname = $this->input->post('fname');			
-		$this->family_member_model->lname = $this->input->post('lname');
-		$this->family_member_model->father_name = $this->input->post('father_name');				
+		$this->family_member_model->fname = trim($this->input->post('fname'));			
+		$this->family_member_model->lname = trim($this->input->post('lname'));
+		$this->family_member_model->father_name = trim($this->input->post('father_name'));				
 		$this->family_member_model->gender = $this->input->post('gender');
 		$this->family_member_model->birth_date = $this->input->post('birth_year').'-'.$this->input->post('birth_month').'-'.$this->input->post('birth_day');
 		$this->family_member_model->relationship = $this->input->post('relationship');
