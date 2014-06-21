@@ -221,10 +221,10 @@ class Form extends CI_Controller {
 		$this->load->model("provider_model");
 		
 		
-		$providers =  $this->input->post("provider");
+		$providers = explode(";", $this->input->post("provider_code")); 
 		$action = $this->input->post("save");
 		foreach ($providers as $provider_code) 
-		{
+		{								
 			$this->provider_model->code = $provider_code;
 			
 			if($action == "قبول")
@@ -234,12 +234,10 @@ class Form extends CI_Controller {
 			else 
 			{
 				$this->provider_model->rejectProvider();
-			}
-			
-			//redirect to manage page
-			$this->manage();	
-			
-		}		
+			}						
+		}
+		//redirect to manage page
+		$this->manage();			
 	}
 		
 	

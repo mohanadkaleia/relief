@@ -1,7 +1,7 @@
 <script>	
 	$(document).ready(function() {		
 	    gridRender('form');
-	}); 
+	}); 		
 </script>
 
 
@@ -18,84 +18,31 @@
 		<h3 class="title">إدارة الاستمارات</h3>	 
 		
 		<div>
-			<script>
+			
+		
+			<form id="accept_reject" method="post" action="<?php echo base_url();?>form/acceptReject">
+				<script>
 				$(document).ready(function() {
-	     
-				    var sheepItForm = $('#sheepItForm').sheepIt({
-				        separator: '',
-				        allowRemoveLast: true,
-				        allowRemoveCurrent: true,
-				        allowRemoveAll: true,
-				        allowAdd: true,
-				        allowAddN: false,
-				        maxFormsCount: 0,
-				        minFormsCount: 1,
-				        iniFormsCount: 1
-				    });
-				 
+					$('#accept_reject').on('keydown', function (e) {
+					    if (e.keyCode == 13) {
+					        return false;
+					    }
+					});
 				});
-			</script>
-			
-			<script>
-			
-				//disable subnit the form on enter key
-				$(document).ready(function() {
-					$('#provider_code').bind("keypress", function(e) {
-					  if (e.keyCode == 13) {               
-					    e.preventDefault();
-					    return false;
-					  }
-					});
-				});				
-			</script>
-			<form id="accept_reject" method="post" action="<?php echo base_url();?>form/acceptReject">			
+				</script>			
 				قبول أو رفض مجموعة من الاستمارات:
-				<!-- sheepIt Form -->
-				<div id="sheepItForm">
-				 
-				  <!-- Form template-->
-				  <div id="sheepItForm_template">
-				    <label for="sheepItForm_#index#_phone">رمز المعيل <span id="sheepItForm_label"></span></label>
-				    <input id="sheepItForm_#index#_provider_code" name="provider[#index#]" type="text" class="provider_code"
-				    onchange="alert('hi');"/>
-				    <a id="sheepItForm_remove_current" class="btn btn-deafault">
-				      <i class="icon-minus"></i>
-				    </a>
-				  </div>
-				  
-				  <script>
-				  	//focus on the next element on enter					
-					$(document).ready(function() {
-						code_counter = 0;
-						
-						$(".provider_code").bind("keypress", function(e) {
-							  if (e.keyCode == 13) {               
-							    $('#sheepItForm_add').click();
-							    code_counter++;
-							    $('#sheepItForm_'+code_counter+'_provider_code').focus();
-							    //alert("hi");
-							  }
-							  
-							  //
-							  //var inputs = $(this).closest('form').find(':input');
-							  //inputs.eq( inputs.index(this)+ 1 ).focus();
-							});
+				
+				<input type="text" name="provider_code" id="provider_code" style="width:100%" />
+				<script>
+					$('#provider_code').on('keydown', function (e) {
+					    if (e.keyCode == 13) 
+					    {
+					    	$current = $("#provider_code").val();
+					    	$("#provider_code").val($current + ";");					        
+					        return false;
+					    }
 					});
-				  </script>
-				  <!-- /Form template-->
-				   
-				  <!-- No forms template -->
-				  <div id="sheepItForm_noforms_template">لا يوجد استمارات</div>
-				  <!-- /No forms template-->
-				   
-				  <!-- Controls -->
-				  <div id="sheepItForm_controls">
-				    <div id="sheepItForm_add"><a class="btn btn-default"><i class="icon-plus"></i></a></div>				    				    
-				  </div>
-				  <!-- /Controls -->
-				   
-				</div>
-					
+				</script>	
 				<br/>				
 				<input type="submit" name="save" class="btn btn-info" value="قبول" />
 				<input type="submit" name="save" class="btn btn-danger" value="رفض" />
