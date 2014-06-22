@@ -40,14 +40,14 @@
 					عدد الأفراد الذكور
 				</th>
 				<td>
-					<?php echo count($male);?>
+					<?php echo $male;?>
 				</td>
 				
 				<th>
 					عدد الأفراد الإناث:
 				</th>
 				<td>
-					<?php echo count($female);?>
+					<?php echo $female;?>
 				</td>
 			</tr>
 			

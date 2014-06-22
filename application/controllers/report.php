@@ -65,9 +65,11 @@ class Report extends CI_Controller {
 		//get all family_members
 		$family_members = $this->family_member_model->getAllFamilyMembers();
 		
-		//get all members by gender
+		//get all members by gender and providers by gender
 		$members_male = $this->family_member_model->getFamilyMembersByGender('M');
+		$provider_male = $this->provider_model->getProviderByGender('M');
 		$members_female = $this->family_member_model->getFamilyMembersByGender('F');
+		$provider_female = $this->provider_model->getProviderByGender('F');
 		
 		//get all members by their health status "disabled" 
 		$members_disabled = $this->family_member_model->getFamilyMembersByHealth("disabled");
@@ -93,8 +95,8 @@ class Report extends CI_Controller {
 			
 		$data["providers"] = $providers;
 		$data["members"] = $family_members;
-		$data["male"] = $members_male;
-		$data["female"] = $members_female;
+		$data["male"] = count($members_male) + count($provider_male);
+		$data["female"] = count($members_female) + count($provider_female);
 		$data["disabled"] = $members_disabled;
 		$data["emigramt_family"] = $emigramt_family;
 		$data["illiterates"] = $illiterates;

@@ -773,6 +773,33 @@ class Provider_model extends CI_Model
 			return false;				 
 	 }
 	 
+	 
+	 /**
+	 * function name : getProviderByGender($gender)
+	 * 
+	 * Description : 
+	 * Get all provider by gender
+	 * 
+	 * parameters:
+	 * gender: 'F' for female 'M' for male
+	 * Created date ; 22-6-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getProviderByGender($gender)
+	 {
+		$query = "SELECT * 
+				  FROM provider 
+				  where 				  				 
+				  gender = '{$gender}' and 
+				  is_deleted = 'F' and 
+				  relief_form_status = 'T' 
+				  ";
+		$query = $this->db->query($query);
+		return $query->result_array();
+	 }
 	 	 
 }    
    
