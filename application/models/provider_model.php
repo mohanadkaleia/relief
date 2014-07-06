@@ -474,6 +474,8 @@ class Provider_model extends CI_Model
 		$query = "select * from provider where
 				  code = '{$this->code}'";
 	    
+		
+		
 		$query =  $this->db->query($query);
 		$provider =  $query->result_array();
 		
@@ -481,7 +483,7 @@ class Provider_model extends CI_Model
 		
 		if(count($provider) == 0)
 		{
-			$query = "INSERT INTO  provider (				
+			$provider_query = "INSERT INTO  provider (				
 				area_code,
 				association_code ,
 				code ,
@@ -510,7 +512,8 @@ class Provider_model extends CI_Model
 				relief_form_status,
 				created_date,
 				creator_id,
-				is_deleted				
+				is_deleted,
+				gender				
 				)
 				VALUES (
 				'{$area_code}',  
@@ -540,13 +543,17 @@ class Provider_model extends CI_Model
 				'{$this->note}',
 				'{$this->relief_form_status}',
 				'{$this->created_date}',
-				{$this->user_id},
-				'{$this->is_deleted}'
+				'{$this->user_id}',
+				'{$this->is_deleted}',
+				'{$this->gender}'
 				);	";
+				
+				$this->db->query($provider_query);
 		}
 		
-		else {
-				$query = "UPDATE provider 
+		else if($provider[0]["created_date"] < $this->created_date)
+		{
+				$provider_query = "UPDATE provider 
 				  SET 
 					area_code = '{$area_code}',
 					association_code  = '{$association_code}',
@@ -580,9 +587,12 @@ class Provider_model extends CI_Model
 				  WHERE 
 					code =  '{$this->code}';
 					 	";
-		}
 					 	
-		$this->db->query($query);
+				$this->db->query($provider_query);
+		}
+			
+					 	
+		
 	 }
 	 
 	 
@@ -668,24 +678,18 @@ class Provider_model extends CI_Model
 		if($family_book_letter <> "") {$query.= " and family_book_letter = '{$family_book_letter}'";}
 		if($family_book_family_num <> "") {$query.= " and family_book_family_number = '{$family_book_family_num}'";}
 		
-		/*
-		if($family_num_less <> "") {$query.= " and (select count(family_member.id) from provider , family_member where provider.code = family_member.provider_code) < {$family_num_less}";}
-		if($family_num_bigger <> "") {$query.= " and (select count(family_member.id) from provider , family_member where provider.code = family_member.provider_code) > {$family_num_bigger}";}
-		if($family_num_equal <> "") {$query.=	 " and (select count(family_member.id) from provider , family_member where provider.code = family_member.provider_code) = {$family_num_equal}";}
-		*/
 		
-		if($family_num_less <> "") {$query.= " and family_members < '{$family_num_less}'";}
-		if($family_num_bigger <> "") {$query.= " and family_members > '{$family_num_bigger}'";}
-		if($family_num_equal <> "") {$query.=	 " and family_members = '{$family_num_equal}'";}
-		
-		
-		if($reg_date_less <> "") {$query.= " and created_date < '{$reg_date_less}'";}
-		if($reg_date_big <> "") {$query.= " and created_date > '{$reg_date_big}'";}
-		if($reg_date_equal <> "") {$query.=	 " and created_date = '{$reg_date_equals}'";}
-		
-		//echo $family_num_bigger;
+		if($family_num_less <> "") {$query.= " and family_count < $family_num_less";}
+		if($family_num_bigger <> "") {$query.= " and family_count > $family_num_bigger";}
+		if($family_num_equal <> "") {$query.=	 " and family_count = $family_num_equal";}
+				
+		if($reg_date_less <> "") {$query.= " and created_date > '{$reg_date_less}'";}
+		if($reg_date_big <> "") {$query.= " and created_date < '{$reg_date_big}'";}
+		if($reg_date_equal <> "") {$query.=	 " and created_date = '{$reg_date_equal}'";}
 		
 		
+		
+		//echo $query;
 				
 		$query =  $this->db->query($query);
 		return $query->result_array();
@@ -799,6 +803,30 @@ class Provider_model extends CI_Model
 				  ";
 		$query = $this->db->query($query);
 		return $query->result_array();
+	 }
+	 
+	 
+	 
+	 /**
+	 * function name : emptyTable
+	 * 
+	 * Description : 
+	 * empty the table
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 6-7-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function emptyTable()
+	 {
+		$query = "delete
+				  FROM provider 				 
+				  ";
+		$query = $this->db->query($query);		
 	 }
 	 	 
 }    

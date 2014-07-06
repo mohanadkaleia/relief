@@ -20,7 +20,8 @@
 		<div class="grid">
 			<table id="package" action="<?php echo base_url();?>package/ajaxGetPackages" dir="rtl">				
 				<tr>																
-					<th col="name" type="text">اسم الصندوق</th>
+					<th col="name" type="text">اسم السلة</th>
+					<th col="code" type="text">رمز السلة</th>
 				</tr>										
 			</table>	
 		</div>

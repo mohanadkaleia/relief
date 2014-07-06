@@ -484,7 +484,7 @@ class Provider extends CI_Controller {
 		$this->grid->option['add_url'] = base_url()."provider/add"; //add url
 		$this->grid->option['add_title'] = "إضافة معيل"; //add title
 			
-		$this->grid->columns = array('code','full_name' , 'national_id' , 'created_date');//'code' removed
+		$this->grid->columns = array('code','full_name');//'code' removed
 		
 		//get the data	
 		$this->grid->data = $this->provider_model->getAllProviders();
@@ -492,10 +492,11 @@ class Provider extends CI_Controller {
 		//grid controls
 		$this->grid->control = array(
 									  array("title" => "الأسرة" , "icon"=>"icon-th-list" , "url"=>base_url()."family_member/familyManage" , "message_type"=>null , "message"=>"") ,
+									  array("title" => "معونة" , "icon"=>"icon-heart" , "url"=>base_url()."provider/aidManage" , "message_type"=>null , "message"=>"") ,
 									  array("title" => "تعديل" , "icon"=>"icon-pencil" , "url"=>base_url()."provider/edit" , "message_type"=>null , "message"=>"") , 
 									  array("title" => "حذف" , "icon"=>"icon-trash" ,"url"=>base_url()."provider/delete" , "message_type"=>"confirm" , "message"=>"Are you sure?"),
-									  array("title" => "عرض" , "icon"=>"icon-file" ,"url"=>base_url()."provider/view" , "message_type"=>null , "message"=>""),
-									  array("title" => "طباعة" , "icon"=>"icon-print" ,"url"=>base_url()."provider/printProvider" , "message_type"=>null , "message"=>"")
+									  array("title" => "عرض" , "icon"=>"icon-file" ,"url"=>base_url()."provider/view" , "message_type"=>null , "message"=>"")
+									  
 									);												
 						
 		//render our grid :)
@@ -575,6 +576,30 @@ class Provider extends CI_Controller {
 		$string = file_get_contents(base_url()."/files/outtext.txt");
 		echo $string;
 	}
+	
+	
+	/**
+	 * function name : aidManage
+	 * 
+	 * Description : 
+	 * call provider aid manage page
+	 * 
+	 * Created date ; 27-6-2013
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	public function aidManage($code)
+	{			
+		$data['code'] = $code; 
+											
+		$this->load->view('gen/header');
+		$this->load->view('gen/slogan');
+		$this->load->view('provider_aid_manage' , $data);
+		$this->load->view('gen/footer');
+	}
+	
 
 }
 

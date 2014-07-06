@@ -47,11 +47,33 @@
 					</p>
 					<form method="post" action="<?php echo base_url()?>migrate/import" enctype="multipart/form-data">
 						
-						<input type="file" name="imported_file" id=imported_file""/>
+						<input type="file" name="imported_file" id=imported_file"" required="true"/>
 						<input type="submit" class="btn btn-success" value="استيراد البيانات"/>	
 					</form>	
-				</div>
+				</div>												
 			</div>
+			
+			
+			<hr />
+				
+			<h2>ملف جديد</h2>
+			<p class="alert alert-info">
+				يمكنك هنا استيراد قاعدة بيانات جديدة بحيث تكون منفصلة عن الحالية، أي لن يتم هنا دمج بيانات
+				الملف الذي سيتم استيراده،
+				عند الضغط على الزر سيتم تصدير ملف بالبيانات الحالية واستيراد بيانات الملف الذي قمت بتحديده 						
+			</p>
+			
+			<form method="post" action="<?php echo base_url()?>migrate/exportImportNew" enctype="multipart/form-data">
+						
+				<input type="file" name="imported_file" id=imported_file"" required="true"/>
+				<input type="submit" class="btn btn-success" value="استيراد ملف جديد"/>	
+			</form>	
+			
+				
 	  	</div>
+	  
+			  
+	  
+	  
 	  
 	</div>

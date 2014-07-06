@@ -111,24 +111,24 @@ class Package extends CI_Controller {
 	 * Author : Ahmad Mulhem Barakat
 	 * contact : molham225@gmail.com
 	 */
-	public function edit($package_id)
+	public function edit($package_code)
 	{
 		$this->load->model('package_model');
 		$this->load->model('package_detail_model');
 		$this->load->model('subject_category_model');
 		$this->load->model('subject_model');
 		
-		$this->package_model->id = $package_id;
+		$this->package_model->code = $package_code;
 		
-		$package = $this->package_model->getPackageById();
+		$package = $this->package_model->getPackageByCode();
 		
 		if(isset($package[0])){
 		//get the package to be edited
 		$data['package'] = $package[0];
 						
-		$this->package_detail_model->package_id = $package[0]['id'];
+		$this->package_detail_model->package_code = $package[0]['code'];
 		//get package's details
-		$details = $this->package_detail_model->getPackageDetailsByPackageId();
+		$details = $this->package_detail_model->getPackageDetailsByPackageCode();
 		if(isset($details[0]))
 		$data['details'] = $details;
 		//get package details subject names
@@ -138,9 +138,14 @@ class Package extends CI_Controller {
 			$subject = $this->subject_model->getSubjectByCode();
 			
 			$subject_names[] = $subject[0]['name'];
+			$subject_unit[] = $subject[0]['unit'];
 		}
 		if(isset($subject_names))
-		$data['subject_names'] = $subject_names;		
+		{
+			$data['subject_names'] = $subject_names;
+			$data['subject_unit'] = $subject_unit;
+		}
+				
 		
 		//get all categories
 		$categories = $this->subject_category_model->getAllSubjectCategories();
@@ -174,12 +179,12 @@ class Package extends CI_Controller {
 	 * Author : Ahmad Mulhem Barakat
 	 * contact : molham225@gmail.com
 	 */
-	public function delete($package_id)
+	public function delete($package_code)
 	{
 		$this->load->model('package_model');
 		$this->load->model('package_detail_model');
 		
-		$this->package_model->id = $package_id;
+		$this->package_model->code = $package_code;
 		
 		//delete the subject.
 		$this->package_model->deletePackage();
@@ -268,9 +273,15 @@ class Package extends CI_Controller {
 		 
 		//add the package
 		$this->package_model->name = $this->input->post('name');
-		if($action == "add"){
+		$this->package_model->code = $this->input->post('code');
+		
+		
+		if($action == "add")
+		{
 			$id = $this->package_model->addPackage();
-		}else if($action == "edit"){
+		}
+		else if($action == "edit")
+		{
 			//modify the package name
 			$this->package_model->id = $id;
 			$this->package_model->modifyPackage();
@@ -279,7 +290,8 @@ class Package extends CI_Controller {
 			$amounts = $this->input->post('amount');
 			$detail_ids = $this->input->post('detail_id');
 			if($detail_ids)
-			for($i=0 ; $i < count($detail_ids); $i++){
+			for($i=0 ; $i < count($detail_ids); $i++)
+			{
 				$this->package_detail_model->amount = $amounts[$i];
 				$this->package_detail_model->id = $detail_ids[$i];
 				$this->package_detail_model->modifyAmount();				
@@ -287,18 +299,22 @@ class Package extends CI_Controller {
 			
 			/** Delete the details deleted by the user **/
 			//get package details
-			$this->package_detail_model->package_id = $id;
-			$package_details = $this->package_detail_model->getPackageDetailsByPackageId();
+			$this->package_detail_model->package_code =  $this->input->post('code');
+			$package_details = $this->package_detail_model->getPackageDetailsByPackageCode();
 			//delete the details don't exists in the returned detail ids
-			foreach($package_details as $package_detail){
+			foreach($package_details as $package_detail)
+			{
 				$exists = false;
-				foreach($detail_ids as $detail_id){
-					if($package_detail['id'] == $detail_id){
+				foreach($detail_ids as $detail_id)
+				{
+					if($package_detail['id'] == $detail_id)
+					{
 						$exists = true;
 						break;
 					}
 				}
-				if(!$exists){
+				if(!$exists)
+				{
 					$this->package_detail_model->id = $detail_id;
 					$this->package_detail_model->deletePackageDetail();
 				}
@@ -307,7 +323,7 @@ class Package extends CI_Controller {
 		/** add the new package details added by the user **/
 		//get subject count
 		$count = $this->input->post('rowCount');
-		$this->package_detail_model->package_id = $id;
+		$this->package_detail_model->package_code =  $this->input->post('code');
 		//get actual subjects and add them
 		for($i=1;$i<=$count;$i++){
 			$subject_code = $this->input->post('subjectSelect'.$i);
@@ -345,7 +361,7 @@ class Package extends CI_Controller {
 		
 		//grid option
 		$this->grid->option['title'] = "Subjects";   //  grid title
-		$this->grid->option['id'] = "id";         // database table id
+		$this->grid->option['id'] = "code";         // database table id
 		$this->grid->option['sortable'] = FALSE;  // is sortable
 		$this->grid->option['page_size'] = 10;    //records per page
 		$this->grid->option['row_number'] = true; //show the row number		
@@ -353,7 +369,7 @@ class Package extends CI_Controller {
 		$this->grid->option['add_url'] = base_url()."package/add"; //add url
 		$this->grid->option['add_title'] = "إضافة صندوق معونات"; //add title
 			
-		$this->grid->columns = array('name');
+		$this->grid->columns = array('name' , 'code');
 		
 		//get the data	
 		$this->grid->data = $this->package_model->getAllPackages();

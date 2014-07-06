@@ -1,6 +1,6 @@
 <div  class="row-fluid">	  	
 	  	<div class="span8 main-content offset2">
-			<h1>إضافة صندوق معونات</h1>  
+			<h1>إضافة سلة</h1>  
 			<br />
 			<!-- error message -->
 			<div  id="error" style="display: none;">
@@ -10,20 +10,29 @@
 				<table id="input_table" style="width: 100%;">
 					<tr >
 						<td>
-							اسم الصندوق:
+							اسم السلة:
 						</td>
 						
 						<td>
 							<input type="text" name="name" id="name" required="required" placeholder="اسم الصندوق"/>
 						</td>
+						
+						<td>
+							رمز السلة
+						</td>
+						<td>
+							<input type="text" name="code" id="code" required="required" placeholder="001"/>
+						</td>
+						
 					</tr>
 					<tr>
-						<td colspan="2">
+						<td colspan="4">
 							<table id="subject_table" style="width: 100%;">
 								<tr>
 									<th>فئة المادة</th>
 									<th>اسم المادة</th>
 									<th>الكمية</th>
+									<th>الواحدة</th>
 									<th></th>
 								</tr>
 								<tr>
@@ -35,7 +44,7 @@
 										</select>
 									</td>
 									<td>
-										<select id="subjectSelect1" name="subjectSelect1">
+										<select id="subjectSelect1" name="subjectSelect1" class="subject">
 											<?php foreach($subjects as $subject){?>
 											<option value="<?php echo $subject['code'];?>"><?php echo $subject['name'];?></option>
 											<?php }?>
@@ -43,8 +52,13 @@
 										<input type="hidden" name="id[1]" />
 									</td>
 									<td>
-										<input type="number" name="amount1" id="amount1" placeholder="الكمية" required="required"/>
+										<input type="number" name="amount1" id="amount1" placeholder="الكمية" required="required"/>										
 									</td>
+									
+									<td id="unit1" class="unit">
+										<?php echo $subjects[0]['unit'];?>
+									</td>
+																		
 									<td>
 										<input type="button" disabled="true" class="btn btn-default" value="-"/>
 									</td>
@@ -93,6 +107,17 @@
 					});
 				});
 			});
+			
+			
+			$("select.subject").each(function(){
+				$(this).change(function(){			
+					subject = $(this);
+					subject_code = $(this).val();
+					$.getJSON( "<?php echo base_url();?>subject/ajaxGetSubjetByCode/" + subject_code, function( data ) {
+						subject.parent().parent().find('.unit').html(data['unit']);				  
+					});			
+				});
+			});
 		}
 		
 		function getUnique(){
@@ -118,11 +143,12 @@
                     '<td>' +
                     '<select name="categorySelect' + rowCount + '" id="categorySelect' + rowCount + '"  class="category">';
                 tableData += $("select#categorySelect1").html() +'</select>'+' </td>' ;
-                tableData +=  '<td> <select name="subjectSelect' + rowCount + '" id="subjectSelect' + rowCount + '">';
+                tableData +=  '<td> <select name="subjectSelect' + rowCount + '" id="subjectSelect' + rowCount + '"  class="subject">';
                 tableData += subjectSelectOptions +'</select>'+ '</td> <input type="hidden" name="id['+rowCount+']" value="0"/>' ;
 				tableData += '<td>' +
                     '<input type="number" name="amount' + rowCount + '" id="amount' + rowCount + '" placeholder="الكمية" required="required"/>' +
-                    '</td>' + '<td>' +
+                    '</td>' + '<td id="unit'+rowCount+'" class="unit">' + '<?php echo $subjects[0]['unit'];?>' +
+                    '</td>' + '<td>'+
                     '<input type="button" class="btn btn-default" value="-" onclick="delRow('+rowCount+')"/>' +
                     '</td>' +
                     '</tr>';
@@ -145,4 +171,11 @@
                 $("#row" + id).remove();
             }
 
+	</script>
+	
+	
+	
+	<!-- change the unit when changing the subject -->
+	<script>
+		
 	</script>

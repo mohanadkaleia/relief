@@ -1,6 +1,6 @@
 <div  class="row-fluid">	  	
 	  	<div class="span8 main-content offset2">
-			<h1>تعديل بيانات صندوق معونات</h1>  
+			<h1>تعديل بيانات السلة</h1>  
 			<br />
 			<!-- error message -->
 			<div  id="error" style="display: none;">
@@ -10,12 +10,20 @@
 				<table id="input_table" style="width: 100%;">
 					<tr style="border-bottom: solid 1px #FFFFFF">
 						<td>
-							اسم الصندوق:
+							اسم السلة:
 						</td>
 						
-						<td colspan="4">
+						<td>
 							<input type="text" name="name" id="name" required="required" placeholder="اسم الصندوق" value="<?php echo $package['name'];?>"/>
 							<input type="hidden" name="old_name" id="old_name" value="<?php echo $package['name'];?>" />
+						</td>
+						
+						<td>
+							رمز السلة:
+						</td>
+						
+						<td>							
+							<input type="text" name="code" id="code" value="<?php echo $package['code'];?>" />
 						</td>
 					</tr>
 					
@@ -31,8 +39,11 @@
 								<td>
 									الكمية:
 								</td>
-								<td >
+								<td>
 									<input type="number" name="amount[<?php echo $i;?>]" value="<?php echo $details[$i]['amount'];?>" placeholder="الكمية" required="required"/>
+								</td>
+								<td style="width: 50px;">
+									<?php echo $subject_unit[$i];?>
 								</td>
 								<td>
 									<input type="button" class="btn btn-default" value="حذف المادة" onclick="delDetail(<?php echo $i;?>)"/>
@@ -42,12 +53,13 @@
 					<?php }?>
 					
 					<tr>
-						<td colspan="5">
+						<td colspan="6">
 							<table id="subject_table" style="width: 100%;">
 								<tr>
 									<th>فئة المادة</th>
 									<th>اسم المادة</th>
 									<th>الكمية</th>
+									<th>الواحدة</th>
 									<th></th>
 								</tr>
 								<tr id="row1">
@@ -59,7 +71,7 @@
 										</select>
 									</td>
 									<td>
-										<select id="subjectSelect1" name="subjectSelect1">
+										<select id="subjectSelect1" name="subjectSelect1" class="subject">
 											<?php foreach($subjects as $subject){?>
 											<option value="<?php echo $subject['code'];?>"><?php echo $subject['name'];?></option>
 											<?php }?>
@@ -68,6 +80,11 @@
 									<td>
 										<input type="number" name="amount1" id="amount1" placeholder="الكمية" required="required"/>
 									</td>
+									
+									<td id="unit1" class="unit">
+										<?php echo $subjects[0]['unit'];?>
+									</td>
+									
 									<td>
 										<input type="button" onclick="delRow(1)" class="btn btn-default" value="-"/>
 									</td>
@@ -116,6 +133,17 @@
 					});
 				});
 			});
+			
+			$("select.subject").each(function(){
+				$(this).change(function(){			
+					subject = $(this);
+					subject_code = $(this).val();
+										
+					$.getJSON( "<?php echo base_url();?>subject/ajaxGetSubjetByCode/" + subject_code, function( data ) {
+						subject.parent().parent().find('.unit').html(data['unit']);				  
+					});			
+				});
+			});
 		}
 		
 		function getUnique(){
@@ -146,11 +174,11 @@
                     '<td>' +
                     '<select name="categorySelect' + rowCount + '" id="categorySelect' + rowCount + '"  class="category">';
                 tableData += $("select#categorySelect1").html() +'</select>'+' </td>' ;
-                tableData +=  '<td> <select name="subjectSelect' + rowCount + '" id="subjectSelect' + rowCount + '">';
+                tableData +=  '<td> <select name="subjectSelect' + rowCount + '" id="subjectSelect' + rowCount + '" class="subject">';
                 tableData += subjectSelectOptions +'</select>'+ '</td> <input type="hidden" name="id['+rowCount+']" value="0"/>' ;
 				tableData += '<td>' +
                     '<input type="number" name="amount' + rowCount + '" id="amount' + rowCount + '" placeholder="الكمية" required="required"/>'+
-                    '</td>' + '<td>' +
+                     '</td>' + '<td id="unit'+rowCount+'" class="unit">' + '<?php echo $subjects[0]['unit'];?>' +
                     '<input type="button" class="btn btn-default" value="-" onclick="delRow('+rowCount+')"/>' +
                     '</td>' +
                     '</tr>';

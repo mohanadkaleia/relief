@@ -505,6 +505,28 @@ class Family_member_model extends CI_Model{
 		return $query->result_array();
 	 }
 	 
+	 /**
+	 * function name : emptyTable
+	 * 
+	 * Description : 
+	 * empty the table
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 6-7-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function emptyTable()
+	 {
+		$query = "delete 
+				  FROM family_member 				 
+				  ";
+		$query = $this->db->query($query);		
+	 }
+	 
 	 
 }    
     

@@ -359,7 +359,7 @@ class Family_member extends CI_Controller {
 	 * function name : ajaxGetProviderFamily
 	 * 
 	 * Description : 
-	 * get providers information from database
+	 * get provider's family
 	 * 
 	 * Created date ; 13-2-2014
 	 * Modification date : ---
@@ -389,7 +389,15 @@ class Family_member extends CI_Controller {
 		
 		//get the data	FamilyMembers
 		$this->family_member_model->provider_code = $provider_code;
-		$this->grid->data = $this->family_member_model->getFamilyMemberByProviderCode();
+		$family = $this->family_member_model->getFamilyMemberByProviderCode();		
+		
+		//load provider model
+		$this->load->model("provider_model");
+		$this->provider_model->code = $provider_code;
+		$provider = $this->provider_model->getProviderByCode();
+		$provider[0]['relationship'] = "provider";
+		$this->grid->data = array_merge($provider , $family); 
+		
 		
 		//grid controls
 		$this->grid->control = array(

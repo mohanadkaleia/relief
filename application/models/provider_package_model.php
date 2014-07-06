@@ -20,10 +20,10 @@ class Provider_package_model extends CI_Model{
 	var $id;
 	
 	//the id of the provider of this provider package
-	var $provider_id = "";
+	var $provider_code = "";
 	
-	//the id of the package of this provider package
-	var $package_id = "";
+	//the code of the package of this provider package
+	var $package_code = "";
 	
 	//the date of the deliverance of this package to the provider
 	var $date = "";
@@ -58,13 +58,13 @@ class Provider_package_model extends CI_Model{
 	 public function addProviderPackage()
 	 {
 	 	$query = "INSERT INTO  provider_package (
-					package_id,
-					provider_id,
+					package_code,
+					provider_code,
 					date
 					)
 					VALUES (  
-					'{$this->package_id}', 
-					'{$this->provider_id}',
+					'{$this->package_code}', 
+					'{$this->provider_code}',
 					'{$this->date}' 
 					);
 					 	";	
@@ -91,8 +91,8 @@ class Provider_package_model extends CI_Model{
 	 {
 	 	$query = "UPDATE  provider_package
 					SET	
-						package_id = '{$this->package_id}',
-						subject_id = '{$this->provider_id}',
+						package_code = '{$this->package_code}',
+						provider_id = '{$this->provider_id}',
 						amount = '{$this->date}'
 					WHERE id = {$this->id}
 					";	
@@ -140,7 +140,7 @@ class Provider_package_model extends CI_Model{
 		$query = "SELECT CONCAT( provider.fname,  ' ', provider.father_name,  ' ', provider.lname ) as provider_name, package.name as package_name , provider_package.date as deliever_date
 				  FROM provider_package  , provider , package
 				  where
-				  provider_package.package_id = package.id
+				  provider_package.package_code = package.code
 				  and
 				  provider_code = provider.code";
 		$query = $this->db->query($query);
@@ -169,27 +169,134 @@ class Provider_package_model extends CI_Model{
 		return $query->result_array();
 	 }
 	 
-	 /**
-	 * function name : getProviderPackagesByProviderId
+	
+	 
+	 
+	  /**
+	 * function name : getProviderPackagesByProviderCode
 	 * 
 	 * Description : 
 	 * Gets the Package Details specified by the given provider id.
 	 * 
 	 * parameters:
 	 * 
-	 * Created date ; 4-3-2014
+	 * Created date ; 27-6-2014
 	 * Modification date : ---
 	 * Modfication reason : ---
 	 * Author : Ahmad Mulhem Barakat
 	 * contact : molham225@gmail.com
 	 */
-	 public function getProviderPackagesByProviderId(){
-		$query = "SELECT * 
-				  FROM provider_package
-				  WHERE provider_id = {$this->provider_id} ";
+	 public function getProviderPackagesByProviderCode(){			
+		$query = "SELECT CONCAT( provider.fname,  ' ', provider.father_name,  ' ', provider.lname ) as provider_name, package.name as package_name , provider_package.date as deliever_date
+				  FROM provider_package  , provider , package
+				  where
+				  provider_package.package_code = package.code
+				  and
+				  provider_code = provider.code
+				  and 
+				  provider_code = '{$this->provider_code}' ";
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }
+	 
+	 
+	 /**
+	 * function name : getProviderPackageColumn
+	 * 
+	 * Description : 
+	 * this function will get the  table column names and return it in an array
+	 * ararry {field , type , null , key  ,default , extra}
+	 * 		
+	 * Created date ; 3-7-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getProviderPackageColumn()
+	 {	 	
+	 	$query = "SHOW COLUMNS FROM provider_package";
+		$query =  $this->db->query($query);
+		return $query->result_array();		
+	 }
+	 
+	 
+	 /**
+	 * function name : getAll 
+	 * 
+	 * Description : 
+	 * get all data from table
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 3-7-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getAll()
+	 {
+		$query = "SELECT * 
+				  FROM provider_package
+				  ";
+		$query = $this->db->query($query);
+		return $query->result_array();
+	 }
+	 
+	 
+	 /**
+	 * function name : importProviderPackage 
+	 * 
+	 * Description : 
+	 * import provider pakcage data to table
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 6-7-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function importProviderPackage()
+	 {
+		$query = "delete from provider_package
+				  where 
+				  provider_code = '{$this->provider_code}' and
+				  package_code  = '{$this->package_code}' and 
+				  date = '{$this->date}'
+				  ";
+		$this->db->query($query);
+		
+		
+		//add the new data
+		$this->addProviderPackage();
+	 }
+	 
+	 
+	 /**
+	 * function name : emptyTable
+	 * 
+	 * Description : 
+	 * empty the table
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 6-7-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function emptyTable()
+	 {
+		$query = "delete 
+				  FROM provider_package 				 
+				  ";
+		$query = $this->db->query($query);		
+	 }
+	 
 	 
 }    
     

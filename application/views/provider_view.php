@@ -11,6 +11,7 @@
 	  		
 			<h1>بيانات المعيل <?php echo $provider['code'];?>#</h1>  
 			 <br />
+			 <a class="btn" href="<?php echo base_url();?>provider/printProvider/<?php echo $provider['code'];?>"><i class="icon-print"></i> طباعة</a>			 
 				<table id="details">									
 						
 					<tr class="odd">

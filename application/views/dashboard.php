@@ -33,8 +33,8 @@
 	  				</div>
 	  			</div>
 	  			
-	  			<div class="span3">
-	  				<!-- forms manage-->
+	  			<!--
+	  			<div class="span3">	  				
 	  				<div class="button-box" align="center">		  					
 	  					<a href="<?php echo base_url()?>aid">
 		  					<img src="<?php echo base_url()?>/images/link.png"/>	  					
@@ -42,6 +42,7 @@
 	  					</a>
 	  				</div>
 	  			</div>
+	  			-->
 	  			
 	  			<div class="span3">
 	  				<!-- Search-->
@@ -134,7 +135,7 @@
 	  				<div class="button-box" align="center">	
 	  					<a href="<?php echo base_url()?>package">	
 		  					<img src="<?php echo base_url()?>/images/shopping_cart.png"/>	  					
-		  					<p>السلات الغذائية</p>	
+		  					<p>السلات</p>	
 	  					</a>
 	  				</div>	  					  			
 	  			</div>
@@ -144,7 +145,7 @@
 	  				<div class="button-box" align="center">	
 	  					<a href="<?php echo base_url()?>subject">	
 		  					<img src="<?php echo base_url()?>/images/tag.png"/>	  					
-		  					<p>المواد الغذائية</p>	
+		  					<p>المواد</p>	
 	  					</a>
 	  				</div>	  					  			
 	  			</div>

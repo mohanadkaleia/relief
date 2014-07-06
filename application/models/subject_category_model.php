@@ -177,6 +177,77 @@ class Subject_category_model extends CI_Model{
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }
+	 
+	 /**
+	 * function name : getSubjectCategoryColumn
+	 * 
+	 * Description : 
+	 * this function will get the  table column names and return it in an array
+	 * ararry {field , type , null , key  ,default , extra}
+	 * 		
+	 * Created date ; 3-7-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getSubjectCategoryColumn()
+	 {	 	
+	 	$query = "SHOW COLUMNS FROM subject_category";
+		$query =  $this->db->query($query);
+		return $query->result_array();		
+	 }
+	 
+	 
+	 /**
+	 * function name : importSubjectCategory 
+	 * 
+	 * Description : 
+	 * import subject category into the database
+	  * check if there is no such category
+	  * and add it
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 6-7-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	 public function importSubjectCategory()
+	 {
+	 	//check if there is no categroy
+		$category = $this->getSubjectCategoryByName();
+		
+		if(count($category) == 0 )
+		{
+			$this->addSubjectCategory();
+		}
+	 }
+	 
+	 
+	 /**
+	 * function name : emptyTable
+	 * 
+	 * Description : 
+	 * empty the table
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 6-7-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function emptyTable()
+	 {
+		$query = "delete 
+				  FROM subject_category 				 
+				  ";
+		$query = $this->db->query($query);		
+	 }
 }    
     
     

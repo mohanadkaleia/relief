@@ -45,6 +45,31 @@
 							<input type="text" name="subject_code" id="subject_code" placeholder="رمز المادة" required="required" value="<?php echo $subject['code'];?>"/>
 						</td>
 					</tr>
+					
+					<tr>
+						<td>
+							الكمية الإجمالية
+						</td>
+						<td>
+							<input type="text" name="total_amount" value="<?php echo $subject["total_amount"];?>"/>
+						</td>
+						
+						
+						<td>
+							الواحدة:
+						</td>
+						<td>
+							<select name="unit">
+								<option value="kg" <?php if($subject["unit"] == "kg") echo "selected";?>>كيلو</option>
+								<option value="liter" <?php if($subject["unit"] == "liter") echo "selected";?>>ليتر</option>
+								<option value="box" <?php if($subject["unit"] == "box") echo "selected";?>>صندوق</option>
+								<option value="bottle" <?php if($subject["unit"] == "bottle") echo "selected";?>>زجاجة</option>
+								<option value="bag" <?php if($subject["unit"] == "bag") echo "selected";?>>كيس</option>
+								<option value="piece" <?php if($subject["unit"] == "peice") echo "selected";?>>قطعة</option>
+							</select> 
+						</td>
+					</tr>
+					
 					<tr>
 						<td>
 							<input type="button" onclick="getUnique()" name="save" class="btn btn-info" value="احفظ"/>

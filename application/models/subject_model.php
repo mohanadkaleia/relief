@@ -25,6 +25,12 @@ class Subject_model extends CI_Model{
 	//the code of the subject
 	var $code = "";
 	
+	//subjet unit
+	var $unit = "";
+	
+	//total amount
+	var $total_amount;
+	
 	//the id of the category of this subject
 	var $subject_category_id = "";
 	
@@ -60,11 +66,15 @@ class Subject_model extends CI_Model{
 	 	$query = "INSERT INTO  subject (
 				name,
 				code,
+				unit,
+				total_amount,
 				subject_category_id		
 				)
 				VALUES (  
 				'{$this->name}', 
 				'{$this->code}', 
+				'{$this->unit}',
+				'{$this->total_amount}',
 				'{$this->subject_category_id}' 
 				);
 					 	";	
@@ -93,6 +103,8 @@ class Subject_model extends CI_Model{
 					SET	
 						name = '{$this->name}',
 						code = '{$this->code}',
+						unit = '{$this->unit}',
+						total_amount = '{$this->total_amount}',
 						subject_category_id = '{$this->subject_category_id}'
 					WHERE id = {$this->id}
 					";	
@@ -160,7 +172,7 @@ class Subject_model extends CI_Model{
 	 * contact : molham225@gmail.com
 	 */
 	 public function getAllSubjectsForView(){
-		$query = "SELECT subject.id AS id,subject.name AS subject,subject.code AS code,category.name AS category 
+		$query = "SELECT subject.id AS id,subject.name AS subject,subject.code AS code , subject.unit AS unit,category.name AS category , subject.total_amount AS total_amount 
 				  FROM subject,subject_category AS category
 				  WHERE subject.subject_category_id = category.id ";
 		$query = $this->db->query($query);
@@ -206,7 +218,7 @@ class Subject_model extends CI_Model{
 	 public function getSubjectByCode(){
 		$query = "SELECT * 
 				  FROM subject
-				  WHERE code like '{$this->code}' ";
+				  WHERE code like '{$this->code}' ";				
 		$query = $this->db->query($query);
 		return $query->result_array();
 	 }
@@ -253,7 +265,108 @@ class Subject_model extends CI_Model{
 				  WHERE name like '{$this->name}' ";
 		$query = $this->db->query($query);
 		return $query->result_array();
-	 }  
+	 } 
+	 
+	 
+	 /**
+	 * function name : decreaseSubjectAount
+	 * 
+	 * Description : 
+	 * Decrease subject amount by package amount
+	 * 
+	 * parameters:
+	 * $consumed_amount: sonsumed amount that need to be decreased from the total amount
+	 * Created date ; 27-6-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.aleia@gmail.com
+	 */
+	 public function decreaseSubjectAount($consumed_amount)
+	 {
+	 	$query = "UPDATE  subject
+					SET							
+						total_amount = total_amount - '{$consumed_amount}'						
+					WHERE code = {$this->code}
+					";	
+		$this->db->query($query);
+	 } 
+	 
+	 
+	 /**
+	 * function name : getSubjectColumn
+	 * 
+	 * Description : 
+	 * this function will get the  table column names and return it in an array
+	 * ararry {field , type , null , key  ,default , extra}
+	 * 		
+	 * Created date ; 3-7-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Shab Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getSubjectColumn()
+	 {	 	
+	 	$query = "SHOW COLUMNS FROM subject";
+		$query =  $this->db->query($query);
+		return $query->result_array();		
+	 }
+	 
+	 
+	 /**
+	 * function name : importSubject
+	 * 
+	 * Description : 
+	 * 
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 6-7-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.aleia@gmail.com
+	 */
+	 public function importSubject()
+	 {
+	 				
+	 	$subjects = $this->getSubjectByCode();
+		
+		if(count($subjects) == 0)
+		{
+			$this->addSubject();
+		}		
+		else 
+		{
+			$this->modifySubject();			
+		}		 	
+	 
+	 } 
+	 
+	 
+	 /**
+	 * function name : emptyTable
+	 * 
+	 * Description : 
+	 * empty the table
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 6-7-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function emptyTable()
+	 {
+		$query = "delete 
+				  FROM subject 				 
+				  ";
+		$query = $this->db->query($query);		
+	 }
+	 
 	 
 }    
 

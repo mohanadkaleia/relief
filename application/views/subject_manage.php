@@ -23,6 +23,8 @@
 					<th col="code" type="text">رمز المادة</th>
 					<th col="subject" type="text">اسم المادة</th>
 					<th col="category" type="text">فئة المادة</th>
+					<th col="total_amount" type="text">الكمية الكلية</th>
+					<th col="unit" type="text">الواحدة</th>
 				</tr>										
 			</table>	
 		</div>

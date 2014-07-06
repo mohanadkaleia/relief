@@ -21,8 +21,7 @@
 			<table id="provider" action="<?php echo base_url();?>provider/ajaxGetProviders" dir="rtl">				
 				<tr>																
 					<th col="code" type="text">رمز المعيل</th>
-					<th col="full_name" type="text">اسم المعيل</th>						
-					<th col="created_date" type="date">تاريخ الإنشاء</th>
+					<th col="full_name" type="text">اسم المعيل</th>											
 				</tr>										
 			</table>	
 		</div>

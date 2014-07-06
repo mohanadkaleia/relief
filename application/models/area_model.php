@@ -303,6 +303,28 @@ class Area_model extends CI_Model{
 					 	
 		$this->db->query($query);
 	 }
+	 
+	 /**
+	 * function name : emptyTable
+	 * 
+	 * Description : 
+	 * empty the table
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 6-7-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function emptyTable()
+	 {
+		$query = "delete 
+				  FROM area 				 
+				  ";
+		$query = $this->db->query($query);		
+	 }
 }    
     
     

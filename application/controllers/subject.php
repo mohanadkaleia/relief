@@ -230,26 +230,34 @@ class Subject extends CI_Controller {
 		 
 		//if the category is new add it to the db and get its id
 		$category_type = $this->input->post('category');
-		if($category_type == "new"){
+		if($category_type == "new")
+		{
 			$this->load->model('subject_category_model');
 			//fill model variables
 			$this->subject_category_model->name = $this->input->post('category_name');
 			//execute the addition function
 			$category_id = $this->subject_category_model->addSubjectCategory();
-		}else{
+		}
+		else
+		{
 			//or just get the chosen category id
 			$category_id = $this->input->post('category_id');
 		}
 		 
 		// assign values to the model variable
 		$this->subject_model->name = $this->input->post('subject_name');			
-		$this->subject_model->code = $this->input->post('subject_code');			
+		$this->subject_model->code = $this->input->post('subject_code');
+		$this->subject_model->unit = $this->input->post('unit');
+		$this->subject_model->total_amount = $this->input->post('total_amount');
 		$this->subject_model->subject_category_id = $category_id;		
 		
-		if($action === "add"){
-		//add the information to the database
-		$this->subject_model->addSubject();
-		}elseif($action === "edit"){
+		if($action === "add")
+		{
+			//add the information to the database
+			$this->subject_model->addSubject();
+		}
+		elseif($action === "edit")
+		{
 			$this->subject_model->id = $id;
 			$this->subject_model->modifySubject();
 		}
@@ -303,6 +311,34 @@ class Subject extends CI_Controller {
 		echo $this->grid->gridRender();
 												
 	}
+
+
+
+	/**
+	 * function name : ajaxGetSubjetByCode
+	 * 
+	 * Description : 
+	 * get subjects' information from the database by code
+	 * parameters:
+	 * $code: subject code
+	 * Created date ; 26-6-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Ahmad Mulhem Barakat
+	 * contact : molham225@gmail.com
+	 */
+	public function ajaxGetSubjetByCode($code)
+	{
+		//load model
+		$this->load->model("subject_model");
+		$this->subject_model->code = $code;
+		$subject_info = $this->subject_model->getSubjectByCode();	
+			
+		print json_encode($subject_info[0]);										
+	}
+
+
+	
 }
 
 /* End of file subject.php */

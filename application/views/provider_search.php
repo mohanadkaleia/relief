@@ -5,7 +5,7 @@
 		<!-- breacrumb -->
   		<ul class="breadcrumb">
 		  <li><a href="<?php echo base_url();?>dashboard">الرئيسية</a> <span class="divider">/</span></li>			  		  		  
-		  <li class="active">إحصائيات</li>
+		  <li class="active">بحث عام</li>
 		</ul>
 		
 		<h3 class="title">بحث عن معيل</h3>	 
@@ -137,7 +137,7 @@
 			{
 		?>
 		
-		<table class="table">
+		<table class="table table-striped">
 			<tr>
 				<th>
 					الاسم
@@ -149,12 +149,12 @@
 				<th>
 					الرقم الوطني
 				</th>
-				<td>
+				<th>
 					التولد
-				</td>
-				<td>
+				</th>
+				<th>
 					عدد أفراد الأسرة
-				</td>
+				</th>
 				<th>
 					تاريخ التسجيل
 				</th>
@@ -182,7 +182,7 @@
 						</td>
 						
 						<td>
-							<?php echo $provider["family_members"];?>
+							<?php echo $provider["family_count"];?>
 						</td>
 						
 						<td>

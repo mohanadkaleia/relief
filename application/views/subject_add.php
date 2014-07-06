@@ -57,6 +57,30 @@
 							<input type="text" name="subject_code" id="subject_code" placeholder="رمز المادة" required="required" />
 						</td>
 					</tr>
+					
+					<tr>
+						
+						<td>
+							الكمية الإجمالية
+						</td>
+						<td>
+							<input type="text" name="total_amount"/>
+						</td>
+						
+						<td>
+							الواحدة:
+						</td>
+						<td>
+							<select name="unit">
+								<option value="kg">كيلو</option>
+								<option value="liter">ليتر</option>
+								<option value="box">صندوق</option>
+								<option value="bottle">زجاجة</option>
+								<option value="bag">كيس</option>
+								<option value="piece">قطعة</option>
+							</select> 
+						</td>						
+					</tr>
 					<tr>
 						<td>
 							<input type="button" onclick="getUnique()" name="save" class="btn btn-info" value="احفظ"/>

@@ -22,8 +22,7 @@
 		<div class="grid">
 			<table id="provider_family" action="<?php echo base_url();?>family_member/ajaxGetProviderFamily/<?php echo $provider_code;?>" dir="rtl">				
 				<tr>																
-					<th col="full_name" type="text">الاسم الثلاثي</th>
-					<th col="provider_name" type="text">اسم المعيل</th>
+					<th col="full_name" type="text">الاسم الثلاثي</th>					
 					<th col="relationship" type="text">صلة القربى</th>
 					<th col="gender" type="text">الجنس</th>
 					<th col="birth_date" type="text">التولد</th>
