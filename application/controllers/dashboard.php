@@ -14,8 +14,6 @@
  * contact : ms.kaleia@gmail.com
  */
 class Dashboard extends CI_Controller {
-
-
 	
 	public function index()
 	{
@@ -28,7 +26,12 @@ class Dashboard extends CI_Controller {
 			//redirect to add association page
 			redirect(base_url()."association/add");
 		}
-		else 
+		else if($this->session->userdata['user']['username'] == "admin")
+		{
+			//redirect to add association page
+			redirect(base_url()."user/add");
+		}
+		else
 		{
 			$this->showDashboard();	
 		}

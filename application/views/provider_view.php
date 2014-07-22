@@ -278,19 +278,7 @@
 								}?>					
 						</td>
 						
-						<td class="title-td">
-							نازح\مقيم:
-						</td>
-						<td>
-							<?php switch ($family_member['is_emigrant']){
-									case "T":
-									echo "نازح";
-									break;
-									case "F":
-									echo "مقيم";
-									break;
-								}?>						
-						</td>						
+											
 					</tr>
 					
 					<tr class="odd">

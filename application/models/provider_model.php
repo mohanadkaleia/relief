@@ -828,6 +828,60 @@ class Provider_model extends CI_Model
 				  ";
 		$query = $this->db->query($query);		
 	 }
+	 
+	 /**
+	 * function name : getDuplicatedProvider
+	 * 
+	 * Description : 
+	 * search for duplicated providers and return them in an array
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 20-7-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function getDuplicatedProvider($providers)
+	 {
+	 	foreach ($providers as $provider) 
+	 	{
+			$query = "select * from  provider where code = '{$provider['code']}';";
+			$query = $this->db->query($query);
+			
+			$founded_provider = $query->result_array();
+			
+			//if there is provider founded then return it in the result array
+			if(count($founded_provider) > 0)
+			{
+				$result[] = $founded_provider[0];
+			}		 
+						
+		}			 	
+		return $result;		 					
+	 }
+	 
+	 
+	/**
+	 * function name : generateCSVFile
+	 * 
+	 * Description : 
+	 * search for duplicated providers and return them in an array
+	 * 
+	 * parameters:
+	 * 
+	 * Created date ; 20-7-2014
+	 * Modification date : ---
+	 * Modfication reason : ---
+	 * Author : Mohanad Kaleia
+	 * contact : ms.kaleia@gmail.com
+	 */
+	 public function generateCSVFile()
+	 {
+	 			 					
+	 }	 
+	 
 	 	 
 }    
    

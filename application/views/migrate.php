@@ -35,7 +35,12 @@
 					</p>
 					
 					<form method="post" action="<?php echo base_url()?>migrate/export">
-						<input type="submit" class="btn btn-info" value="تصدير البيانات"/>	
+						<input type="checkbox" name="export_provider" value="true" checked="true"/> تصدير بيانات المعيلين
+						<br/>
+						<input type="checkbox" name="export_aid" value="true" checked="true"/> تصدير بيانات المعونات
+						<br/>
+						<input type="submit" class="btn btn-info" value="تصدير البيانات"/>
+						<br/>	
 					</form>					
 				</div>
 				

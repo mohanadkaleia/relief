@@ -404,7 +404,8 @@ class Provider extends CI_Controller {
 		$this->provider_model->mobile1 = $this->input->post('mobile1');
 		$this->provider_model->mobile2 = $this->input->post('mobile2');
 		$this->provider_model->note = $this->input->post('note');
-		$this->provider_model->created_date = date("y/m/d"); 		
+		$this->provider_model->created_date = date("y/m/d"); 
+		$this->provider_model->gender = $this->input->post('gender');;
 			
 		//area and association
 		$association_code = $this->session->userdata['user']['association_code'];

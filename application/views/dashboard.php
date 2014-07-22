@@ -1,5 +1,4 @@
-<div  class="row-fluid">	  				  	  	  	
-	  	
+<div  class="row-fluid">
 	  	<div class="span8 offset2">
 	  		
 	  		<div class="row-fluid">

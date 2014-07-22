@@ -18,9 +18,12 @@
 			<table class="table table-striped">
 				<tr>
 					<th>
-						عدد المعيلين
+						عدد المعيلين الكلي
 					</th>
 					
+					<th>
+						عدد المعيلين الموجودين مسبقاً
+					</th>
 					
 					<th>
 						عدد أفراد الأسرة
@@ -40,6 +43,10 @@
 				<tr>
 					<td>
 						<?php echo count($providers);?>
+					</td>
+					
+					<td>
+						<?php echo count($duplicated_providers);?>
 					</td>
 					
 					<td>
@@ -68,7 +75,7 @@
 			<h1>التفاصيل</h1>
 			
 			<!-- provider table -->
-			<h2>معلومات المعيلين</h2>
+			<h2>معلومات المعيلين الكليين</h2>
 			<table class="table table-striped">
 				<tr>
 					<th>
@@ -115,6 +122,54 @@
 				
 			</table>
 				
+			<!-- provider table -->
+			<h2>معلومات المعيلين الموجودين مسبقاً في قاعدة البيانات والذي سيتم تعديل بياناتهم فقط</h2>
+			<table class="table table-striped">
+				<tr>
+					<th>
+						الاسم الكامل
+					</th>
+					
+					<th>
+						الرمز
+					</th>
+					
+					<th>
+						الجنس
+					</th>
+					
+					<th>
+						التولد
+					</th>
+				</tr>
+				
+				<?php
+					foreach($duplicated_providers as $duplicated_provider)
+					{
+				?>
+						<tr>
+							<td>								
+								<?php echo $duplicated_provider["fname"]. " " . $duplicated_provider["lname"];?>
+							</td>
+							
+							<td>
+								<?php echo $duplicated_provider["code"];?>
+							</td>
+							
+							<td>
+								<?php echo $duplicated_provider["gender"];?>
+							</td>
+							
+							<td>
+								<?php echo $duplicated_provider["birth_date"];?>
+							</td>
+						</tr>
+				<?php		
+					}
+				?>
+				
+			</table>
+			
 			
 			<!-- family member table -->
 			<h2>معلومات أفراد الأسرة</h2>

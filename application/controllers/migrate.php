@@ -108,39 +108,59 @@ class Migrate extends CI_Controller {
 		$this->load->model('subject_model');
 		$this->load->model('subject_category_model');
 		
-		
+		//read what to export
+		$export_provider = $this->input->post("export_provider");
+		$export_aid = $this->input->post("export_aid");
 		
 		
 		//get the neeeded data
+		$provider_data = array();
+		$family_data = array();
+		$area_data = array();
+		$association_data = array();
+		$package_data = array();
+		$package_details_data = array();
+		$provider_package_data = array();
+		$subject_data = array();
+		$subject_category_data = array();
+		
 		
 		/** get the data of tables */
 		
-		//provider data 
-		$provider_data = $this->provider_model->getAllProvidersToExport();
+		if($export_provider == true)
+		{
+			//provider data 
+			$provider_data = $this->provider_model->getAllProvidersToExport();
+			
+			//famiy data
+			$family_data = $this->family_member_model->getAllFamilyMembers();
+			
+			//area data
+			$area_data = $this->area_model->getAllAreas();
+			
+			//association data	
+			$association_data = $this->association_model->getAllAssociationsToExport();	
+		}
 		
-		//famiy data
-		$family_data = $this->family_member_model->getAllFamilyMembers();
 		
-		//area data
-		$area_data = $this->area_model->getAllAreas();
+		if($export_aid == TRUE)
+		{
+			//pakcage data
+			$package_data = $this->package_model->getAllPackages();
+			
+			//pakcage details data
+			$package_details_data = $this->package_detail_model->getAllPackageDetails();
+	
+			//provider package data
+			$provider_package_data = $this->provider_package_model->getAll();
+			
+			//subject data
+			$subject_data = $this->subject_model->getAllSubjects();
+			
+			//subject category data
+			$subject_category_data = $this->subject_category_model->getAllSubjectCategories();	
+		}
 		
-		//association data	
-		$association_data = $this->association_model->getAllAssociationsToExport();
-		
-		//pakcage data
-		$package_data = $this->package_model->getAllPackages();
-		
-		//pakcage details data
-		$package_details_data = $this->package_detail_model->getAllPackageDetails();
-
-		//provider package data
-		$provider_package_data = $this->provider_package_model->getAll();
-		
-		//subject data
-		$subject_data = $this->subject_model->getAllSubjects();
-		
-		//subject category data
-		$subject_category_data = $this->subject_category_model->getAllSubjectCategories();
 		
 							
 		/** get the header (columns names of tables) **/
@@ -558,12 +578,18 @@ class Migrate extends CI_Controller {
 	 */
 	public function importSummary($summary , $excel_file)
 	{
+		
+		//load provider model
+		$this->load->model("provider_model");
+		$duplicated_providers = $this->provider_model->getDuplicatedProvider($summary[0]);
+				
 		$data["providers"]  = $summary[0];		
 		$data["family_members"]  = $summary[1];
 		$data["areas"]  = $summary[2];
-		$data["associations"]  = $summary[3];
-		
+		$data["associations"]  = $summary[3];		
 		$data['excel_file'] = $excel_file;
+		$data['duplicated_providers'] = $duplicated_providers;
+		
 		
 		$this->load->view('gen/header');
 		$this->load->view('gen/slogan');
@@ -673,7 +699,7 @@ class Migrate extends CI_Controller {
 	public function readSheetData($sheet , $header)
 	{
 		$column = array("A" , "B" , "C" , "D" , "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U" , "V", "W", "X", "Y", "Z" , "AA" , "AB" , "AC" , "AD" , "AE" , "AF" , "AG" , "AH");
-		
+		$data = array();
 		for($i = 0 ; $i < count($header) ; $i++)
 		{
 			$row = 2;

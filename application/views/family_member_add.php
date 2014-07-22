@@ -163,7 +163,7 @@
 								<option value="wife">زوجة</option>
 								<option value="brother">أخ</option>
 								<option value="sister">أخت</option>
-								<option value="son">إبن</option>
+								<option value="son" selected="true">إبن</option>
 								<option value="daughter">إبنه</option>	
 								<option value="other">غير ذلك</option>															
 							</select>														
