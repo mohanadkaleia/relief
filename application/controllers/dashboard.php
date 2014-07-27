@@ -26,11 +26,11 @@ class Dashboard extends CI_Controller {
 			//redirect to add association page
 			redirect(base_url()."association/add");
 		}
-		else if($this->session->userdata['user']['username'] == "admin")
+		/*else if($this->session->userdata['user']['username'] == "admin")
 		{
 			//redirect to add association page
 			redirect(base_url()."user/add");
-		}
+		}*/
 		else
 		{
 			$this->showDashboard();	
